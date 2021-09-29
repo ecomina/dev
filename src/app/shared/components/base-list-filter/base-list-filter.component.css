@@ -1,0 +1,64 @@
+.mat-dialog-container { 
+    height: 90%;
+}
+
+input:focus{
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* background-color: #424242; */
+}
+
+.title {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    color: #424242;
+}
+
+.pesquisa  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px;
+    width: 90%;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 4px 4px 14px -2px rgba(0,0,0,0.75);
+    justify-content: space-between;
+    border: 2px;
+    border-style: solid;
+    border-color: #424242;    
+}
+
+.txt-pesquisa {
+    width: 100%;
+    height: 20px;
+    margin: 5px;
+    border-style: none;
+    border: none;
+}
+
+.btn-clear button {
+    border-style: none;
+    background-color: transparent;
+}
+
+.result {
+    /* position: absolute; */
+    /* background-color: #303030; */
+    top: 50px;
+    width: 90%;
+}
+
+.scroll {
+    height: 100%;
+}

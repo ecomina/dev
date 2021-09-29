@@ -1,0 +1,58 @@
+.container {
+    background-color: #eaeaea;
+    height: 100%;
+}
+
+.titlePage {
+    align-items: center;
+    text-align: center;
+    margin: 10px;
+     font-size: 22px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #303030;
+}
+
+
+.itens-action {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-action {
+    cursor: pointer;
+    height: 100px;
+    width: 250px;
+    margin: 10px;
+    border-style: none;
+    background-color: #fff;
+    -webkit-box-shadow: 2px 2px 5px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 5px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 5px rgba(125, 125, 125, 0.77);
+}
+
+.btn-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    width: 100%;
+    text-align: left;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.btn-title span {
+    margin-left: 10px;
+}
+
+.btn-subtitle {
+    display: flex;
+    color: #5a5a5a;
+    font-size: 14px;
+    margin: 10px;
+}
+

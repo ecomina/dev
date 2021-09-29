@@ -1,0 +1,5 @@
+{
+    "apiUrl": "https://lj8trh3dxf.execute-api.sa-east-1.amazonaws.com/Prod/",
+    "apiUrl_auth": "https://bhhhkd1co0.execute-api.sa-east-1.amazonaws.com/Prod/api/Web/auth/",
+    "path_fotos": "E:\\dev\\angular\\app-vyaonline\\vyaonline-app\\src\\assets\\images"
+}

@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="formulario" [formGroup]="formulario">
+        <div class="logo">
+            <!-- <span class="ecommerce">Ecommerce</span> -->
+            <img [src]="img_vyaonline">
+        </div>
+        <div class="field user">
+            <div class="example-container">
+                <mat-form-field appearance="outline">
+                  <mat-label>Seu email</mat-label>
+                  <input matInput placeholder="meuemail@vyaonline.com.br" formControlName="email">
+                  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </div>
+        </div>
+        <div class="field pass">
+            <mat-form-field appearance="outline">
+                <mat-label>Sua senha</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Esconder senha'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <span class="esqueceu"></span>
+        </div>
+        <mat-divider></mat-divider>        
+        <div class="action">
+            <button class="btn confirm" [disabled]="!canConfirm || loading" (click)="onSubmit()">{{txtAcessar}}</button>
+            <mat-divider></mat-divider>
+            <button class="btn register">Cadastrar-se</button>
+        </div>
+        <!-- <div class="loading" *ngIf="loading">
+            <mat-spinner></mat-spinner>
+        </div> -->
+    </div>
+</div>

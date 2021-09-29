@@ -1,0 +1,22 @@
+<app-base-list-filter (eventFilter)="onFiltrar($event)"></app-base-list-filter>
+<div class="container">
+  <div class="carregando" *ngIf="base_carregando"> 
+    <span>Carregando...</span>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <table class="cores" *ngIf="!base_carregando">
+    <tr>
+      <th id="edit"><mat-icon>edit</mat-icon></th>
+      <th id="codigo">Código</th>
+      <th id="descricao">Descrição</th>
+      <th id="ativo">Ativo</th>
+    </tr>
+    <tr class="item" *ngFor="let cor of list">
+      <td id="edit"><mat-icon>edit</mat-icon></td>
+      <td id="codigo">{{cor.codigo}}</td>
+      <td id="descricao">{{cor.descricao}}</td>
+      <td id="ativo"><mat-icon>{{iconCheck(cor.ativo)}}</mat-icon></td>
+    </tr>
+  </table>
+  
+</div>

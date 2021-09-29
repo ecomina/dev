@@ -1,0 +1,9 @@
+<div class="container">
+    <div class="pesquisa">
+            <mat-icon>search</mat-icon>
+        <input class="txt-pesquisa" type="text" placeholder="Pesquisa rápida" [(ngModel)]="txt_pesquisa" (ngModelChange)="onPesquisa()">
+        <div class="btn-clear">
+            <button *ngIf="can_clear" (click)="onClear()"><mat-icon>clear</mat-icon></button>
+        </div>
+    </div>
+</div>

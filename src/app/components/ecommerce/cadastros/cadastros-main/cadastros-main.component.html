@@ -1,0 +1,20 @@
+
+<div class="titlePage">{{base_title}}</div>
+<mat-divider></mat-divider>
+<div class="container">
+    <div class="itens-action">
+        <div *ngFor="let item of itensMenu;let i = index">
+            <button class="btn-action" (click)="onAbrir(item)">
+                <div class="btn-title">
+                    <mat-icon>{{item.icon}}</mat-icon>
+                    <span>{{item.titulo}}</span>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="btn-subtitle">
+                  <span>{{item.descricao}}</span>
+                </div>
+              </button>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,43 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><span class="home" (click)="onHome()">VYA online</span></mat-toolbar>
+    <div class="list-menu">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let menu of menuLinks"
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{menu.caption}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+              <mat-nav-list>
+                <a mat-list-item *ngFor="let sub of menu.submenus" (click)="onRouterLink(menu, sub)" routerLinkActive="active">{{sub.caption}}</a>
+              </mat-nav-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="logout">
+      <span (click)="onLogout()" routerLinkActive="active">Sair</span>
+    </div>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{base_title}}</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
