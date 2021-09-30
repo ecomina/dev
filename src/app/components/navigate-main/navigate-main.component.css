@@ -1,5 +1,5 @@
 mat-sidenav {
-  background-color: #424242;
+  background-color: #fff;
 }
 
 mat-divider {
@@ -54,10 +54,5 @@ mat-divider {
 
 .logout:hover {
   cursor: pointer;
-  background-color: #303030;
-}
-
-.logout span {
-  width: 100%; 
-  height: 100%;
+  background-color: #dddddd;
 }

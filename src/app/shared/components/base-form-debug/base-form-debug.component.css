@@ -1,0 +1,8 @@
+.container {
+    margin: 10px;
+}
+.debug {
+    margin-top: 20px;
+    background-color: rgb(234, 238, 159);
+    min-width: 300px;
+}

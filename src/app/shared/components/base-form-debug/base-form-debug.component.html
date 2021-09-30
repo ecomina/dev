@@ -1,0 +1,20 @@
+<div class="container" *ngIf="!producao">
+    <button class="exibir" [value]="exibir" (click)="onExibir($event)">Debug</button> 
+    <div *ngIf="exibir">
+        <div class="debug" *ngIf="form">
+            <div  *ngIf="form.value">
+                <div>
+                    Válido: {{ form.valid }}
+                </div>
+                <button type="submit" (click)="onSubmit()">Form Values</button>
+                <button type="submit" (click)="onSubmitJson()">Json Values</button>
+                <pre>
+                    Form válido: {{ form.submitted }}
+                </pre>
+                <pre>
+                    Formulário: <br> {{ form.value | json }}
+                </pre>
+            </div>
+        </div>
+    </div>
+</div>

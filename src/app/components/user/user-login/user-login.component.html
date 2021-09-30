@@ -27,7 +27,7 @@
         <div class="action">
             <button class="btn confirm" [disabled]="!canConfirm || loading" (click)="onSubmit()">{{txtAcessar}}</button>
             <mat-divider></mat-divider>
-            <button class="btn register">Cadastrar-se</button>
+            <button class="btn register"[disabled]="true">Cadastrar-se</button>
         </div>
         <!-- <div class="loading" *ngIf="loading">
             <mat-spinner></mat-spinner>

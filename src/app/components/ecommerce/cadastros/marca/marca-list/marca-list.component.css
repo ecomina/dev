@@ -1,0 +1,92 @@
+#add {
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #673ab7;
+    color: #fff;
+}
+
+#edit {
+    width: 30px;
+    text-align: center;
+    transform: scale(0.8);
+    cursor: pointer;
+}
+
+#codigo, #ativo {
+    width: 60px;
+    text-align: center;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin: 10px 0px 0px 15px;
+    font-weight: 500;
+
+    background-color: #ec7211;
+    color: #fff;
+    margin: 10px;
+    height: 32px;
+    padding: 5px;
+}
+
+.titulo span {
+    margin-left: 10px;
+}
+
+.carregando {
+    width: 90%;
+    color: #6798dc;;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.cores {
+    width: 95%;
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    background-color: #fff;
+    -webkit-box-shadow: 2px 3px 5px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 3px 5px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 3px 5px rgba(125, 125, 125, 0.77);
+    margin-top: 20px;
+ }
+  
+.cores td, .cores th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    color: #000;
+ }
+
+ .cores tr:nth-child(even){background-color: #f2f2f2;}
+
+.cores tr:hover {background-color: #ddd;}
+
+.cores th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #fff;
+  color: #000;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: #6798dc;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+    background: #E4E8EB;
+}
+
+::ng-deep .mat-progress-bar {
+    border-radius: 2px;
+}

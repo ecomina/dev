@@ -1,0 +1,29 @@
+<div class="titulo">
+    <span>{{(formulario.value.codigo === null) ? 'Cadastrando': 'Editando Marca'}}</span>
+</div>  
+<mat-divider></mat-divider>  
+<div class="container">
+    <div class="form" [formGroup]="formulario">
+        <div class="field codigo">
+            <mat-form-field appearance="outline">
+                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
+                <input matInput formControlName="codigo" readonly>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+        </div>
+        <div class="field descricao">
+            <mat-form-field appearance="outline">
+                <mat-label>Descrição</mat-label>
+                <input matInput formControlName="descricao">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+        </div>
+        <div class="field ativo">
+            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<app-base-register [canSave]="getCanSave" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>

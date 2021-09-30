@@ -11,6 +11,18 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
 
   itensMenu: any[] = [
     {
+      titulo: 'Grades',
+      descricao: 'Grade de tamanhos',
+      icon: 'grid_on',
+      link: 'cadastros/grade'
+    },
+    {
+      titulo: 'Tamanhos',
+      descricao: 'Tamanhos de produtos',
+      icon: 'zoom_out_map',
+      link: 'cadastros/tamanho'
+    },
+    {
       titulo: 'Cores',
       descricao: 'Cores de produtos',
       icon: 'color_lens',
@@ -20,7 +32,7 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
       titulo: 'Marcas',
       descricao: 'Marcas',
       icon:'branding_watermark',
-      link: 'cores'
+      link: 'cadastros/marca'
     },
     {
       titulo: 'Categorias',
@@ -31,16 +43,27 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
     {
       titulo: 'Dimensões',
       descricao: 'Dimensões de embalagens',
-      icon:'',
+      icon:'aspect_ratio',
       link: 'cores'
     },
     {
       titulo: 'Filtros',
       descricao: 'Filtros da site',
-      icon:'',
+      icon:'filter',
       link: 'cores'
     },
   ]
+
+  txt_filtro: string = '';
+
+  get list() {
+    let result = this.itensMenu;
+
+    if (this.txt_filtro.length > 0)
+      result =  result.filter(m => (m.titulo+m.descricao).toUpperCase().includes(this.txt_filtro.toUpperCase()));
+
+    return result;
+  }
 
   constructor(
     private _router: Router
@@ -54,6 +77,10 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
 
   onAbrir(item: any) {
     this._router.navigate([item.link]);
+  }
+
+  onFiltrar(event: any) {
+    this.txt_filtro = event;
   }
 
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cores-edit',
@@ -13,6 +14,10 @@ export class CoresEditComponent extends BaseRegisterComponent implements OnInit 
 
   get getCanSave() {
     return this.base_editado && this.canSave
+  }
+
+  get salvando() {
+    return this.base_salvando;
   }
 
   constructor(
@@ -53,6 +58,8 @@ export class CoresEditComponent extends BaseRegisterComponent implements OnInit 
 
     if (event)
     {
+      this.base_salvando = true;
+
       this._api.postCor(this.formulario.value).subscribe({
         next: result => {
           this.dataObj.confirmou = event;
@@ -60,9 +67,11 @@ export class CoresEditComponent extends BaseRegisterComponent implements OnInit 
         },
         error: erro => {
           console.error(erro);
-          this.dialogRef.close(this.dataObj)
+          this.base_salvando = false;
+          this.dialogRef.close(this.dataObj);
         },
         complete: () => {
+          this.base_salvando = false;
           this.dialogRef.close(this.dataObj)
         }
       })

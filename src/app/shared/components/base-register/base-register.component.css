@@ -1,10 +1,15 @@
 .base-menu-register {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 50px;
     width: 100%;
     justify-content: space-between;
-    align-items: center;
+}
+
+.action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .btn-action {
@@ -12,14 +17,25 @@
     height: 40px;
     width: 100px;
     border-radius: 5px;
-    border-style: solid;
+    /* border-style: solid; */
     border-width: 2px;
     cursor: pointer;
-    background-color: black;
+    color: #fff;
+    background-color: #3ea7cb;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);
 }
 
 .btn-cancelar:hover {
+    border-style: solid;
+    border-width: 1px;
     border-color: red;
+}
+
+.salvando {
+    width: 90%;
+    color: #6798dc;;
 }
 
 

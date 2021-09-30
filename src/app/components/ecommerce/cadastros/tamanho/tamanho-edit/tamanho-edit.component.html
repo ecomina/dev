@@ -1,0 +1,39 @@
+<div class="titulo">
+    <span>{{(formulario.value.codigo === null) ? 'Cadastrando': 'Editando Tamanho'}}</span>
+</div>  
+<mat-divider></mat-divider>  
+<div class="container">
+    <div class="form" [formGroup]="formulario">
+        <div class="field codigo">
+            <mat-form-field appearance="outline">
+                <mat-label>{{(formulario.value.codigo === null) ? 'Auto': 'Código'}}</mat-label>
+                <input matInput formControlName="codigo" readonly>
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint>Hint</mat-hint> -->
+            </mat-form-field>
+        </div>
+        <app-base-combo-filter comboLabel="Grade" [comboListObs]="obs_grades" [comboIdValue]="id_combo_grade" (eventEmiterBase)="onComboChange($event, 'codGradeEcommerce')" ></app-base-combo-filter>
+        <div class="field descricao">
+            <mat-form-field appearance="outline">
+                <mat-label>Descrição</mat-label>
+                <input  type="text" matInput mask="A-Z" maxlength="50" formControlName="descricao">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                <mat-hint>Hint</mat-hint> -->
+              </mat-form-field>
+        </div>
+        <article class="item-qtde">
+            <mat-form-field appearance="outline">
+              <mat-label>Ordem</mat-label>
+              <input type="number" min="0" matInput class="ordem" formControlName="ordem">
+              <span matPrefix>&nbsp;</span>
+              <!-- <span matSuffix>Pçs</span> -->
+            </mat-form-field>
+          </article>      
+        <div class="field ativo">
+            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<app-base-register [canSave]="canSaveBase" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

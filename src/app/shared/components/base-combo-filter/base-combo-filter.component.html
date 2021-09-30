@@ -1,0 +1,33 @@
+<div class="combo">
+    <mat-form-field appearance="outline" *ngIf="!editando">
+        <mat-label>{{label}}</mat-label>
+        <mat-select [(ngModel)]="objValue" [disabled]="!comboEnabled" (selectionChange)="onChange($event)">
+            <mat-option>
+                <ngx-mat-select-search placeholderLabel="Pesquisar..."  
+                    noEntriesFoundLabel="Ops! Nenhum resultado..."
+                    ngModel (ngModelChange)="onFilter($event)">
+                </ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngIf="canAdd">
+                <button class="btn add" mat-button (click)="onAdd()">Incluir</button>
+            </mat-option>
+            <div *ngFor="let obj of listObjects;let i = index">
+                <mat-option class="option" [value]="obj">
+                    <div class="item">
+                        <div class="descricao">{{obj.descricao}}</div>
+                    </div>
+                </mat-option>
+            </div>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="field descricao" *ngIf="editando" appearance="outline">
+        <mat-label>{{label}} (Editando)</mat-label>
+        <input matInput [formControl]="descricaoControl">
+    </mat-form-field>
+    <div class="edit-option">
+        <button class="btn op edit" mat-button *ngIf="canEdit" (click)="onEdit(objValue)">Editar</button>
+        <button class="btn op delete" mat-button *ngIf="canEdit" disabled (click)="onDelete(objValue)">Remover</button>
+        <button class="btn op confirm" mat-button *ngIf="editando" [disabled]="!canConfirm"  (click)="onConfirm(objValue)">Confirmar</button>
+        <button class="btn op cancel" mat-button *ngIf="editando" (click)="onCancel()">Cancelar</button>
+    </div>   
+</div>

@@ -11,12 +11,18 @@ export class BaseRegisterComponent extends BaseComponent implements OnInit {
 
   @Input() formulario: FormGroup;
   @Input() canSave: boolean = true;
+  @Input() salving: boolean = true;
   @Input() canCancel: boolean = true;
   @Input() visible: boolean = true;
   @Output() eventEmiterBase = new EventEmitter();
 
   public base_editado: boolean = false;
   public base_canSave: boolean = false;
+  public base_salvando: boolean = false;
+
+  get canSaveBase() {
+    return this.formulario.valid && this.canSave && this.base_editado;
+  }
 
   constructor() { 
     super();

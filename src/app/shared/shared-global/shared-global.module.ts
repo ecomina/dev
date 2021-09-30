@@ -12,27 +12,38 @@ import { MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { MatTableModule} from '@angular/material/table';
-import { MatMenuModule} from '@angular/material/menu';
-import { MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgxCurrencyModule } from "ngx-currency";
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseDialogErrorComponent } from '../components/base-dialog-error/base-dialog-error.component';
 import { BaseListFilterComponent } from '../components/base-list-filter/base-list-filter.component';
 import { BaseListRegisterComponent } from '../components/base-list-register/base-list-register.component';
 import { BaseRegisterComponent } from '../components/base-register/base-register.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BaseComboFilterComponent } from '../components/base-combo-filter/base-combo-filter.component';
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
     BaseDialogErrorComponent,
     BaseListFilterComponent,
     BaseListRegisterComponent,
-    BaseRegisterComponent
+    BaseRegisterComponent,
+    BaseComboFilterComponent
   ],
   imports: [
+    NgxMaskModule.forRoot(maskConfig),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -55,6 +66,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    //NgxCurrencyModule,
 
     ScrollingModule,
   ],
@@ -63,6 +77,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     BaseListFilterComponent,
     BaseListRegisterComponent,
     BaseRegisterComponent,
+    BaseComboFilterComponent,
 
     MatMenuModule,
     MatButtonModule,
@@ -82,6 +97,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    //NgxCurrencyModule,
 
     ScrollingModule,
 

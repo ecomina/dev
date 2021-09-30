@@ -2,6 +2,8 @@
     width: 30px;
     text-align: center;
     cursor: pointer;
+    background-color: #673ab7;
+    color: #fff;
 }
 
 #edit {
@@ -16,6 +18,25 @@
     text-align: center;
 }
 
+.titulo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin: 10px 0px 0px 15px;
+    font-weight: 500;
+
+    background-color: #ec7211;
+    color: #fff;
+    margin: 10px;
+    height: 32px;
+    padding: 5px;
+}
+
+.titulo span {
+    margin-left: 10px;
+}
+
 .carregando {
     width: 90%;
     color: #6798dc;;
@@ -26,6 +47,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
+    margin-top: -10px;
 }
 
 .cores {

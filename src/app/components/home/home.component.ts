@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 import { environment } from '@environments/environment';
 
@@ -11,7 +12,7 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
   img_vyaonline = environment.ASSETS_PATH_IMAGES+'vyaonline.png';
   
-  constructor() { 
+  constructor(private activatedRoute: ActivatedRoute) { 
     super();
   }
 

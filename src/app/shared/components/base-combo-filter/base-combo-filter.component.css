@@ -1,0 +1,44 @@
+.combo {
+    margin-bottom: 15px;
+}
+
+.btn-add {
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #fff;
+    color: #000;
+    align-items: center;
+}
+
+.btn.confirm:hover {
+    background-color: #6040bd;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    /* margin-top: -15px; */
+    border-radius: 5px;
+}
+
+.edit-option {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    margin-top: -15px;
+}
+
+/* ::ng-deep .mat-select-panel {
+    max-height: 180px !important;
+  } */
+
+  /* ::ng-deep .mat-option {
+    height: 70px !important;
+  }   */

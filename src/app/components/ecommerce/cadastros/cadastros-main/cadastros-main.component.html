@@ -1,9 +1,10 @@
 
-<div class="titlePage">{{base_title}}</div>
+<!-- <div class="titlePage">{{base_title}}</div> -->
+<app-base-list-filter (eventFilter)="onFiltrar($event)"></app-base-list-filter>
 <mat-divider></mat-divider>
 <div class="container">
     <div class="itens-action">
-        <div *ngFor="let item of itensMenu;let i = index">
+        <div *ngFor="let item of list;let i = index">
             <button class="btn-action" (click)="onAbrir(item)">
                 <div class="btn-title">
                     <mat-icon>{{item.icon}}</mat-icon>

@@ -23,13 +23,17 @@
 .btn-action {
     cursor: pointer;
     height: 100px;
-    width: 250px;
+    width: 310px;
     margin: 10px;
     border-style: none;
     background-color: #fff;
     -webkit-box-shadow: 2px 2px 5px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    2px 2px 5px rgba(125, 125, 125, 0.77);
     box-shadow:         2px 2px 5px rgba(125, 125, 125, 0.77);
+}
+
+.btn-action:hover {
+    transform: scale(1.05);
 }
 
 .btn-title {
@@ -42,7 +46,7 @@
     font-family: sans-serif;
     font-weight: bold;
     font-size: 18px;
-    margin-left: 10px;
+    margin: 0px 0px 5px 10px;
 }
 
 .btn-title span {

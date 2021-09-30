@@ -1,0 +1,15 @@
+mat-divider {
+    margin: 10px 10px;    
+}
+
+.form {
+    margin: 10px;
+}
+
+.mat-dialog-container {
+    background-color: #303030;
+}
+
+.codigo mat-form-field {
+    width: 90px;
+}

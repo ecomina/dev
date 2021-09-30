@@ -23,12 +23,8 @@ export class NavigateMainComponent extends BaseComponent {
       caption: 'Pedidos',
       submenus: [
         {
-          caption: 'Dashboard',
-          link:'dashboard'
-        },
-        {
-          caption: 'Pesquisa',
-          link:'pesquisa'
+          caption: 'Localizar',
+          link:'localizar'
         },
         {
           caption: 'Cancelamento',
@@ -37,10 +33,10 @@ export class NavigateMainComponent extends BaseComponent {
       ]
     },
     {
-      caption: 'Cadastros',
+      caption: 'Cadastro',
       submenus: [
         {
-          caption: 'Produto',
+          caption: 'Produtos',
           link:'produto'
         },
         {
@@ -50,7 +46,7 @@ export class NavigateMainComponent extends BaseComponent {
       ]
     },
     {
-      caption: 'Configurações',
+      caption: 'Configuração',
       submenus: [
         {
           caption: 'Plataformas',

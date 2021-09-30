@@ -1,4 +1,10 @@
 <div class="base-menu-register">
-    <button class="btn-action btn-salvar" mat-button [disabled]="!canSave" (click)="onSalvar()">Confirmar</button>
-    <button class="btn-action btn-cancelar" mat-button [disabled]="!canCancel" (click)="onCancelar()">Desistir</button>
+    <div class="salvando" *ngIf="salving"> 
+        <span>Salvando...</span>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="action" *ngIf="!salving">
+        <button class="btn-action btn-salvar" mat-button [disabled]="!canSave" (click)="onSalvar()">Confirmar</button>
+        <button class="btn-action btn-cancelar" mat-button [disabled]="!canCancel" (click)="onCancelar()">Desistir</button>
+    </div>
 </div>
