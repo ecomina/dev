@@ -1,8 +1,10 @@
 import { core } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseListRegisterComponent } from '@app/shared/components/base-list-register/base-list-register.component';
+import { CoresEditComponent } from '../cores-edit/cores-edit.component';
 
 export interface Cor {
   codigo: number;
@@ -31,7 +33,8 @@ export class CoresListComponent extends BaseListRegisterComponent implements OnI
   }
 
   constructor(
-    private _api: EcommerceService) { 
+    private _api: EcommerceService,
+    public dialog: MatDialog) { 
       super()
     }
 
@@ -44,10 +47,36 @@ export class CoresListComponent extends BaseListRegisterComponent implements OnI
     this.filtro = f;
   }
 
+  onAdd() {
+    this.onEdit(null);  
+  }
+
+  onEdit(obj: any) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.data = {
+      confirmou: false,
+      data: obj}
+
+    dialogConfig.disableClose = true;
+
+    const dialogRef = this.dialog.open(CoresEditComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.onListar();
+    })
+  }
+
+  onDelete(action: any) {
+
+  }
+
   onListar() {
     this._api.getCor().subscribe({
       next: result => {
         this.base_carregando = true;
+        this.cores = [];
         result.forEach(o => {
           this.cores.push({
             codigo: o.codigo,

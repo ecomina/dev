@@ -12,7 +12,9 @@ import { MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule} from '@angular/material/table';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -21,6 +23,7 @@ import { BaseDialogErrorComponent } from '../components/base-dialog-error/base-d
 import { BaseListFilterComponent } from '../components/base-list-filter/base-list-filter.component';
 import { BaseListRegisterComponent } from '../components/base-list-register/base-list-register.component';
 import { BaseRegisterComponent } from '../components/base-register/base-register.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { BaseRegisterComponent } from '../components/base-register/base-register
     FormsModule,
     ReactiveFormsModule,
 
+    MatMenuModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -48,7 +52,10 @@ import { BaseRegisterComponent } from '../components/base-register/base-register
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
+
     ScrollingModule,
   ],
   exports:[
@@ -57,6 +64,7 @@ import { BaseRegisterComponent } from '../components/base-register/base-register
     BaseListRegisterComponent,
     BaseRegisterComponent,
 
+    MatMenuModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -71,7 +79,10 @@ import { BaseRegisterComponent } from '../components/base-register/base-register
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
+
     ScrollingModule,
 
   ]

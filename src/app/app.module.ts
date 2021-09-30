@@ -35,6 +35,7 @@ export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     LayoutModule,
     ReactiveFormsModule,

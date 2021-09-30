@@ -106,6 +106,14 @@ mat-label {
     margin-left: 8px;
   }
 
+.loading {
+    cursor: pointer;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+    transition: all 1.5s ease;
+}  
+
   /* input.mat-input-element.btn:hover {
     color: #000000;
     background-color: #b82727;

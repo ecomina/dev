@@ -6,17 +6,22 @@
   </div>
   <table class="cores" *ngIf="!base_carregando">
     <tr>
-      <th id="edit"><mat-icon>edit</mat-icon></th>
+      <th id="add" (click)="onAdd()" matTooltip="Novo" ><mat-icon>add</mat-icon></th>
       <th id="codigo">Código</th>
       <th id="descricao">Descrição</th>
       <th id="ativo">Ativo</th>
     </tr>
     <tr class="item" *ngFor="let cor of list">
-      <td id="edit"><mat-icon>edit</mat-icon></td>
+      <td id="edit"  [matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
       <td id="codigo">{{cor.codigo}}</td>
       <td id="descricao">{{cor.descricao}}</td>
       <td id="ativo"><mat-icon>{{iconCheck(cor.ativo)}}</mat-icon></td>
+      <mat-menu #openAction="matMenu" yPosition="above">
+        <button mat-menu-item (click)="onEdit(cor)"><mat-icon>edit</mat-icon> Editar</button>
+        <button mat-menu-item disabled="true" (click)="onDelete(cor)"><mat-icon>delete</mat-icon>Excluir</button>
+      </mat-menu>
     </tr>
+
   </table>
   
 </div>

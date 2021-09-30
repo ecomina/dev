@@ -8,10 +8,10 @@ import { CategoriaListComponent } from '../ecommerce/categoria-list/categoria-li
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '@app/_helpers/jwt.interceptor';
 import { ErrorInterceptor } from '@app/_helpers/error.interceptor';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/cadastros-main.component';
 import { CoresListComponent } from '../ecommerce/cadastros/cores-list/cores-list.component';
+import { CoresEditComponent } from '../ecommerce/cadastros/cores-edit/cores-edit.component';
 
 
 @NgModule({
@@ -19,12 +19,14 @@ import { CoresListComponent } from '../ecommerce/cadastros/cores-list/cores-list
     HomeComponent,
     CategoriaListComponent,
     CadastrosMainComponent,
-    CoresListComponent
+    CoresListComponent,
+    CoresEditComponent,
   ],
   imports: [
     CommonModule,
     LayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedGlobalModule,
 
     NavigateMainRoutingModule

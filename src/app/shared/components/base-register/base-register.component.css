@@ -1,0 +1,25 @@
+.base-menu-register {
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-action {
+    margin: 5px;
+    height: 40px;
+    width: 100px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    cursor: pointer;
+    background-color: black;
+}
+
+.btn-cancelar:hover {
+    border-color: red;
+}
+
+

@@ -35,6 +35,10 @@ export class UserLoginComponent extends BaseComponent implements OnInit {
     return (this.loading) ? 'Carregando...' : 'Acessar';
   }
 
+  get classLoading() {
+    return (this.loading) ? 'loading' : '';
+  }
+
   constructor(
     public dialog: MatDialog, 
     private _formBuilder: FormBuilder,

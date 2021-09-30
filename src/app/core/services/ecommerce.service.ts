@@ -47,6 +47,20 @@ export class EcommerceService {
     return result;
   }
 
+  postCor(cor: any) : Observable<any> {
+
+    var url = this.urlApi+'api/Cor';
+
+    const body = JSON.stringify(cor);
+
+    var result = this._httpClient.post<any>(url, body, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError));
+
+    return result;
+  }
+
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

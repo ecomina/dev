@@ -1,7 +1,14 @@
+#add {
+    width: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
 #edit {
     width: 30px;
     text-align: center;
     transform: scale(0.8);
+    cursor: pointer;
 }
 
 #codigo, #ativo {

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedGlobalModule } from '@app/shared/shared-global/shared-global.module';
 import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/cadastros-main.component';

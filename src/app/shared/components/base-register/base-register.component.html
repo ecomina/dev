@@ -1,1 +1,4 @@
-<p>base-register works!</p>
+<div class="base-menu-register">
+    <button class="btn-action btn-salvar" mat-button [disabled]="!canSave" (click)="onSalvar()">Confirmar</button>
+    <button class="btn-action btn-cancelar" mat-button [disabled]="!canCancel" (click)="onCancelar()">Desistir</button>
+</div>
