@@ -9,6 +9,17 @@ mat-divider {
     /* width: 100%; */
 }
 
+.titulo {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #46277c;
+    color: #fff;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+}
+
 .form {
     margin: 10px;
 }

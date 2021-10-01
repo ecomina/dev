@@ -13,7 +13,7 @@
     cursor: pointer;
 }
 
-#codigo, #ativo {
+#codigo, #ordem, #ativo {
     width: 60px;
     text-align: center;
 }

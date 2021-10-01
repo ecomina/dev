@@ -86,6 +86,9 @@ mat-label {
 }
 
 .btn.confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #0072e1;
 }
 
@@ -114,6 +117,17 @@ mat-label {
     filter: grayscale(100%);
     transition: all 1.5s ease;
 }  
+
+.aguardando {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.aguardando span {
+    margin-left: 10px;
+}
 
   /* input.mat-input-element.btn:hover {
     color: #000000;

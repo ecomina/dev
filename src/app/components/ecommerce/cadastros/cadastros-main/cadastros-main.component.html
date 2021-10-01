@@ -5,7 +5,7 @@
 <div class="container">
     <div class="itens-action">
         <div *ngFor="let item of list;let i = index">
-            <button class="btn-action" (click)="onAbrir(item)">
+            <button class="btn-action" [disabled]="!item.enable" (click)="onAbrir(item)">
                 <div class="btn-title">
                     <mat-icon>{{item.icon}}</mat-icon>
                     <span>{{item.titulo}}</span>

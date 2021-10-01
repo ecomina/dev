@@ -14,43 +14,50 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
       titulo: 'Grades',
       descricao: 'Grade de tamanhos',
       icon: 'grid_on',
-      link: 'cadastros/grade'
+      link: 'cadastros/grade',
+      enable: true
     },
     {
       titulo: 'Tamanhos',
       descricao: 'Tamanhos de produtos',
       icon: 'zoom_out_map',
-      link: 'cadastros/tamanho'
+      link: 'cadastros/tamanho',
+      enable: true
     },
     {
       titulo: 'Cores',
       descricao: 'Cores de produtos',
       icon: 'color_lens',
-      link: 'cadastros/cores'
+      link: 'cadastros/cores',
+      enable: true
     },
     {
       titulo: 'Marcas',
-      descricao: 'Marcas',
+      descricao: 'Marcas de produtos',
       icon:'branding_watermark',
-      link: 'cadastros/marca'
+      link: 'cadastros/marca',
+      enable: true
     },
     {
       titulo: 'Categorias',
-      descricao: 'Categorias do marketplace',
+      descricao: 'Categorias Marketplace',
       icon:'category',
-      link: 'cores'
+      link: 'cadastros/categoria',
+      enable: false
     },
     {
       titulo: 'Dimensões',
       descricao: 'Dimensões de embalagens',
       icon:'aspect_ratio',
-      link: 'cores'
+      link: 'cadastros/dimensoe',
+      enable: false
     },
     {
       titulo: 'Filtros',
-      descricao: 'Filtros da site',
-      icon:'filter',
-      link: 'cores'
+      descricao: 'Filtros da pagina',
+      icon:'filter_alt',
+      link: 'cadastros/filtro',
+      enable: false
     },
   ]
 
