@@ -16,67 +16,7 @@ interface Categoria {
   filhos : Categoria[]
 }
 
-const TREE_DATA: Categoria[] = [
-  {
-    codigo: 1,
-    descricao: 'Categoria 1',
-    ativo: true,
-    pai: 0,
-    filhos: [
-      {
-        codigo: 11,
-        descricao :'Categoria 1.1',
-        ativo: true,
-        pai: 0,
-        filhos: []
-      },
-      {
-        codigo: 12,
-        descricao :'Categoria 1.2',
-        ativo: true,
-        pai: 0,
-        filhos: []
-      },      
-    ]
-  }, 
-  {
-    codigo: 2,
-    descricao: 'Categoria 2',
-    ativo: true,
-    pai: 0,
-    filhos: [
-      {
-        codigo: 21,
-        descricao :'Categoria 2.1',
-        ativo: true,
-        pai: 0,
-        filhos: []
-      },
-      {
-        codigo: 22,
-        descricao :'Categoria 2.2',
-        ativo: true,
-        pai: 0,
-        filhos: [
-          {
-            codigo: 221,
-            descricao :'Categoria 2.2.1',
-            ativo: true,
-            pai: 0,
-            filhos: []
-          },
-          {
-            codigo: 222,
-            descricao :'Categoria 2.2.2',
-            ativo: true,
-            pai: 0,
-            filhos: []
-          }
-        ]
-      }
-    ]
-  }, 
-];
+const TREE_DATA: Categoria[] = [];
 
 interface ExampleFlatNode {
   expandable: boolean;
@@ -96,49 +36,11 @@ export class CategoriaListComponent implements OnInit {
   html: string;
   base_carregando = false;
 
-  categorias: any[] = [
-    {
-      "codigo": 1,
-      "descricao": "Calçados",
-      "codCategoriaECommercePai": null,
-      "ativo": true
-    },
-    {
-      "codigo": 2,
-      "descricao": "Confecção",
-      "codCategoriaECommercePai": null,
-      "ativo": true
-    },
-    {
-      "codigo": 3,
-      "descricao": "Camisa",
-      "codCategoriaECommercePai": 2,
-      "ativo": true
-    },
-    {
-      "codigo": 4,
-      "descricao": "Calça",
-      "codCategoriaECommercePai": 2,
-      "ativo": true
-    },
-    {
-      "codigo": 5,
-      "descricao": "Bermuda",
-      "codCategoriaECommercePai": 1,
-      "ativo": true
-    },
-    {
-      "codigo": 6,
-      "descricao": "Calcinha",
-      "codCategoriaECommercePai": 5,
-      "ativo": true
-    }    
-  ]
+  categorias: any[] = []
 
   margin(n: any) {
     return "margin-left: "+n+"px;"
   }
-
 
   constructor(
     private _api: EcommerceService,
@@ -155,7 +57,6 @@ export class CategoriaListComponent implements OnInit {
 
     for (let i=0;i<elements.length;i++) {
       elements[i].addEventListener("click", function() {
-        console.log("click")
       })
 
       elements[i].classList.add("papai");
@@ -202,13 +103,11 @@ export class CategoriaListComponent implements OnInit {
     
     html += "</ul>"
 
-    //console.log(html);
-      
     return html;
   }
 
-  onClick(event: any) {
-    console.log(event);
+  public iconCheck(check: boolean) {
+    return  (check) ? 'check_box' : 'check_box_outline_blank';
   }
 
   onEdit(obj: any) {
@@ -284,7 +183,6 @@ export class CategoriaListComponent implements OnInit {
         }
     })
 
-    console.log(array, this.list)
   }
 
   onFindPai(filhos: Categoria[], pai: number) : any {
@@ -293,7 +191,6 @@ export class CategoriaListComponent implements OnInit {
     {
       if (filhos[i].codigo == pai)
       {
-        console.log('achou')
         return filhos[i]
       }
       else
@@ -301,7 +198,6 @@ export class CategoriaListComponent implements OnInit {
         const achou = this.onFindPai(filhos[i].filhos, pai);
         if (achou != undefined) 
         {
-          console.log('achou')
           return achou;
         }
       }

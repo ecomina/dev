@@ -24,19 +24,6 @@ mat-divider {
     margin: 10px;
 }
 
-.combo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.combo button {
-    margin-top: -20px;
-    border-style: none;
-    background: transparent;
-    padding: 10px;
-}
-
 .mat-dialog-container {
     background-color: #303030;
 }

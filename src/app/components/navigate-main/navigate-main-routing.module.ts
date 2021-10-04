@@ -7,6 +7,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/cadastros-main.component';
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
 import { CoresListComponent } from '../ecommerce/cadastros/cores/cores-list/cores-list.component';
+import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/filtro-list.component';
 import { GradeListComponent } from '../ecommerce/cadastros/grade/grade-list/grade-list.component';
 import { MarcaListComponent } from '../ecommerce/cadastros/marca/marca-list/marca-list.component';
 import { TamanhoListComponent } from '../ecommerce/cadastros/tamanho/tamanho-list/tamanho-list.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'cadastros/marca', component: MarcaListComponent },
       { path: 'cadastros/tamanho', component: TamanhoListComponent },
       { path: 'cadastros/categoria', component: CategoriaListComponent },
+      { path: 'cadastros/filtro', component: FiltroListComponent },
   {
     path: 'home', component: HomeComponent
   },

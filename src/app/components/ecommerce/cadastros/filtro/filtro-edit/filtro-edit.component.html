@@ -1,5 +1,5 @@
 <div class="titulo">
-    <span>{{(formulario.value.codigo === null) ? 'Novo Cadastro': 'Editando Categoria'}}</span>
+    <span>{{(formulario.value.codigo === null) ? 'Novo Cadastro': 'Editando Filtro'}}</span>
 </div>  
 <mat-divider></mat-divider>  
 <div class="container">
@@ -7,21 +7,22 @@
         <!-- <div class="field codigo">
             <mat-form-field appearance="outline">
                 <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
-                <input matInput formControlName="codigo" readonly>
               </mat-form-field>
         </div> -->
-        <div class="combo">
-            <app-base-combo-filter comboLabel="Categoria Pai" [comboListObs]="obs_categorias" [comboIdValue]="codigo_categoria_pai" (eventEmiterBase)="onComboChange($event, 'codCategoriaECommercePai')" ></app-base-combo-filter>
-            <button *ngIf="codigo_categoria_pai != null" (click)="onClear()"><mat-icon>clear</mat-icon></button> 
-        </div>
         <div class="field descricao">
             <mat-form-field appearance="outline">
                 <mat-label>Descrição</mat-label>
                 <input matInput formControlName="descricao">
               </mat-form-field>
         </div>
-        <div class="field ativo">
+        <div class="field boleano">
             <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        </div>
+        <div class="field boleano">
+            <mat-slide-toggle formControlName="obrigatorio" >Obrigatório</mat-slide-toggle>
+        </div>
+        <div class="field boleano">
+            <mat-slide-toggle formControlName="suportaItens" >Suporta Itens</mat-slide-toggle>
         </div>
     </div>
 </div>

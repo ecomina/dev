@@ -18,6 +18,8 @@ import { MarcaListComponent } from '../ecommerce/cadastros/marca/marca-list/marc
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
 import { CategoriaEditComponent } from '../ecommerce/cadastros/categoria/categoria-edit/categoria-edit.component';
 import { BaseFormDebugComponent } from '@app/shared/components/base-form-debug/base-form-debug.component';
+import { FiltroEditComponent } from '../ecommerce/cadastros/filtro/filtro-edit/filtro-edit.component';
+import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/filtro-list.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { BaseFormDebugComponent } from '@app/shared/components/base-form-debug/b
     GradeListComponent,
     GradeEditComponent,
     MarcaEditComponent,
-    MarcaListComponent,    
+    MarcaListComponent,
+    FiltroEditComponent,
+    FiltroListComponent,    
   ],
   imports: [
     CommonModule,

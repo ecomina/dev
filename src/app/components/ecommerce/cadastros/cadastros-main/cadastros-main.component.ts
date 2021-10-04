@@ -57,7 +57,7 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
       descricao: 'Filtros da pagina',
       icon:'filter_alt',
       link: 'cadastros/filtro',
-      enable: false
+      enable: true
     },
   ]
 

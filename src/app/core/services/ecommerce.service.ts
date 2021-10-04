@@ -106,6 +106,32 @@ postCor(obj: any) : Observable<any> {
   return result;
 }
 
+getFiltro() : Observable<any[]> {
+
+  var url = this.urlApi+'api/Filtro';
+
+  var result = this._httpClient.get<any[]>(url, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
+postFiltro(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Filtro';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
 getGrade() : Observable<any[]> {
 
     var url = this.urlApi+'api/Grade';

@@ -3,16 +3,13 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
-import { Observable, of } from 'rxjs';
 
 @Component({
-  selector: 'app-categoria-edit',
-  templateUrl: './categoria-edit.component.html',
-  styleUrls: ['./categoria-edit.component.css']
+  selector: 'app-filtro-edit',
+  templateUrl: './filtro-edit.component.html',
+  styleUrls: ['./filtro-edit.component.css']
 })
-export class CategoriaEditComponent extends BaseRegisterComponent implements OnInit {
-  
-  list_categorias: any[] = [];
+export class FiltroEditComponent extends BaseRegisterComponent implements OnInit {
 
   get getCanSave() {
     return this.base_editado && this.canSave
@@ -33,18 +30,6 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
   ngOnInit(): void {
     this.onCreateForm();  
   }
- 
-  onComboChange(event: any, combo: any){
-    this.formulario.get(combo)?.setValue(event.id);
-  }
-
-  get obs_categorias() : Observable<any[]> {
-    return of(this.list_categorias);
-  }
-
-  get codigo_categoria_pai() {
-    return this.formulario.value.codCategoriaECommercePai;
-  }
 
   onCreateForm() {
     
@@ -53,47 +38,23 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
       this.dataObj.data = {
         codigo: null,
         descricao: '',
-        codCategoriaECommercePai: null,
-        ativo: true
+        ativo: true,
+        obrigatorio: false,
+        suportaItens: false
       }
     }
 
     this.formulario = this._builder.group({
       codigo: [this.dataObj.data.codigo], 
       descricao: [this.dataObj.data.descricao, Validators.required], 
-      codCategoriaECommercePai: [this.dataObj.data.pai, Validators.required], 
-      ativo: [this.dataObj.data.ativo, Validators.required] 
+      ativo: [this.dataObj.data.ativo, Validators.required],
+      obrigatorio: [this.dataObj.data.obrigatorio, Validators.required],
+      suportaItens: [this.dataObj.data.suportaItens, Validators.required] 
     }); 
 
     this.formulario.valueChanges.subscribe(value => {
       this.base_editado = true;
     })  
-
-    this.onCarregaCategorias();
-  }
-
-  onCarregaCategorias() {
-    this.list_categorias = [];
-
-    this._api.getCategoria(false).subscribe({
-      next: result => {
-        result.forEach(o => {
-          const item = {id: o.codigo, descricao: o.codigo+' '+o.descricao, object: o, grupo: ''}
-          this.list_categorias.push(item)
-        }) 
-      },
-      error: erro => {
-        console.error(erro)
-      },
-      complete: () => {
-        ;
-      }
-    })
-  }
-  
-  onClear() {
-    this.formulario.get('codCategoriaECommercePai')?.setValue(null);
-    this.onCarregaCategorias();
   }
 
   onRegister(event: boolean) {
@@ -102,8 +63,8 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
     {
       this.base_salvando = true;
 
-      this._api.postCategoria(this.formulario.value).subscribe({
-        next: result => {
+      this._api.postFiltro(this.formulario.value).subscribe({
+        next: () => {
           this.dataObj.confirmou = event;
           this.dataObj.data = this.formulario.value;
         },

@@ -3,6 +3,11 @@ ul {
     margin-left: -20px;
 }
 
+#ativo {
+    margin-right: 10px;
+    color: red;
+}
+
 .titulo {
     display: flex;
     flex-direction: row;
@@ -35,12 +40,23 @@ ul {
     margin-left: 10px;
 }
 
+.grupo {
+    display: flex;
+    align-items: center;
+    margin-left: -30px;
+}
+
+.tree::before {
+    content: "\2517";
+}
+
 .nivel {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     height: 35px;
+    width: 100%;
     margin-bottom: 5px;
     color: #000;
     -webkit-box-shadow: 2px 2px 5px rgba(125, 125, 125, 0.77);
@@ -60,6 +76,8 @@ ul {
 
 .novo {
     margin-left: 30px;
+    width: auto;
+    background-color: #fff;
 }
 
 .add {
@@ -79,18 +97,22 @@ ul {
 .primeiro {
     background-color: #fff;
     margin-top: 20px;
+    border-radius: 3px 3px 0px
 }
 
 .segundo {
     background-color: rgb(225, 225, 225);
+    margin-top: 5px;
 }
 
 .terceiro {
     background-color: rgb(200, 200, 200);
+    margin-top: 5px;
 }
 
-.terceiro {
+.quarto {
     background-color: rgb(175, 175, 175);
+    margin-top: 5px;
 }
 
 .options {
