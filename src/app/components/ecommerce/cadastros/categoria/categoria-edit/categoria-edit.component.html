@@ -1,0 +1,26 @@
+<div class="titulo">
+    <span>{{(formulario.value.codigo === null) ? 'Cadastrando': 'Editando Categoria'}}</span>
+</div>  
+<mat-divider></mat-divider>  
+<div class="container">
+    <div class="form" [formGroup]="formulario">
+        <!-- <div class="field codigo">
+            <mat-form-field appearance="outline">
+                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
+                <input matInput formControlName="codigo" readonly>
+              </mat-form-field>
+        </div> -->
+        <app-base-combo-filter comboLabel="Categoria Pai" [comboListObs]="obs_categorias" [comboIdValue]="codigo_categoria_pai" (eventEmiterBase)="onComboChange($event, 'codCategoriaECommercePai')" ></app-base-combo-filter>
+        <div class="field descricao">
+            <mat-form-field appearance="outline">
+                <mat-label>Descrição</mat-label>
+                <input matInput formControlName="descricao">
+              </mat-form-field>
+        </div>
+        <div class="field ativo">
+            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<app-base-register [canSave]="getCanSave" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>

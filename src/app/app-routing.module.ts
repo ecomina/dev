@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoriaListComponent } from './components/ecommerce/categoria-list/categoria-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavigateMainComponent } from './components/navigate-main/navigate-main.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';

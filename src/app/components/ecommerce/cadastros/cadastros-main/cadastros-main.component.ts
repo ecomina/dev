@@ -43,7 +43,7 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
       descricao: 'Categorias Marketplace',
       icon:'category',
       link: 'cadastros/categoria',
-      enable: false
+      enable: true
     },
     {
       titulo: 'Dimensões',

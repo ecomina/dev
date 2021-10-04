@@ -18,6 +18,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTreeModule } from '@angular/material/tree';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxCurrencyModule } from "ngx-currency";
 import { NgxMaskModule, IConfig } from 'ngx-mask'
@@ -29,6 +32,7 @@ import { BaseListRegisterComponent } from '../components/base-list-register/base
 import { BaseRegisterComponent } from '../components/base-register/base-register.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseComboFilterComponent } from '../components/base-combo-filter/base-combo-filter.component';
+import { BaseFormDebugComponent } from '../components/base-form-debug/base-form-debug.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -40,7 +44,7 @@ const maskConfig: Partial<IConfig> = {
     BaseListFilterComponent,
     BaseListRegisterComponent,
     BaseRegisterComponent,
-    BaseComboFilterComponent
+    BaseComboFilterComponent,
   ],
   imports: [
     NgxMaskModule.forRoot(maskConfig),
@@ -68,6 +72,8 @@ const maskConfig: Partial<IConfig> = {
     MatSlideToggleModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    MatTreeModule,
+    DragDropModule,
     //NgxCurrencyModule,
 
     ScrollingModule,
@@ -99,6 +105,8 @@ const maskConfig: Partial<IConfig> = {
     MatSlideToggleModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    MatTreeModule,
+    DragDropModule,
     //NgxCurrencyModule,
 
     ScrollingModule,

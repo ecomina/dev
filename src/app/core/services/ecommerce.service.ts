@@ -15,7 +15,7 @@ export class EcommerceService {
   }
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   }
 
   constructor(
@@ -23,17 +23,36 @@ export class EcommerceService {
     private _appConfig: AppConfigurarion) { }
 
 
-getCategoria() : Observable<any[]> {
+getCategoria(somenteAtivos: boolean = false) : Observable<any[]> {
 
   var url = this.urlApi+'api/Categoria';
 
-  var result = this._httpClient.get<any[]>(url, this.httpOptions)
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('somenteAtivos', String(somenteAtivos));
+
+  var result = this._httpClient.get<any[]>(url, { params: parametros })
     .pipe(
       retry(0),
       catchError(this.handleError));
 
   return result;
 }
+
+postCategoria(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Categoria';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
 
 getTamanho() : Observable<any[]> {
 

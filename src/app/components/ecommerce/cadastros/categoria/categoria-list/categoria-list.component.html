@@ -1,0 +1,73 @@
+<div class="titulo">
+    <mat-icon>category</mat-icon>
+    <span>Categorias</span>
+</div>
+<div class="categoria">
+  <div class="nivel novo">
+    <button class="add" (click)="onAdd(null)"><mat-icon>add</mat-icon></button>
+  </div>
+
+  <ul class="categorias">
+    <li class="item" *ngFor="let pri of list">
+      <div class="nivel primeiro">
+        <button class="options" matTooltip="opções"[matMenuTriggerFor]="openPrimeiro"><mat-icon>more_vert</mat-icon><span class="descricao">{{pri.codigo}} {{pri.descricao}}</span></button>
+        <!-- <button class="add"><mat-icon>add</mat-icon></button> -->
+      </div>
+      <mat-menu #openPrimeiro="matMenu" yPosition="above">
+        <button mat-menu-item (click)="onAdd(pri)"><mat-icon>add</mat-icon>Subcategoria</button>
+        <button mat-menu-item (click)="onEdit(pri)"><mat-icon>edit</mat-icon>Editar</button>
+        <button mat-menu-item disabled="true" (click)="onDelete(pri)"><mat-icon>delete</mat-icon>Excluir</button>
+      </mat-menu>
+      
+      <ul *ngFor="let seg of pri.filhos" >
+        <li class="item">
+          <div class="nivel segundo">
+            <button class="options" matTooltip="opções"[matMenuTriggerFor]="openSegundo"><mat-icon>more_vert</mat-icon><span class="descricao">{{seg.codigo}} {{seg.descricao}}</span></button>
+            <!-- <button class="add"><mat-icon>add</mat-icon></button> -->
+          </div>
+          <mat-menu #openSegundo="matMenu" yPosition="above">
+            <button mat-menu-item (click)="onAdd(seg)"><mat-icon>add</mat-icon>Subcategoria</button>
+            <button mat-menu-item (click)="onEdit(seg)"><mat-icon>edit</mat-icon>Editar</button>
+            <button mat-menu-item disabled="true" (click)="onDelete(seg)"><mat-icon>delete</mat-icon>Excluir</button>
+          </mat-menu>
+
+          <ul *ngFor="let ter of seg.filhos" >
+            <li class="item">
+              <div class="nivel terceiro">
+                <button class="options" matTooltip="opções"[matMenuTriggerFor]="openTerceiro"><mat-icon>more_vert</mat-icon><span class="descricao">{{ter.codigo}} {{ter.descricao}}</span></button>
+                <!-- <button class="add"><mat-icon>add</mat-icon></button> -->
+              </div>
+              <mat-menu #openTerceiro="matMenu" yPosition="above">
+                <button mat-menu-item (click)="onAdd(ter)"><mat-icon>add</mat-icon>Subcategoria</button>
+                <button mat-menu-item (click)="onEdit(ter)"><mat-icon>edit</mat-icon>Editar</button>
+                <button mat-menu-item disabled="true" (click)="onDelete(ter)"><mat-icon>delete</mat-icon>Excluir</button>
+              </mat-menu>
+              <ul *ngFor="let qua of ter.filhos" >
+                <li class="item">
+                  <div class="nivel querto">
+                    <button class="options" matTooltip="opções"[matMenuTriggerFor]="openQuarto"><mat-icon>more_vert</mat-icon><span class="descricao">{{qua.codigo}} {{qua.descricao}}</span></button>
+                    <!-- <button class="add"><mat-icon>add</mat-icon></button> -->
+                  </div>
+                  <mat-menu #openQuarto="matMenu" yPosition="above">
+                    <button mat-menu-item (click)="onAdd(qua)"><mat-icon>add</mat-icon>Subcategoria</button>
+                    <button mat-menu-item (click)="onEdit(qua)"><mat-icon>edit</mat-icon>Editar</button>
+                    <button mat-menu-item disabled="true" (click)="onDelete(qua)"><mat-icon>delete</mat-icon>Excluir</button>
+                  </mat-menu>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+<!-- <div cdkDropList class="example-list" >
+  <div class="example-box" [style]="margin(11*item.codCategoriaECommercePai)" *ngFor="let item of categorias" cdkDrag>
+    {{item.codigo}} {{item.descricao}}
+    <div *cdkDragPreview style="height: 150px; width: 150px; background-color: green;">
+  </div>
+</div> -->
+
