@@ -122,6 +122,7 @@ export class NavigateMainComponent extends BaseComponent {
     }
 
     onHome() {
+      this.base_title = "Home";
       this._router.navigate(['home']);
     }
   

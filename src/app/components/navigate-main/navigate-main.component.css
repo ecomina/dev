@@ -6,6 +6,24 @@ mat-divider {
   margin: 10px 0px 10px 0px;
 }
 
+.nav {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  width: 100%;
+  align-items: center;
+}
+
+.nav .title {
+  cursor: pointer;
+}
+
+.nav .subtitle {
+  font-size: 13px;
+  margin-top: -10px;
+  color: #673ab7;
+}
+
 .sidenav-container {
   height: 100%;
 }
@@ -26,10 +44,6 @@ mat-divider {
 
 .example-spacer {
   flex: 1 1 auto;
-}
-
-.home {
-  cursor: pointer;
 }
 
 .menu-action:hover {
@@ -55,4 +69,8 @@ mat-divider {
 .logout:hover {
   cursor: pointer;
   background-color: #dddddd;
+}
+
+.logout mat-icon {
+  margin-left: 5px;
 }

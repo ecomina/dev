@@ -14,10 +14,6 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
   
   list_categorias: any[] = [];
 
-  get getCanSave() {
-    return this.base_editado && this.canSave
-  }
-
   get salvando() {
     return this.base_salvando;
   }

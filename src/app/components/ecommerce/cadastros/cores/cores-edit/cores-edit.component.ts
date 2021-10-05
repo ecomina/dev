@@ -12,10 +12,6 @@ import { delay } from 'rxjs/operators';
 })
 export class CoresEditComponent extends BaseRegisterComponent implements OnInit {
 
-  get getCanSave() {
-    return this.base_editado && this.canSave
-  }
-
   get salvando() {
     return this.base_salvando;
   }

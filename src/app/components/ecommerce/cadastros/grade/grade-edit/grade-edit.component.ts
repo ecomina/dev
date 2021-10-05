@@ -11,10 +11,6 @@ import { BaseRegisterComponent } from '@app/shared/components/base-register/base
 })
 export class GradeEditComponent extends BaseRegisterComponent implements OnInit {
 
-  get getCanSave() {
-    return this.base_editado && this.canSave
-  }
-
   get salvando() {
     return this.base_salvando;
   }

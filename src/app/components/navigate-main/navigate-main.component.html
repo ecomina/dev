@@ -3,7 +3,12 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar><span class="home" (click)="onHome()">VYA online</span></mat-toolbar>
+    <mat-toolbar>
+      <div class="nav">
+        <span class="title" (click)="onHome()">VYA online</span>
+        <span class="subtitle">E-commerce</span>
+      </div>
+    </mat-toolbar>
     <div class="list-menu">
         <mat-accordion>
           <mat-expansion-panel *ngFor="let menu of menuLinks"
@@ -21,8 +26,8 @@
         </mat-accordion>
     </div>
     <mat-divider></mat-divider>
-    <div class="logout">
-      <span (click)="onLogout()" routerLinkActive="active">Sair</span>
+    <div class="logout" (click)="onLogout()"> 
+      <span routerLinkActive="active">Sair</span><mat-icon>exit_to_app</mat-icon> 
     </div>
 
   </mat-sidenav>
