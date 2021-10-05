@@ -1,0 +1,83 @@
+<div class="titulo">
+    <span>{{(formulario.value.codigo === null) ? 'Novo Cadastro': 'Editando Dimensões'}}</span>
+</div>  
+<mat-divider></mat-divider>  
+<div class="container">
+    <mat-dialog-content>
+    <div class="form" [formGroup]="formulario">
+        <!-- <div class="field codigo">
+            <mat-form-field appearance="outline">
+                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
+              </mat-form-field>
+        </div> -->
+        <div class="field descricao">
+            <mat-form-field appearance="outline">
+                <mat-label>Descrição</mat-label>
+                <input matInput placeholder="Ex. Embalagem média" formControlName="descricao">
+            </mat-form-field>
+        </div>
+        <div class="field dimensao" formGroupName="dimensaoProduto">
+            <span class="label"> Dimensões do Produto</span>
+            <div class="fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Peso</mat-label>
+                    <input matInput type="number"  formControlName="peso"  min="0">
+                    <span matSuffix>gramas</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>  
+                <mat-form-field appearance="outline">
+                    <mat-label>Altura</mat-label>
+                    <input matInput type="number"  formControlName="altura"  min="0">
+                    <span matSuffix>centimetros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>  
+                <mat-form-field appearance="outline">
+                    <mat-label>Largura</mat-label>
+                    <input matInput type="number"  formControlName="largura"  min="0">
+                    <span matSuffix>centimentros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>   
+                <mat-form-field appearance="outline">
+                    <mat-label>Profundidade</mat-label>
+                    <input matInput type="number"  formControlName="profundidade"  min="0">
+                    <span matSuffix>centimentros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>                                                
+            </div>
+        </div>
+        <div class="field dimensao" formGroupName="dimensaoEmbalagem">
+            <span class="label">Dimensões da Embalagem</span>
+            <div class="fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Peso</mat-label>
+                    <input matInput type="number"  formControlName="peso"  min="0">
+                    <span matSuffix>gramas</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>  
+                <mat-form-field appearance="outline">
+                    <mat-label>Altura</mat-label>
+                    <input matInput type="number"  formControlName="altura"  min="0">
+                    <span matSuffix>centimetros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>  
+                <mat-form-field appearance="outline">
+                    <mat-label>Largura</mat-label>
+                    <input matInput type="number"  formControlName="largura"  min="0">
+                    <span matSuffix>centimentros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>   
+                <mat-form-field appearance="outline">
+                    <mat-label>Profundidade</mat-label>
+                    <input matInput type="number"  formControlName="profundidade"  min="0">
+                    <span matSuffix>centimentros</span>
+                    <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                </mat-form-field>      
+            </div>                                          
+        </div>        
+    </div>
+    </mat-dialog-content>
+</div>
+<mat-divider></mat-divider>
+<app-base-register [canSave]="getCanSave" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>
+

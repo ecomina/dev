@@ -17,9 +17,10 @@ import { MarcaEditComponent } from '../ecommerce/cadastros/marca/marca-edit/marc
 import { MarcaListComponent } from '../ecommerce/cadastros/marca/marca-list/marca-list.component';
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
 import { CategoriaEditComponent } from '../ecommerce/cadastros/categoria/categoria-edit/categoria-edit.component';
-import { BaseFormDebugComponent } from '@app/shared/components/base-form-debug/base-form-debug.component';
 import { FiltroEditComponent } from '../ecommerce/cadastros/filtro/filtro-edit/filtro-edit.component';
 import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/filtro-list.component';
+import { DimensaoListComponent } from '../ecommerce/cadastros/dimensao/dimensao-list/dimensao-list.component';
+import { DimensaoEditComponent } from '../ecommerce/cadastros/dimensao/dimensao-edit/dimensao-edit.component';
 
 
 @NgModule({
@@ -35,7 +36,9 @@ import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/f
     MarcaEditComponent,
     MarcaListComponent,
     FiltroEditComponent,
-    FiltroListComponent,    
+    FiltroListComponent,  
+    DimensaoListComponent,
+    DimensaoEditComponent,  
   ],
   imports: [
     CommonModule,

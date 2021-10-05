@@ -22,7 +22,6 @@ export class EcommerceService {
     private _httpClient: HttpClient,
     private _appConfig: AppConfigurarion) { }
 
-
 getCategoria(somenteAtivos: boolean = false) : Observable<any[]> {
 
   var url = this.urlApi+'api/Categoria';
@@ -52,7 +51,6 @@ postCategoria(obj: any) : Observable<any> {
 
   return result;
 }
-
 
 getTamanho() : Observable<any[]> {
 
@@ -184,6 +182,31 @@ postMarca(obj: any) : Observable<any> {
   return result;
 }
 
+getDimensao() : Observable<any[]> {
+
+  var url = this.urlApi+'api/Dimensao';
+
+  var result = this._httpClient.get<any[]>(url, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
+postDimensao(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Dimensao';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
 
 handleError(error: HttpErrorResponse) {
   let errorMessage = '';

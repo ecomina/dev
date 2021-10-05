@@ -35,7 +35,7 @@ export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
     UserRegisterComponent,
     TamanhoListComponent,
     TamanhoEditComponent,
-    BaseFormDebugComponent,
+
   ],
   imports: [
     AppRoutingModule,

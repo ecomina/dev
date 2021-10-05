@@ -13,7 +13,7 @@
 
   <ul class="categorias">
     <li class="item" *ngFor="let pri of list">
-      <div class="nivel primeiro"><mat-checkbox></mat-checkbox>
+      <div class="nivel primeiro">
         <button class="options" matTooltip="opções"[matMenuTriggerFor]="openPrimeiro"><mat-icon>more_vert</mat-icon><span class="descricao">{{pri.codigo}} {{pri.descricao}}</span></button>
         <span id="ativo" *ngIf="!pri.ativo">Inativo</span>
       </div>

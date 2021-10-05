@@ -1,0 +1,65 @@
+mat-divider {
+    margin: 10px 10px;    
+}
+
+.container {
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    /* width: 100%; */
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #46277c;
+    color: #fff;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+}
+
+.form {
+    margin: 10px;
+}
+
+.mat-dialog-container {
+    background-color: #303030;
+}
+
+.codigo mat-form-field {
+    width: 90px;
+}
+
+.descricao mat-form-field {
+    width: 250px;
+}
+
+.numero {
+    display: flex;
+    align-items: center;
+}
+
+.dimensao {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 2px;
+    padding: 14px 4px 0px 12px;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0px 0px 8px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    0px 0px 8px rgba(125, 125, 125, 0.77);
+    box-shadow:         0px 0px 8px rgba(125, 125, 125, 0.77); 
+}
+
+.dimensao mat-form-field {
+    width: 170px;
+    margin-right: 10px;
+}
+
+.label {
+    font-size: 12px;
+    margin-bottom: 10px;
+}

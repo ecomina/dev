@@ -1,0 +1,27 @@
+<div class="titulo">
+    <mat-icon>aspect_ratio</mat-icon>
+    <span>Dimensões</span>
+  </div>
+  <app-base-list-filter (eventFilter)="onFiltrar($event)"></app-base-list-filter>
+  <div class="container">
+    <div class="carregando" *ngIf="base_carregando"> 
+      <span>Carregando...</span>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <table class="tabela" *ngIf="!base_carregando">
+      <tr>
+        <th id="add" (click)="onAdd()" matTooltip="Novo"><mat-icon>add</mat-icon></th>
+        <th id="codigo">Código</th>
+        <th id="descricao">Descrição</th>
+      </tr>
+      <tr class="item" *ngFor="let l of list">
+        <td id="edit" matTooltip="Opções"[matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
+        <td id="codigo">{{l.codigo}}</td>
+        <td id="descricao">{{l.descricao}}</td>
+        <mat-menu #openAction="matMenu" yPosition="above">
+          <button mat-menu-item (click)="onEdit(l)"><mat-icon>edit</mat-icon>Editar</button>
+          <button mat-menu-item disabled="true" (click)="onDelete(l)"><mat-icon>delete</mat-icon>Excluir</button>
+        </mat-menu>
+      </tr>
+    </table>
+  </div>

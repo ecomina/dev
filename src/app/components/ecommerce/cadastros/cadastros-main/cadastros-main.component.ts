@@ -49,8 +49,8 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
       titulo: 'Dimensões',
       descricao: 'Dimensões de embalagens',
       icon:'aspect_ratio',
-      link: 'cadastros/dimensoe',
-      enable: false
+      link: 'cadastros/dimensao',
+      enable: true
     },
     {
       titulo: 'Filtros',

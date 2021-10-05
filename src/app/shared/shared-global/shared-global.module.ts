@@ -45,6 +45,7 @@ const maskConfig: Partial<IConfig> = {
     BaseListRegisterComponent,
     BaseRegisterComponent,
     BaseComboFilterComponent,
+    BaseFormDebugComponent,
   ],
   imports: [
     NgxMaskModule.forRoot(maskConfig),
@@ -84,6 +85,7 @@ const maskConfig: Partial<IConfig> = {
     BaseListRegisterComponent,
     BaseRegisterComponent,
     BaseComboFilterComponent,
+    BaseFormDebugComponent,
 
     MatMenuModule,
     MatButtonModule,
