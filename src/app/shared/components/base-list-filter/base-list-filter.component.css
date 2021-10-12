@@ -29,14 +29,14 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 10px;
+    margin: 5px 10px 10px 10px;
     width: 90%;
     background-color: rgb(255, 255, 255);
     box-shadow: 4px 4px 14px -2px rgba(0,0,0,0.75);
     justify-content: space-between;
     border: 2px;
     border-style: solid;
-    border-color: #424242;    
+    border-color: #673ab7;    
 }
 
 .txt-pesquisa {

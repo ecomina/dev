@@ -1,0 +1,10 @@
+@import url("../../../../../styles/_base-edit.css");
+
+
+.codigo mat-form-field {
+    width: 90px;
+}
+
+.descricao mat-form-field {
+    width: 250px;
+}

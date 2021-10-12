@@ -1,0 +1,124 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 16px;
+    margin: 10px 0px 0px 15px;
+    font-weight: 500;
+
+    background-color: #424242;
+    color: #fff;
+    margin: 10px;
+    height: 32px;
+    padding: 5px;
+}
+
+.titulo span {
+    margin-left: 10px;
+}
+
+.carregando {
+    width: 90%;
+    color: #6798dc;;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.produto {
+    display: flex;
+    flex-direction: row;
+    width: 340px;
+    height: 140px;
+    margin: 10px;
+    /* border-radius: 5px; */
+    background-color: #fff;
+    -webkit-box-shadow: 2px 2px 5px rgb(125 125 125 / 30%);
+    -moz-box-shadow:    2px 2px 5px rgb(125 125 125 / 30%);
+    box-shadow:         2px 2px 5px rgb(125 125 125 / 30%);  
+}
+
+.esquerda {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.foto img {
+    /* height: 100%; */
+    width: 100%;
+    /* border-radius: 5px; */
+}
+
+.codigo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    background-color: #673ab7;
+    color: #fff;
+}
+
+.btn {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    background: transparent;
+    border-style: none;
+    color: #fff;
+}
+
+.detalhe {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    height: 35px;
+}
+
+.field span {
+    margin-right: 5px;
+}
+
+.field .label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #673ab7;
+} 
+
+.txt {
+    font-size: 12px;
+    margin-top: -7px;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: -5px;
+}
+
+/* .descricao {
+    margin-top: 5px;
+} */

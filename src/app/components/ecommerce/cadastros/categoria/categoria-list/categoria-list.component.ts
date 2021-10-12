@@ -1,11 +1,13 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NgForOf } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { DomSanitizer } from '@angular/platform-browser';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { CategoriaEditComponent } from '../categoria-edit/categoria-edit.component';
 
 interface Categoria {
@@ -30,13 +32,15 @@ interface ExampleFlatNode {
   styleUrls: ['./categoria-list.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CategoriaListComponent implements OnInit {
+export class CategoriaListComponent implements OnInit, OnDestroy {
 
   list = TREE_DATA;
   html: string;
   base_carregando = false;
 
   categorias: any[] = []
+
+  unsub$ = new Subject()
 
   margin(n: any) {
     return "margin-left: "+n+"px;"
@@ -51,8 +55,6 @@ export class CategoriaListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-
     var elements = document.getElementsByClassName("filho");
 
     for (let i=0;i<elements.length;i++) {
@@ -63,8 +65,18 @@ export class CategoriaListComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    // this.unsub$.next();
+    // this.unsub$.complete();    
+  }
+
   onListar() {
-    this._api.getCategoria().subscribe({
+    this._api.getCategoria()
+    .pipe(
+      //takeUntil(this.unsub$)
+      take(1)
+    ) 
+    .subscribe({
       next: result => {
         this.base_carregando = true;
         this.categorias = [];

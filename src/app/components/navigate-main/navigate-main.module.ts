@@ -21,6 +21,10 @@ import { FiltroEditComponent } from '../ecommerce/cadastros/filtro/filtro-edit/f
 import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/filtro-list.component';
 import { DimensaoListComponent } from '../ecommerce/cadastros/dimensao/dimensao-list/dimensao-list.component';
 import { DimensaoEditComponent } from '../ecommerce/cadastros/dimensao/dimensao-edit/dimensao-edit.component';
+import { TamanhoListComponent } from '../ecommerce/cadastros/tamanho/tamanho-list/tamanho-list.component';
+import { TamanhoEditComponent } from '../ecommerce/cadastros/tamanho/tamanho-edit/tamanho-edit.component';
+import { ProdutoListComponent } from '../ecommerce/produtos/produto-list/produto-list.component';
+import { ProdutoEditComponent } from '../ecommerce/produtos/produto-edit/produto-edit.component';
 
 
 @NgModule({
@@ -39,6 +43,10 @@ import { DimensaoEditComponent } from '../ecommerce/cadastros/dimensao/dimensao-
     FiltroListComponent,  
     DimensaoListComponent,
     DimensaoEditComponent,  
+    TamanhoListComponent,
+    TamanhoEditComponent,
+    ProdutoListComponent,
+    ProdutoEditComponent,
   ],
   imports: [
     CommonModule,
@@ -46,8 +54,6 @@ import { DimensaoEditComponent } from '../ecommerce/cadastros/dimensao/dimensao-
     FormsModule,
     ReactiveFormsModule,
     SharedGlobalModule,
-    // BaseFormDebugComponent,
-
     NavigateMainRoutingModule
   ],
   exports:[

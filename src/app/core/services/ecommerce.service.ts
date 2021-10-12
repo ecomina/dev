@@ -22,6 +22,53 @@ export class EcommerceService {
     private _httpClient: HttpClient,
     private _appConfig: AppConfigurarion) { }
 
+
+getProduto(somenteAtivos: boolean) : Observable<any[]> {
+
+  var url = this.urlApi+'api/Produto';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('somenteAtivos', String(somenteAtivos));
+
+  var result = this._httpClient.get<any[]>(url, { params: parametros })
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+getProdutoCodigo(codigo: number) {
+
+  var url = this.urlApi+'api/Produto';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codigo', String(codigo));
+
+  var result = this._httpClient.get<any[]>(url, { params: parametros })
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+postProduto(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Produto';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
 getCategoria(somenteAtivos: boolean = false) : Observable<any[]> {
 
   var url = this.urlApi+'api/Categoria';

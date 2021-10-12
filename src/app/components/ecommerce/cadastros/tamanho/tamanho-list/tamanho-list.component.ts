@@ -17,7 +17,7 @@ export interface Obj {
   templateUrl: './tamanho-list.component.html',
   styleUrls: ['./tamanho-list.component.css']
 })
-export class TamanhoListComponent  extends BaseListRegisterComponent implements OnInit {
+export class TamanhoListComponent extends BaseListRegisterComponent implements OnInit {
 
   listObj: Obj[] = [];
   list_grades: any[] = [];

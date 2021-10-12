@@ -15,10 +15,7 @@ import { SharedGlobalModule } from './shared/shared-global/shared-global.module'
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import { AppConfigurarion } from './_config/app-configuration';
 import { AppConfigurarionJsonService } from './_config/app-configuration-json-service';
-import { TamanhoListComponent } from './components/ecommerce/cadastros/tamanho/tamanho-list/tamanho-list.component';
-import { TamanhoEditComponent } from './components/ecommerce/cadastros/tamanho/tamanho-edit/tamanho-edit.component';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { BaseFormDebugComponent } from './shared/components/base-form-debug/base-form-debug.component';
 
 export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
   return (): Promise<any> => {
@@ -33,9 +30,6 @@ export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
     UserLoginComponent,
     NavigateMainComponent,
     UserRegisterComponent,
-    TamanhoListComponent,
-    TamanhoEditComponent,
-
   ],
   imports: [
     AppRoutingModule,

@@ -9,6 +9,7 @@ import { BaseComponent } from '../base/base.component';
 export class BaseListRegisterComponent extends BaseComponent implements OnInit {
 
   public base_carregando: Boolean = false;
+  public base_list: any[] = [];
 
   constructor() { 
     super();

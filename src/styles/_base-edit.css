@@ -1,0 +1,43 @@
+mat-divider {
+    margin: 10px 10px;    
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    margin: 10px;
+    padding: 5px;
+    background-color: #46277c;
+    color: #fff;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+}
+
+.btn-voltar {
+    height: 100%;
+    cursor: pointer;
+    border-style: none;
+    background: transparent;
+    color: #fff;
+}
+
+.btn-voltar:hover {
+    background: #552e99;
+}
+
+.form {
+    margin: 10px;
+}
+
+.mat-dialog-container {
+    background-color: #303030;
+}
+

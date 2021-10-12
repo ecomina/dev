@@ -37,7 +37,7 @@ export class NavigateMainComponent extends BaseComponent {
       submenus: [
         {
           caption: 'Produtos',
-          link:'produto'
+          link:'produto/list'
         },
         {
           caption: 'Parametros',
