@@ -49,8 +49,6 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
         this.base_carregando = true;
         result.forEach(o => {
           this.base_list.push(o)
-          this.base_list.push(o)
-          this.base_list.push(o)
         })
       },
       error: erro => {
@@ -69,7 +67,7 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
   }
 
   onEdit(produto: any) {
-    this._router.navigate(['produto/edit'])
+    this._router.navigate(['produto/edit', produto.codigo])
   }
 
 }

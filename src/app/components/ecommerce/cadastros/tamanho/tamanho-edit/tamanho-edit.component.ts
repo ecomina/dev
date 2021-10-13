@@ -15,10 +15,6 @@ export class TamanhoEditComponent extends BaseRegisterComponent implements OnIni
   list_grades: any[] = [];
   id_value_grade: any;
   
-  get salvando() {
-    return this.base_salvando;
-  }
-
   get obs_grades() : Observable<any[]> {
     return of(this.list_grades);
   }

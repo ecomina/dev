@@ -47,18 +47,6 @@ export class BaseComboFilterComponent implements OnInit {
         this.carregando = false;
       }
     })
-    
-    // cList.subscribe(result => {
-    //   this.carregando = true;
-    //   this.itensControls.clear();
-    //   this.list = [];
-    //   result.forEach(obj => {
-    //     this.additem(obj),
-    //     this.list.push(obj)
-    //     this.onLocate();
-    //   })
-    //   this.carregando = false;
-    // })
   }
 
   @Input() public set objValueS(v: any) {

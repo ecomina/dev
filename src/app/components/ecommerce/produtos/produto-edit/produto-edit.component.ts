@@ -1,29 +1,217 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
+import {Location} from '@angular/common';
+import { fadeInItems } from '@angular/material/menu';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-produto-edit',
   templateUrl: './produto-edit.component.html',
   styleUrls: ['./produto-edit.component.css']
 })
-export class ProdutoEditComponent extends BaseRegisterComponent implements OnInit {
+export class ProdutoEditComponent extends BaseRegisterComponent implements OnInit, OnDestroy {
 
-  constructor(private _builder : FormBuilder) { 
-    super();
+  produtoCodigo: any = null;
+  private history_nav: string[] = []
+  private list_marcas: any[] = [];
+  public list_categorias: any[] = [];
+
+  get coresControls() : FormArray {
+    return this.formulario.get('cores') as FormArray;
+  }
+
+  get obs_marcas() : Observable<any[]> {
+    return of(this.list_marcas);
+  }
+
+  get id_combo_marca() {
+    return this.formulario.value.codMarca;
+  }
+
+  constructor(
+    private _location: Location,
+    private _router: Router,
+    private _builder : FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _api: EcommerceService) { 
+      super();
+      this._router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.history_nav.push(event.urlAfterRedirects)
+        }
+      })
+
+      this.createForm();
   }
 
   ngOnInit(): void {
+    this.onCarregar();
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy')
+  }
+
+  onBack(): void {
+    this._location.back();
+    // this.history_nav.pop();
+    // if (this.history_nav.length > 0) {
+    //   this._location.back();
+    //   console.log('onBack', this.history_nav);
+    // }
+    // else {
+    //   this._router.navigateByUrl('/')
+    // }
   }
 
   createForm() {
     this.formulario = this._builder.group({
-     
-    }) 
+      dataCadastro: null,
+      codigo: null,
+      codigoNexttLegado: null,
+      codMarca: [null, Validators.required],
+      titulo: null,
+      descricaoReduzida: null,
+      descricaoCompleta: null,
+      modelo: null,
+      dimensao: null,
+      ativo: true,
+      visivelSite: true,
+      mostrarProdutoEsgotado: false,
+      precoCheio: 0,
+      precoPor: 0,
+      custo: 0,
+      codCategoriaPrincipal: 4,
+      filtros: null,
+      cores: this._builder.array([])}) 
+
+      this.onCarregaMarcas(); 
+      this.onCarregaCategorias();     
+      
+      this.formulario.valueChanges.subscribe(value => {
+        this.base_editado = true;
+      }) 
   }
 
-  onRegister(event: any) {
+  onCarregaMarcas() {
+    this._api.getMarca().subscribe({
+      next: result => {
+        this.base_processando = true;
+        result.forEach(o => {
+          const item = {id: o.codigo, descricao: o.codigo+' '+o.descricao, object: o, grupo: ''}
+          this.list_marcas.push(item);
+        })
+      },
+      error: erro => {
+        this.base_processando = false;
+        alert(erro);
+      },
+      complete: () => {
+        this.base_processando = false;
+      }
+    })
+  }
 
+  onCarregaCategorias() {
+    this._api.getCategoria().subscribe({
+      next: result => {
+        this.base_processando = true;
+        result.forEach(o => {
+          const item = {id: o.codigo, descricao: o.codigo+' '+o.descricao, object: o, grupo: ''}
+          this.list_categorias.push(item);
+        })
+      },
+      error: erro => {
+        this.base_processando = false;
+        alert(erro)
+      },
+      complete: () => {
+        this.base_processando = false;
+      }
+    })
+  }
+
+  onCarregar() {
+
+    const codigo = this._activatedRoute.snapshot.paramMap.get('codigo');
+
+    this._api.getProdutoCodigo(codigo).subscribe({
+      next: result => {
+        this.base_processando = true;
+        this.buildForm(result);
+      },
+      error: erro => {
+        this.base_processando = false;
+        alert(erro);
+      },
+      complete: () => {
+        this.base_processando = false;
+      }
+    })
+  }
+
+  buildForm(produto: any) {
+
+    const cores = this.builderCores(produto.cores).controls;
+
+    this.formulario.patchValue(produto);
+
+    cores.forEach(cor => {
+      this.coresControls.push(cor);
+    })
+  }
+
+  builderCores(cores: any[]) : FormArray {
+
+    let formArray = this._builder.array([]);
+
+    cores.forEach(cor => {
+      formArray.push(this._builder.group({
+        codCorECommerce: cor.codCorECommerce,
+        descricao: cor.descricao,
+        principal: cor.principal,
+        ativo: cor.principal,
+        itens: this.builderItens(cor.itens)
+      }))
+    })
+
+    return formArray;
+
+  }
+
+  builderItens(itens: any[]) : FormArray {
+
+    let formArray = this._builder.array([]);
+
+    itens.forEach(i => {
+      formArray.push(
+        this._builder.group({
+          descricao: i.descricao,
+          ean13: i.ean13 ,
+          codTamanhoECommerce: i.codTamanhoECommerce,
+          ativo: i.ativo})
+      )
+    })
+
+    return formArray;
+  }
+
+  onRegister(event: boolean) {
+    if (!event)
+    {
+      this.onBack();
+    }
+  }
+
+  onCodNextt() {
+    alert('Cod Legado')
+  }
+
+  onComboChange(event: any, combo: any) {
+    this.formulario.get(combo)?.setValue(event.id);
   }
 
 }

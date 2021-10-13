@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedGlobalModule } from '@app/shared/shared-global/shared-global.module';
 import { NgxCurrencyModule } from 'ngx-currency';
@@ -33,7 +34,7 @@ const routes: Routes = [
       { path: 'cadastros/filtro', component: FiltroListComponent },
       { path: 'cadastros/dimensao', component: DimensaoListComponent },
       { path: 'produto/list', component: ProdutoListComponent },
-      { path: 'produto/edit', component: ProdutoEditComponent },
+      { path: 'produto/edit/:codigo', component: ProdutoEditComponent },
   {
     path: 'home', component: HomeComponent
   },
@@ -42,6 +43,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
+    // MatDatepickerModule,
     FormsModule,
     CommonModule,
     ReactiveFormsModule,

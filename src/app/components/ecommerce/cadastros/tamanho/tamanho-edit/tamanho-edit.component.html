@@ -12,7 +12,7 @@
                 <mat-hint>Hint</mat-hint> -->
             </mat-form-field>
         </div>
-        <app-base-combo-filter comboLabel="Grade" [comboListObs]="obs_grades" [comboIdValue]="id_combo_grade" (eventEmiterBase)="onComboChange($event, 'codGradeEcommerce')" ></app-base-combo-filter>
+        <app-base-combo-filter class="field" comboLabel="Grade" [comboListObs]="obs_grades" [comboIdValue]="id_combo_grade" (eventEmiterBase)="onComboChange($event, 'codGradeEcommerce')" ></app-base-combo-filter>
         <div class="field descricao">
             <mat-form-field appearance="outline">
                 <mat-label>Descrição</mat-label>
@@ -35,5 +35,5 @@
     </div>
 </div>
 <mat-divider></mat-divider>
-<app-base-register [canSave]="canSaveBase" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
+<app-base-register [canSave]="canSaveBase" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
 <!-- <app-base-form-debug [form]="formulario"></app-base-form-debug> -->

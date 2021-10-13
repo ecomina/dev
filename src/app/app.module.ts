@@ -41,7 +41,7 @@ export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
     LayoutModule,
     ReactiveFormsModule,
     SharedGlobalModule,
-    NgxCurrencyModule
+    NgxCurrencyModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -19,6 +19,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
+
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -33,6 +37,7 @@ import { BaseRegisterComponent } from '../components/base-register/base-register
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseComboFilterComponent } from '../components/base-combo-filter/base-combo-filter.component';
 import { BaseFormDebugComponent } from '../components/base-form-debug/base-form-debug.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -74,7 +79,10 @@ const maskConfig: Partial<IConfig> = {
     MatSelectModule,
     NgxMatSelectSearchModule,
     MatTreeModule,
+    MatDatepickerModule,
     DragDropModule,
+    MatTabsModule,
+    MatRadioModule,
     //NgxCurrencyModule,
 
     ScrollingModule,
@@ -108,8 +116,12 @@ const maskConfig: Partial<IConfig> = {
     MatSelectModule,
     NgxMatSelectSearchModule,
     MatTreeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     DragDropModule,
-    //NgxCurrencyModule,
+    MatTabsModule,
+    MatRadioModule,
+    NgxCurrencyModule,
 
     ScrollingModule,
 

@@ -1,26 +1,106 @@
 <div class="titulo">
     <span>Editando Produto</span>
-    <button class="btn-voltar">Voltar</button>
+    <!-- <button class="btn-voltar" (click)="onBack()">Voltar</button> -->
 </div>  
-<mat-divider></mat-divider>  
-<div class="container">
-    <div class="form" [formGroup]="formulario">
-        <!-- <div class="field codigo">
-            <mat-form-field appearance="outline">
-                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
-                <input matInput formControlName="codigo" readonly>
-              </mat-form-field>
-        </div>
-        <div class="field descricao">
-            <mat-form-field appearance="outline">
-                <mat-label>Descrição</mat-label>
-                <input matInput formControlName="descricao">
-              </mat-form-field>
-        </div>
-        <div class="field ativo">
-            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
-        </div> -->
+<div class="container" [formGroup]="formulario">
+    <div class="carregando" *ngIf="base_processando"> 
+        <span>Carregando...</span>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
+    <mat-tab-group *ngIf="!base_processando">
+        <mat-tab label="Gerais">
+            <div class="form">
+                <div class="grupo">
+                    <div class="field codigo">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
+                            <input matInput formControlName="codigo" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="field codigoNexttLegado">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Cód. Nextt</mat-label>
+                            <input matInput formControlName="codigoNexttLegado">
+                            <button matSuffix (click)="onCodNextt()"><mat-icon>bookmarks</mat-icon></button>
+                        </mat-form-field>
+                    </div>        
+                    <div class="field dataCadastro">
+                        <mat-form-field appearance="outline">
+                        <mat-label>Data Cadastro</mat-label>
+                        <input matInput readonly formControlName="dataCadastro" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker" disabled></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>        
+                    </div> 
+                    <app-base-combo-filter class="field" comboLabel="Marcas" [comboListObs]="obs_marcas" [comboIdValue]="id_combo_marca" (eventEmiterBase)="onComboChange($event, 'codMarca')" ></app-base-combo-filter>
+                    <div class="field">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Título</mat-label>
+                            <input matInput formControlName="titulo">
+                        </mat-form-field>
+                    </div>
+                    <div class="field">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Modelo</mat-label>
+                            <input matInput formControlName="modelo">
+                        </mat-form-field>
+                    </div>     
+                </div>   
+                <div class="field desc-reduzida">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descrição Reduzida</mat-label>
+                        <input matInput formControlName="descricaoReduzida">
+                    </mat-form-field>
+                </div>    
+                <div class="field desc-completa">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descrição Completa</mat-label>
+                        <textarea matInput formControlName="descricaoCompleta" placeholder=""></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="grupo">
+                    <div class="field">
+                        <mat-form-field class="moeda" appearance="outline">
+                            <mat-label>Preço Cheio</mat-label>
+                            <input formControlName="precoCheio" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+                          </mat-form-field>
+                    </div>
+                    <div class="field">
+                        <mat-form-field class="moeda" appearance="outline">
+                            <mat-label>Preço Por</mat-label>
+                            <input formControlName="precoPor" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+                          </mat-form-field>
+                    </div>
+                    <div class="field">
+                        <mat-form-field class="moeda" appearance="outline">
+                            <mat-label>Custo</mat-label>
+                            <input formControlName="custo" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+                          </mat-form-field>
+                    </div>            
+                </div>
+                <div class="grupo">
+                    <div class="field">
+                        <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
+                    </div>
+                    <div class="field">
+                        <mat-slide-toggle formControlName="visivelSite">Visível no Site</mat-slide-toggle>
+                    </div> 
+                    <div class="field">
+                        <mat-slide-toggle formControlName="mostrarProdutoEsgotado">Mostrar Produto Esgotado</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </mat-tab>
+        <mat-tab label="Cores"></mat-tab>
+        <mat-tab label="Filtros"></mat-tab>
+        <mat-tab label="Categorias">
+            <mat-radio-group class="categorias" formControlName="codCategoriaPrincipal">
+                <mat-radio-button  color="primary" *ngFor="let c of list_categorias;let i = index" [value]="i">{{c.descricao}}</mat-radio-button>
+            </mat-radio-group>
+        </mat-tab>
+
+    </mat-tab-group>
 </div> 
 <mat-divider></mat-divider>
-<app-base-register [canSave]="canSaveBase" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register> 
+<app-base-register [canSave]="false" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register> 
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

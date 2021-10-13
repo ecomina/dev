@@ -1,10 +1,72 @@
 @import url("../../../../../styles/_base-edit.css");
 
 
+/* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+    border-radius: 5px;
+  }
+   */
+
+.field {
+    margin: 5px 10px;
+}
+
+.moeda {
+    width: 150px;
+}
+
 .codigo mat-form-field {
     width: 90px;
 }
 
-.descricao mat-form-field {
-    width: 250px;
+.desc-reduzida mat-form-field {
+    width: 100%;
+    max-width: 600px;
 }
+
+.desc-completa mat-form-field {
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.categorias {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+}
+
+mat-form-field button {
+    border-style: none;
+    cursor: pointer;
+    padding: 8px;
+    outline: none;
+    background: transparent;
+}
+
+mat-form-field button:hover {
+    color: blue;
+}
+
+app-base-register {
+    padding: 20px;
+}
+
+mat-tab-group {
+    width: 100%;
+}
+
+mat-radio-button {
+    margin: 10px;
+}
+

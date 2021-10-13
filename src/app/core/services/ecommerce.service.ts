@@ -39,15 +39,15 @@ getProduto(somenteAtivos: boolean) : Observable<any[]> {
   return result;
 }
 
-getProdutoCodigo(codigo: number) {
+getProdutoCodigo(codigo: any) {
 
-  var url = this.urlApi+'api/Produto';
+  var url = this.urlApi+'api/Produto/';
 
   let parametros = new HttpParams();
 
   parametros = parametros.append('codigo', String(codigo));
 
-  var result = this._httpClient.get<any[]>(url, { params: parametros })
+  var result = this._httpClient.get<any>(url.concat(codigo))
     .pipe(
       retry(0),
       catchError(this.handleError));
