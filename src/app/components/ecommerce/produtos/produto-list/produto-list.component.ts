@@ -31,6 +31,10 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
     return result;
   }
 
+  get imgSemfoto() : string {
+    return "../../../../../assets/images/semfoto.png";
+  }
+
   constructor(
     private _api: EcommerceService,
     private _router: Router

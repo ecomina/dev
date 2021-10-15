@@ -25,6 +25,9 @@ import { TamanhoListComponent } from '../ecommerce/cadastros/tamanho/tamanho-lis
 import { TamanhoEditComponent } from '../ecommerce/cadastros/tamanho/tamanho-edit/tamanho-edit.component';
 import { ProdutoListComponent } from '../ecommerce/produtos/produto-list/produto-list.component';
 import { ProdutoEditComponent } from '../ecommerce/produtos/produto-edit/produto-edit.component';
+import { ProdutoDimensoesComponent } from '../ecommerce/produtos/produto-dimensoes/produto-dimensoes.component';
+import { ProdutoItensComponent } from '../ecommerce/produtos/produto-itens/produto-itens.component';
+import { ProdutoFotosComponent } from '../ecommerce/produtos/produto-fotos/produto-fotos.component';
 
 
 @NgModule({
@@ -47,6 +50,9 @@ import { ProdutoEditComponent } from '../ecommerce/produtos/produto-edit/produto
     TamanhoEditComponent,
     ProdutoListComponent,
     ProdutoEditComponent,
+    ProdutoDimensoesComponent,
+    ProdutoItensComponent,
+    ProdutoFotosComponent,
   ],
   imports: [
     CommonModule,

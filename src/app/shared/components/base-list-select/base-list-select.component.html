@@ -1,0 +1,22 @@
+<div class="menu">
+    <button (click)="onClose()"><mat-icon>close</mat-icon></button>
+</div>
+<div class="container">
+    <div class="titulo">
+        <span>{{base_title}}</span>
+    </div>
+    <div class="filter">
+        <app-base-list-filter (eventFilter)="onFiltrar($event)"></app-base-list-filter>
+    </div>
+    <div class="carregando" *ngIf="carregando">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="list" *ngIf="!carregando">
+        <div class="item" *ngFor="let item of list" >
+            <button (click)="onSelect(item)">
+                <span>{{item.codigo}}</span>
+                <span>{{item.descricao}}</span>
+            </button>
+        </div>
+    </div>
+</div>

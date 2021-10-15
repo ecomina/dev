@@ -38,6 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BaseComboFilterComponent } from '../components/base-combo-filter/base-combo-filter.component';
 import { BaseFormDebugComponent } from '../components/base-form-debug/base-form-debug.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BaseListSelectComponent } from '../components/base-list-select/base-list-select.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -48,6 +49,7 @@ const maskConfig: Partial<IConfig> = {
     BaseDialogErrorComponent,
     BaseListFilterComponent,
     BaseListRegisterComponent,
+    BaseListSelectComponent,
     BaseRegisterComponent,
     BaseComboFilterComponent,
     BaseFormDebugComponent,
@@ -94,6 +96,7 @@ const maskConfig: Partial<IConfig> = {
     BaseRegisterComponent,
     BaseComboFilterComponent,
     BaseFormDebugComponent,
+    BaseListSelectComponent,
 
     MatMenuModule,
     MatButtonModule,

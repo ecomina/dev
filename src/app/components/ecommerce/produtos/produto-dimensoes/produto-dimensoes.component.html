@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="form" [formGroup]="formDimensao">
+        <div class="field dimensao">
+            <div class="header">
+                <span>Dimensões</span>
+                <button (click)="onDimensoes()">Dimensões predefinidas</button>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="produto" formGroupName="dimensaoProduto">
+                <span class="label">do Produto</span>
+                <div class="fields">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Peso</mat-label>
+                        <input matInput type="number" formControlName="peso" min="0">
+                        <span matSuffix>g</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>  
+                    <mat-form-field appearance="outline">
+                        <mat-label>Altura</mat-label>
+                        <input matInput type="number" formControlName="altura" min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>  
+                    <mat-form-field appearance="outline">
+                        <mat-label>Largura</mat-label>
+                        <input matInput type="number" formControlName="largura" min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>   
+                    <mat-form-field appearance="outline">
+                        <mat-label>Profundidade</mat-label>
+                        <input matInput type="number" formControlName="profundidade" min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>                                                
+                </div>
+            </div>
+            <div class="embalagem" formGroupName="dimensaoEmbalagem">
+                <span class="label">da Embalagem</span>
+                <div class="fields">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Peso</mat-label>
+                        <input matInput type="number"  formControlName="peso"  min="0">
+                        <span matSuffix>g</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>  
+                    <mat-form-field appearance="outline">
+                        <mat-label>Altura</mat-label>
+                        <input matInput type="number"  formControlName="altura"  min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>  
+                    <mat-form-field appearance="outline">
+                        <mat-label>Largura</mat-label>
+                        <input matInput type="number"  formControlName="largura"  min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>   
+                    <mat-form-field appearance="outline">
+                        <mat-label>Profundidade</mat-label>
+                        <input matInput type="number"  formControlName="profundidade"  min="0">
+                        <span matSuffix>cm</span>
+                        <mat-error *ngIf="formulario.invalid">Informe um valor</mat-error>
+                    </mat-form-field>      
+                </div>            
+            </div>
+        </div>
+    </div>     
+</div>

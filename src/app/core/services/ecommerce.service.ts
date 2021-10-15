@@ -262,7 +262,7 @@ handleError(error: HttpErrorResponse) {
     errorMessage = `Err ${error.error.message}`;
   } else {
     // Erro ocorreu no lado do servidor
-    errorMessage = `Código do erro: ${error.status}, ` + `menssagem: ${error.message}`;
+    errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
   }
   console.error(errorMessage);
   alert(errorMessage);

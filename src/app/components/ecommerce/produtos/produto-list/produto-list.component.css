@@ -54,13 +54,22 @@
 .esquerda {
     display: flex;
     flex-direction: column;
+    justify-content:space-between;
     width: 200px;
+    height: 140px;
+}
+
+.foto {
+    display: flex;
+    justify-content: center;
+    max-height: 100%;
+    height: 115px;
 }
 
 .foto img {
-    /* height: 100%; */
-    width: 100%;
-    /* border-radius: 5px; */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .codigo {
@@ -69,18 +78,28 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    height: 100%;
+    height: 25px;
     background-color: #673ab7;
     color: #fff;
 }
 
 .btn {
+    display: flex;
+    align-items: center;
     height: 100%;
     width: 100%;
     cursor: pointer;
     background: transparent;
     border-style: none;
     color: #fff;
+}
+
+.edit mat-icon {
+    margin-left: -5px;
+}
+
+.edit span {
+    width: 100%;
 }
 
 .detalhe {

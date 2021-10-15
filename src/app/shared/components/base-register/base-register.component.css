@@ -22,13 +22,17 @@
     cursor: pointer;
     color: #fff;
     background-color: #ec7211;
-    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);
+    -webkit-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 3px rgba(125, 125, 125, 0.77);
 }
 
 .btn-salvar:hover {
     background-color: #673ab7;
+}
+
+.btn-salvar:disabled {
+    background-color: #aeaeae;
 }
 
 .btn-cancelar:hover {

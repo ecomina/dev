@@ -12,10 +12,13 @@
         <div class="produto"*ngFor="let produto of list">
             <div class="esquerda">
                 <div class="foto">
-                    <img src="https://http2.mlstatic.com/D_NQ_NP_2X_681024-MLB46169926300_052021-F.webp">
+                    <img src="{{(produto.urlImagem == null) ? imgSemfoto : produto.urlImagem}}">
                 </div>
                 <div class="codigo">
-                    <button class="btn edit" (click)="onEdit(produto)"><span>001010001</span></button>                    
+                    <button class="btn edit" (click)="onEdit(produto)">
+                        <mat-icon>more_vert</mat-icon>
+                        <span>{{  ("00000" + produto.codigo).slice(-5) }}</span>
+                    </button>                    
                 </div>
             </div>
             <mat-divider [vertical]="true"></mat-divider>

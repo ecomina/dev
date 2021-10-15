@@ -31,6 +31,18 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     return this.formulario.value.codMarca;
   }
 
+  get obs_categorias() : Observable<any[]> {
+    return of(this.list_categorias);
+  }
+
+  get id_combo_categoria() {
+    return this.formulario.value.codCategoriaPrincipal;
+  }
+
+  get formDimensao() {
+    return this.formulario.get('dimensao');
+  }
+
   constructor(
     private _location: Location,
     private _router: Router,
@@ -43,6 +55,8 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
           this.history_nav.push(event.urlAfterRedirects)
         }
       })
+
+      this.base_processando = true;
 
       this.createForm();
   }
@@ -77,7 +91,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       descricaoReduzida: null,
       descricaoCompleta: null,
       modelo: null,
-      dimensao: null,
+      dimensao: this.builderDimensao(),
       ativo: true,
       visivelSite: true,
       mostrarProdutoEsgotado: false,
@@ -155,12 +169,32 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   buildForm(produto: any) {
 
-    const cores = this.builderCores(produto.cores).controls;
-
     this.formulario.patchValue(produto);
+
+    if (produto.dimensao != null)
+      this.formDimensao?.patchValue(produto.dimensao)
+
+    const cores = this.builderCores(produto.cores).controls;
 
     cores.forEach(cor => {
       this.coresControls.push(cor);
+    })
+  }
+
+  builderDimensao() {
+    return this._builder.group({
+      dimensaoProduto: this._builder.group({
+        peso: [0, Validators.required],
+        altura: [0, Validators.required],
+        largura: [0, Validators.required],
+        profundidade: [0, Validators.required]
+      }),
+      dimensaoEmbalagem: this._builder.group({
+        peso: [0, Validators.required],
+        altura: [0, Validators.required],
+        largura: [0, Validators.required],
+        profundidade: [0, Validators.required]
+      })
     })
   }
 
@@ -200,8 +234,26 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   onRegister(event: boolean) {
-    if (!event)
-    {
+
+    if (event) {
+      this.base_salvando = true;
+
+      this._api.postProduto(this.formulario.value).subscribe({
+        next: () => {
+          alert('Produto salva com sucesso!')
+        },
+        error: erro => {
+          console.error(erro);
+          this.base_salvando = false;
+          this.onBack();
+        },
+        complete: () => {
+          this.base_salvando = false;
+          this.onBack();
+        }
+      })
+    }
+    else {
       this.onBack();
     }
   }

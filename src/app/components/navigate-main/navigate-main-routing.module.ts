@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedGlobalModule } from '@app/shared/shared-global/shared-global.module';
+import { AuthGuard } from '@app/_helpers/auth.guard';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/cadastros-main.component';
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
@@ -26,15 +27,15 @@ const routes: Routes = [
     children: [  
     ]
   },
-      { path: 'cadastros/cores', component: CoresListComponent },
-      { path: 'cadastros/grade', component: GradeListComponent },
-      { path: 'cadastros/marca', component: MarcaListComponent },
-      { path: 'cadastros/tamanho', component: TamanhoListComponent },
-      { path: 'cadastros/categoria', component: CategoriaListComponent },
-      { path: 'cadastros/filtro', component: FiltroListComponent },
-      { path: 'cadastros/dimensao', component: DimensaoListComponent },
-      { path: 'produto/list', component: ProdutoListComponent },
-      { path: 'produto/edit/:codigo', component: ProdutoEditComponent },
+      { path: 'cadastros/cores', component: CoresListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/grade', component: GradeListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/marca', component: MarcaListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/tamanho', component: TamanhoListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/categoria', component: CategoriaListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/filtro', component: FiltroListComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/dimensao', component: DimensaoListComponent, canActivate: [AuthGuard] },
+      { path: 'produto/list', component: ProdutoListComponent, canActivate: [AuthGuard] },
+      { path: 'produto/edit/:codigo', component: ProdutoEditComponent, canActivate: [AuthGuard] },
   {
     path: 'home', component: HomeComponent
   },
