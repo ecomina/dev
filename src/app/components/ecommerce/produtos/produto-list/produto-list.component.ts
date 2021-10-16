@@ -32,7 +32,7 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
   }
 
   get imgSemfoto() : string {
-    return "../../../../../assets/images/semfoto.png";
+    return "../../../../../assets/images/semfoto.jfif";
   }
 
   constructor(

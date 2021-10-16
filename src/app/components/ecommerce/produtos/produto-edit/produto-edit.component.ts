@@ -14,7 +14,6 @@ import { Observable, of } from 'rxjs';
 })
 export class ProdutoEditComponent extends BaseRegisterComponent implements OnInit, OnDestroy {
 
-  produtoCodigo: any = null;
   private history_nav: string[] = []
   private list_marcas: any[] = [];
   public list_categorias: any[] = [];
@@ -41,6 +40,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   get formDimensao() {
     return this.formulario.get('dimensao');
+  }
+
+  get codigoProduto() {
+    return this.formulario.get('codigo')?.value;
   }
 
   constructor(

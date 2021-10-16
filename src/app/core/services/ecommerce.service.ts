@@ -255,6 +255,20 @@ postDimensao(obj: any) : Observable<any> {
   return result;
 }
 
+getProdutoFotos(codProduto: any) : Observable<any[]> {
+
+  var url = this.urlApi+'api/Produto/';
+  url = url.concat(codProduto).concat("/Foto")
+
+  var result = this._httpClient.get<any>(url)
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+
 handleError(error: HttpErrorResponse) {
   let errorMessage = '';
   if (error.error instanceof ErrorEvent) {

@@ -82,7 +82,7 @@
                 <div class="grupo">
                     <app-produto-dimensoes [form]="formulario" class="dimensoes"></app-produto-dimensoes>
                 </div>
-                <div class="grupo">
+           
                     <div class="field">
                         <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
                     </div>
@@ -92,14 +92,14 @@
                     <div class="field">
                         <mat-slide-toggle formControlName="mostrarProdutoEsgotado">Mostrar Produto Esgotado</mat-slide-toggle>
                     </div>
-                </div>
+                
             </div>
         </mat-tab>
-        <mat-tab label="Cores">
+        <mat-tab label="Itens">
             <app-produto-itens [form]="formulario"></app-produto-itens>
         </mat-tab>
         <mat-tab label="Fotos">
-            <app-produto-fotos [form]="formulario"></app-produto-fotos>
+            <app-produto-fotos [codProduto]="codigoProduto"></app-produto-fotos>
         </mat-tab>
         <mat-tab label="Filtros"></mat-tab>
         <!-- <mat-tab label="Categorias">

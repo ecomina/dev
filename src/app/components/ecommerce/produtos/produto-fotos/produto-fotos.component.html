@@ -1,1 +1,11 @@
-<p>produto-fotos works!</p>
+<div class="carregando" *ngIf="base_carregando">
+    <span>Carregando...</span>
+    <mat-spinner></mat-spinner>
+</div>
+<div class="container">
+    <div class="fotos">
+        <div class="foto" *ngFor="let f of fotosControl.controls;let i = index">
+            <img [src]="f.value.urlImagem" onerror="this.src='../../../../../assets/images/semfoto.jfif'">  
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+.fotos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.foto {
+    margin: 20px;
+    -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
+}
+
+img {
+    height: 150px;
+    width: 150px;
+    margin: 10px;
+}

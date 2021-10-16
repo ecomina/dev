@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-base',
@@ -9,8 +9,10 @@ import { FormGroup } from '@angular/forms';
 export class BaseComponent implements OnInit {
 
   public base_title: string;
+  public base_carregando: Boolean = false;
 
   @Input() formulario: FormGroup;
+  @Input() formularioArray: FormArray;
 
 
   public iconCheck(check: boolean) {
