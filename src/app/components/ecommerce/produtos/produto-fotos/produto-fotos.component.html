@@ -5,7 +5,7 @@
 <div class="container">
     <div class="fotos">
         <div class="foto" *ngFor="let f of fotosControl.controls;let i = index">
-            <img [src]="f.value.urlImagem" onerror="this.src='../../../../../assets/images/semfoto.jfif'">  
+            <img [src]="f.value.urlImagem" onerror="this.src='../../../../../assets/images/image_not_found.png'">  
         </div>
     </div>
 </div>

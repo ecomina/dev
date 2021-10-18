@@ -39,6 +39,9 @@ import { BaseComboFilterComponent } from '../components/base-combo-filter/base-c
 import { BaseFormDebugComponent } from '../components/base-form-debug/base-form-debug.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BaseListSelectComponent } from '../components/base-list-select/base-list-select.component';
+import { BaseUploadFilesComponent } from '../components/base-upload-files/base-upload-files.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -53,6 +56,7 @@ const maskConfig: Partial<IConfig> = {
     BaseRegisterComponent,
     BaseComboFilterComponent,
     BaseFormDebugComponent,
+    BaseUploadFilesComponent
   ],
   imports: [
     NgxMaskModule.forRoot(maskConfig),
@@ -82,12 +86,13 @@ const maskConfig: Partial<IConfig> = {
     NgxMatSelectSearchModule,
     MatTreeModule,
     MatDatepickerModule,
-    DragDropModule,
     MatTabsModule,
     MatRadioModule,
-    //NgxCurrencyModule,
-
     ScrollingModule,
+
+    DragDropModule,
+    NgxFileDropModule,
+    FileUploadModule,
   ],
   exports:[
     BaseDialogErrorComponent,
@@ -97,6 +102,7 @@ const maskConfig: Partial<IConfig> = {
     BaseComboFilterComponent,
     BaseFormDebugComponent,
     BaseListSelectComponent,
+    BaseUploadFilesComponent,
 
     MatMenuModule,
     MatButtonModule,
@@ -125,6 +131,9 @@ const maskConfig: Partial<IConfig> = {
     MatTabsModule,
     MatRadioModule,
     NgxCurrencyModule,
+
+    NgxFileDropModule,
+    FileUploadModule,
 
     ScrollingModule,
 
