@@ -16,8 +16,6 @@ import { UserRegisterComponent } from './components/user/user-register/user-regi
 import { AppConfigurarion } from './_config/app-configuration';
 import { AppConfigurarionJsonService } from './_config/app-configuration-json-service';
 import { NgxCurrencyModule } from 'ngx-currency';
-import { FileUploadModule } from '@iplab/ngx-file-upload';
-import { NgxFileDropModule } from 'ngx-file-drop';
 
 export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
   return (): Promise<any> => {

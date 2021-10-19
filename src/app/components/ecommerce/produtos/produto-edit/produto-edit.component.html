@@ -7,7 +7,7 @@
     <mat-spinner mode="indeterminate"></mat-spinner>
 </div>
 <div class="container"  *ngIf="!base_processando" [formGroup]="formulario">
-    <mat-tab-group>
+    <mat-tab-group [selectedIndex]="tabIndex" (selectedIndexChange)="(tabIndex=$event)" >
         <mat-tab label="Gerais">
             <div class="form">
                 <div class="grupo">
@@ -95,13 +95,13 @@
                 
             </div>
         </mat-tab>
-        <mat-tab label="Itens">
+        <mat-tab label="Cor e Tamanho">
             <app-produto-itens [form]="formulario"></app-produto-itens>
         </mat-tab>
         <mat-tab label="Fotos">
-            <app-produto-foto-cor></app-produto-foto-cor>
+            <app-produto-foto-cor [form]="formulario" [codProduto]="codigoProduto" ></app-produto-foto-cor>
         </mat-tab>
-        <mat-tab label="Filtros"></mat-tab>
+        <mat-tab label="Filtros" disabled></mat-tab>
         <!-- <mat-tab label="Categorias">
             <mat-radio-group class="categorias" formControlName="codCategoriaPrincipal">
                 <mat-radio-button  color="primary" *ngFor="let c of list_categorias;let i = index" [value]="i">{{c.descricao}}</mat-radio-button>
@@ -110,5 +110,5 @@
 
     </mat-tab-group>
 </div> 
-<app-base-register  *ngIf="!base_processando" [canSave]="canSaveBase" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register> 
+<app-base-register  *ngIf="canView" [canSave]="canSaveBase" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register> 
 <app-base-form-debug [form]="formulario"></app-base-form-debug>

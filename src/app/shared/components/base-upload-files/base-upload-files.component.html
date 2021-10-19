@@ -1,32 +1,36 @@
-<!-- <div class="container">
-    <file-upload [control]="fileUploadControl">
-        <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
-            <span *ngIf="isFileDragDropAvailable">
-              <div class="upload">
-                <mat-icon>upload</mat-icon>
-                <span *ngIf="existsFiles">Arraste e solte arquivos<p>ou clique aqui</span>
-              </div>
-            </span>
-            <span *ngIf="!isFileDragDropAvailable">click</span>
-        </ng-template>
-      
-        <ng-template let-i="index" let-file="file" let-control="control" #item>
-            <div class="file-info">
-                <div class="item">
-                  <div class="icone-tipo">
-                    <mat-icon>image</mat-icon>
-                  </div>            
-                  <div class="file">
-                    <div class="nome-arquivo">
-                      <span class="file-name">{{ file.name }} ({{file.size}} KB)</span>
-                    </div>
-                    <div class="excluir">
-                      <button (click)="control.removeFile(file)"><mat-icon>delete</mat-icon>Remover</button>
-                    </div>
+<div class="container">
+  <file-upload [control]="fileUploadControl">
+      <ng-template let-isFileDragDropAvailable="isFileDragDropAvailable" #placeholder>
+          <span *ngIf="isFileDragDropAvailable">
+            <div class="upload">
+              <mat-icon>upload</mat-icon>
+              <span *ngIf="!canUpload">Arraste e solte arquivos<p>ou clique aqui</span>
+            </div>
+          </span>
+          <span *ngIf="!isFileDragDropAvailable">click</span>
+      </ng-template>
+    
+      <ng-template let-i="index" let-file="file" let-control="control" #item>
+          <div class="file-info">
+              <div class="item">
+                <div class="icone-tipo">
+                  <mat-icon>image</mat-icon>
+                </div>            
+                <div class="file">
+                  <div class="nome-arquivo">
+                    <span class="file-name">{{ file.name }} ({{file.size}} KB)</span>
+                  </div>
+                  <div class="excluir">
+                    <button (click)="control.removeFile(file)"><mat-icon>delete</mat-icon>Remover</button>
                   </div>
                 </div>
-            </div>
-        </ng-template>
-      </file-upload>
-      <button (click)="onUpload()">Upload</button>
-</div> -->
+              </div>
+          </div>
+      </ng-template>
+  </file-upload>
+  <div class="action">
+    <button *ngIf="canUpload"  class="btn-action btn-salvar" mat-button [disabled]="false" (click)="onUpload()">Carregar</button>
+    <!-- <button class="btn-action btn-cancelar" mat-button [disabled]="!canCancel" (click)="onCancelar()">Desistir</button> -->
+</div>
+
+</div>

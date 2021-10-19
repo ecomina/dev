@@ -1,0 +1,51 @@
+.container  {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.ttAlert {
+    color:blueviolet;
+}
+
+.ttError {
+    color:red;
+}
+
+.ttSucess {
+    color:blue;
+}
+
+.error {
+    color: red;
+}
+
+.mensagem {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.btn {
+    border-style: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+    height: 40px;
+    width: 100px;
+    -webkit-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 3px rgba(125, 125, 125, 0.77); 
+}

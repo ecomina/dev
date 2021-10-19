@@ -1,8 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
-import { Observable, throwError } from 'rxjs';
+import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
@@ -20,7 +22,8 @@ export class EcommerceService {
 
   constructor(
     private _httpClient: HttpClient,
-    private _appConfig: AppConfigurarion) { }
+    private _appConfig: AppConfigurarion,
+    private domSanitizer: DomSanitizer) { }
 
 
 getProduto(somenteAtivos: boolean) : Observable<any[]> {
@@ -255,10 +258,10 @@ postDimensao(obj: any) : Observable<any> {
   return result;
 }
 
-getProdutoFotos(codProduto: any) : Observable<any[]> {
+getProdutoFotos(codProduto: number) : Observable<any[]> {
 
   var url = this.urlApi+'api/Produto/';
-  url = url.concat(codProduto).concat("/Foto")
+  url = url.concat(codProduto.toString()).concat("/Foto")
 
   var result = this._httpClient.get<any>(url)
     .pipe(
@@ -266,6 +269,64 @@ getProdutoFotos(codProduto: any) : Observable<any[]> {
       catchError(this.handleError));
 
   return result;
+}
+
+convertFile(file : File) : Observable<string> {
+  const result = new ReplaySubject<string>(1);
+  const reader = new FileReader();
+  reader.readAsBinaryString(file);
+  reader.onload = (event:any) => result.next(btoa(event.target.result.toString()));
+  return result;
+}
+
+postCorFoto(codProduto: any, codCor: any, codPosicao: any, body: any) :Observable<any> {
+ 
+  var url = this.urlApi+'api/Produto/';
+  url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao).concat("/Base64");
+  console.log('passei api')
+  // let body = {
+  //   base64Image: ""
+  // }
+
+  // var base64Output : any;
+
+  // const fr = new FileReader();
+  // fr.readAsDataURL(foto);
+  // fr.onload = () => {
+  //   base64Output =  (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");;
+  //   body.base64Image = <string>base64Output;
+
+  //   let result = this._httpClient.post<any>(url, JSON.stringify(body), this.httpOptions).subscribe();
+  //   // .pipe(
+  //   //   retry(0),
+  //   //   catchError(this.handleError));
+
+  //   console.log('Result', result)
+  // }
+
+  // const img = this.domSanitizer.bypassSecurityTrustUrl(base64Output);
+
+    
+  var result = this._httpClient.post<any>(url, body)
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+delFotoCor(codProduto: any, codCor: any, codPosicao: any) {
+  var url = this.urlApi+'api/Produto/';
+  url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao);
+
+  console.log('delFotoCor',url)
+
+  var result = this._httpClient.delete<any>(url, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;  
 }
 
 

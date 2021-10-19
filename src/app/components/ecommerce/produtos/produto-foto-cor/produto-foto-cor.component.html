@@ -1,1 +1,60 @@
-<p>produto-foto-cor works!</p>
+<div class="container">
+    <div class="cores">
+        <div class="cor" *ngFor="let cor of produtoCores.controls;let i = index">
+            <div class="item">
+                <div class="cor-desc">
+                    {{cor.value.descricao}}
+                </div>
+                <mat-spinner *ngIf="base_carregando"></mat-spinner>
+                <span class="caption">Imagens</span>
+                <div class="fotos" *ngIf="!base_carregando" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                    <div class="foto" *ngFor="let foto of fotosCor(cor.value.codCorECommerce)" cdkDrag>
+                        <div class="imagem">
+                            <span class="posicao">{{foto.posicao}}</span>
+                            <img id="myImg" [src]="foto.urlImagem" (error)="onImgError($event)" alt="Snow">
+                            <button class="excluir" matTooltip="Excluir esta foto" (click)="onDelete(foto)" ><mat-icon>delete</mat-icon></button>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="upload">
+                    <app-base-upload-files (eventEmitterFiles)="onFilesUp($event, cor)" ></app-base-upload-files>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+
+  
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        alert('Alerta');
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() { 
+      modal.style.display = "none";
+    }
+    </script>
+    
+
+
+

@@ -42,6 +42,8 @@ import { BaseListSelectComponent } from '../components/base-list-select/base-lis
 import { BaseUploadFilesComponent } from '../components/base-upload-files/base-upload-files.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BaseDialogComponent } from '../components/base-dialog/base-dialog.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -49,6 +51,7 @@ const maskConfig: Partial<IConfig> = {
 
 @NgModule({
   declarations: [
+    BaseDialogComponent,
     BaseDialogErrorComponent,
     BaseListFilterComponent,
     BaseListRegisterComponent,
@@ -56,13 +59,15 @@ const maskConfig: Partial<IConfig> = {
     BaseRegisterComponent,
     BaseComboFilterComponent,
     BaseFormDebugComponent,
-    BaseUploadFilesComponent
+    BaseUploadFilesComponent,
   ],
   imports: [
     NgxMaskModule.forRoot(maskConfig),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxFileDropModule,
+    FileUploadModule,
 
     MatMenuModule,
     MatButtonModule,
@@ -91,10 +96,9 @@ const maskConfig: Partial<IConfig> = {
     ScrollingModule,
 
     DragDropModule,
-    NgxFileDropModule,
-    FileUploadModule,
   ],
   exports:[
+    BaseDialogComponent,
     BaseDialogErrorComponent,
     BaseListFilterComponent,
     BaseListRegisterComponent,
@@ -131,9 +135,6 @@ const maskConfig: Partial<IConfig> = {
     MatTabsModule,
     MatRadioModule,
     NgxCurrencyModule,
-
-    NgxFileDropModule,
-    FileUploadModule,
 
     ScrollingModule,
 

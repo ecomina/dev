@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FileUploadControl, FileUploadValidators } from '@iplab/ngx-file-upload';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
@@ -9,12 +9,14 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 })
 export class BaseUploadFilesComponent implements OnInit, OnDestroy {
 
+  @Output() eventEmitterFiles = new EventEmitter();
+
   public readonly uploadedFile: BehaviorSubject<any> = new BehaviorSubject(null);
   private subscription: Subscription;
   public fileUploadControl = new FileUploadControl({accept: ['image/*']}, FileUploadValidators.fileSize(80000));
   
-  get existsFiles() {
-    return (this.fileUploadControl.valid)
+  get canUpload() {
+    return (this.fileUploadControl.value.length > 0)
   }
 
   constructor() { 
@@ -55,16 +57,17 @@ export class BaseUploadFilesComponent implements OnInit, OnDestroy {
 
   onUpload() : void {
 
-    this.fileUploadControl.value.forEach(f => {
-      const fr =  this.getFile(f);
-      console.log('onUpload', fr)
-    })
+    // this.fileUploadControl.value.forEach(f => {
+    //   const fr =  this.getFile(f);
+    //   console.log('onUpload', fr)
+    // })
 
-    console.log(this.fileUploadControl.value.length)
+    // console.log(this.fileUploadControl.value.length)
+
+    const files = this.fileUploadControl.value;
+
+    this.eventEmitterFiles.emit(files);
+    this.fileUploadControl.setValue([]);
 
   }
-
-
-
-
 }

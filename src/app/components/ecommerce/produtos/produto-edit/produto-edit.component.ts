@@ -17,6 +17,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   private history_nav: string[] = []
   private list_marcas: any[] = [];
   public list_categorias: any[] = [];
+  public tabIndex = 0;
 
   get coresControls() : FormArray {
     return this.formulario.get('cores') as FormArray;
@@ -44,6 +45,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   get codigoProduto() {
     return this.formulario.get('codigo')?.value;
+  }
+
+  get canView() {
+    return !this.base_processando && this.tabIndex != 2;
   }
 
   constructor(
@@ -83,6 +88,11 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     //   this._router.navigateByUrl('/')
     // }
   }
+
+  onTab(event: any) {
+    alert(event);
+  }
+
 
   createForm() {
     this.formulario = this._builder.group({
