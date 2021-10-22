@@ -7,12 +7,13 @@
                 </div>
                 <mat-spinner *ngIf="base_carregando"></mat-spinner>
                 <span class="caption">Imagens</span>
-                <div class="fotos" *ngIf="!base_carregando" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
-                    <div class="foto" *ngFor="let foto of fotosCor(cor.value.codCorECommerce)" cdkDrag>
+                <div class="fotos" *ngIf="!base_carregando" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, cor)">
+                    <div class="foto" *ngFor="let foto of fotosCor(cor)" cdkDrag>
                         <div class="imagem">
                             <span class="posicao">{{foto.posicao}}</span>
-                            <img id="myImg" [src]="foto.urlImagem" (error)="onImgError($event)" alt="Snow">
-                            <button class="excluir" matTooltip="Excluir esta foto" (click)="onDelete(foto)" ><mat-icon>delete</mat-icon></button>
+                            <img id="myImg" [src]="foto.urlImagem" alt="foto">
+                            <!-- <img id="myImg" [src]="foto.urlImagem" (error)="onImgError($event)" alt="Snow"> -->
+                            <button class="excluir" matTooltip="Excluir esta imagem" (click)="onDelete(foto)" ><mat-icon>delete</mat-icon></button>
                         </div>
                     </div>                    
                 </div>
@@ -31,7 +32,7 @@
   </div>
 
   
-<script>
+<!-- <script>
     // Get the modal
     var modal = document.getElementById("myModal");
     
@@ -54,7 +55,7 @@
       modal.style.display = "none";
     }
     </script>
-    
+     -->
 
 
 

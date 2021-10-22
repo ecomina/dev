@@ -280,32 +280,10 @@ convertFile(file : File) : Observable<string> {
 }
 
 postCorFoto(codProduto: any, codCor: any, codPosicao: any, body: any) :Observable<any> {
+ console.log('postCorFoto', codCor, codPosicao, body)
  
   var url = this.urlApi+'api/Produto/';
   url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao).concat("/Base64");
-  console.log('passei api')
-  // let body = {
-  //   base64Image: ""
-  // }
-
-  // var base64Output : any;
-
-  // const fr = new FileReader();
-  // fr.readAsDataURL(foto);
-  // fr.onload = () => {
-  //   base64Output =  (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");;
-  //   body.base64Image = <string>base64Output;
-
-  //   let result = this._httpClient.post<any>(url, JSON.stringify(body), this.httpOptions).subscribe();
-  //   // .pipe(
-  //   //   retry(0),
-  //   //   catchError(this.handleError));
-
-  //   console.log('Result', result)
-  // }
-
-  // const img = this.domSanitizer.bypassSecurityTrustUrl(base64Output);
-
     
   var result = this._httpClient.post<any>(url, body)
     .pipe(

@@ -8,7 +8,8 @@ export enum DialogType {
     SucessSave,
     ErroSave,
     SucessDelete,
-    ErrorDelete
+    ErrorDelete,
+    Process
 }
 
 export enum DialogResult {

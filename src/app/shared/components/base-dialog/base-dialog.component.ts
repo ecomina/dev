@@ -23,6 +23,10 @@ export class BaseDialogComponent implements OnInit {
     return this._mensagem;
   }
 
+  get process() {
+    return this.tipo == DialogType.Process;
+  }
+
   get corTitulo() {
 
     let classTitulo = "ttAlert";
@@ -49,7 +53,7 @@ export class BaseDialogComponent implements OnInit {
   ) { 
     this._mensagem = data.mensagem;
     this._titulo = data.titulo;
-    console.log()
+    this._tipo = data.tipo;
   }
 
   ngOnInit(): void {

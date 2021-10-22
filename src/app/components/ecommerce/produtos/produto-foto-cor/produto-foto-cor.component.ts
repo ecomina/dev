@@ -5,8 +5,9 @@ import { BaseComponent } from '@app/shared/components/base/base.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { BehaviorSubject, of, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogType } from '@app/modules/BaseDialog';
-import { take, takeUntil } from 'rxjs/operators';
+import { catchError, delay, map, take, takeUntil } from 'rxjs/operators';
+
+// declare function modal(): any;
 
 @Component({
   selector: 'app-produto-foto-cor',
@@ -42,7 +43,10 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   }
 
   fotosCor(cor: any) {
-    const list = this.fotos.filter(c => c.codCor == cor);
+
+    const codCor = cor.value.codCorECommerce;
+
+    const list = this.fotos.filter(c => c.codCor == codCor).sort((a, b) => (a.posicao > b.posicao) ? 1 : -1);
 
     return list;
   }
@@ -52,6 +56,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     private _builder: FormBuilder,
     public dialog: MatDialog) { 
     super();
+  
   }
 
   ngOnInit(): void {
@@ -66,12 +71,16 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     if (codProduto == null)
       return;
 
-    this._api.getProdutoFotos(codProduto).subscribe({
+    this._api.getProdutoFotos(codProduto)
+    .subscribe({
       next: result => {
+        //this.baseDialogProcess('Carregando imagens...');
         this._produtoFotos = [];
         this.base_carregando = true;
 
-        result.forEach(c => {
+        const list = result.sort((a, b) => (a.posicao > b.posicao) ? 1 : -1);
+
+        list.forEach(c => {
           this._produtoFotos.push({
             codProdutoEcommerce: c.codProdutoEcommerce,
             codCor: c.codCor,
@@ -82,118 +91,121 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
         })
       },
       error: erro => {
-        this.onBaseError('Cores', 'Erro ao carregar cores')
+        this.baseDialogError('Erro ao carregar cores', erro)
         this.base_carregando = false;
       },
       complete: () => {
         this.base_carregando = false;
+        //this.baseDialogClose();
       }
     })
   }
 
+  drop(event: CdkDragDrop<{title: string, poster: string}[]>, cor: any) {
+    
+    var list = this.fotosCor(cor);
+   
+    moveItemInArray(list, event.previousIndex, event.currentIndex);
 
-  drop(event: CdkDragDrop<{title: string, poster: string}[]>) {
-    moveItemInArray(this.fotos, event.previousIndex, event.currentIndex);
+    list.forEach((f, i) => {
+      f.posicao = i+1
+    })
   }
 
   onFilesUp(event: any, cor: any) {
     
     const files = event as File[];
-
-    let maxPosition: number = this.fotosCor( cor.value.codCorECommerce).length;
-    let uploading = false;
-
-    for (let i = 0; i < files.length; i++)
-    {
-      let f = files[i]; 
-      maxPosition++;
-
-      let body = {
-        extensao: "",
-        base64Image: ""
-      }
     
-      var base64Output : any;
+    let registro = of(files);
 
-      var fr = new FileReader();
-      fr.readAsDataURL(f);
-      fr.onload = () => {
-        base64Output =  (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");
+    registro
+      .subscribe({
+        next: result => {
+          this.base_carregando = true;
+          this.baseDialogProcess("Carregando imagens");
 
-        body.extensao = f.name.split('.').pop() as string;
-        body.base64Image = <string>base64Output;
+          result.forEach((f, i) => {
+            let maxPosition = i;
 
-        console.log('onFilesUp', body);
+            let body = {
+              extensao: "",
+              base64Image: ""
+            }
 
-        uploading = true;
-        this.base_carregando = true;
-        this._api.postCorFoto(this.produtoCodigo, cor.value.codCorECommerce, maxPosition, body)
-        .subscribe({
-          next: result => {
-            
-            this._produtoFotos.push({
-              codProdutoEcommerce: result.codProdutoEcommerce,
-              codCor: result.codCor,
-              posicao: result.posicao,
-              urlImagem: result.urlImagem,
-              file: null
-            })
-          },
-          complete: () => {
-            uploading = false;
-            this.base_carregando = false;
-            this.baseDialogSucess('Imagens enviadas com sucesso!');
-          }
-        })
-      }
-
-
+            var fr = new FileReader();
+            fr.readAsDataURL(f);
+            fr.onload = () => {
       
-    }
+              body.extensao = f.name.split('.').pop() as string;
+              body.base64Image = (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");
 
-
-    // files.forEach((f: any) => {
-    //   console.log('Passei')
-    //   maxPosition++;
-
-    //   let body = {
-    //     base64Image: ""
-    //   }
-    
-    //   var base64Output : any;
-
-    //   var fr = new FileReader();
-    //   fr.readAsDataURL(f);
-    //   fr.onload = () => {
-    //     base64Output =  (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");;
-    //     body.base64Image = <string>base64Output;
-
-    //     this._api.postCorFoto(this.produtoCodigo, cor.value.codCorECommerce, maxPosition, body)
-    //     .subscribe();
-    //   }
-    // });
+              this._api.postCorFoto(this.produtoCodigo, cor.value.codCorECommerce, maxPosition+1, body)
+              .pipe(
+                delay(3000),
+                catchError(err => {
+                  this.baseDialogError('Falha no envio da imagem"'+f.name+"'");
+                  return err;
+                })
+              )
+              .subscribe({
+                next: result => {
+                  this._produtoFotos.push({
+                    codProdutoEcommerce: result.codProdutoEcommerce,
+                    codCor: result.codCor,
+                    posicao: result.posicao,
+                    urlImagem: result.urlImagem,
+                    file: null
+                  })
+                },
+                complete: () => {
+                  console.log(body);
+                  this.base_carregando = false;
+                  this.baseDialogClose();
+                }
+              })
+            }
+          })
+        },
+        error: erro => {
+          console.error(erro)
+          this.base_carregando = false;
+          this.baseDialogError("Erro no envio de imagem");
+        },
+        complete: () => {
+          this.base_carregando = false;
+          
+          //this.baseDialogSucess('Imagens enviadas com sucesso!');
+        }
+      })
   }
 
   unsub$ = new Subject();
 
   onDelete(fotoCor: any) {
 
-    this._api.delFotoCor(this.produtoCodigo, fotoCor.codCor, fotoCor.posicao)
-    .pipe(
-      //take(1)
-      takeUntil(this.unsub$)
-    )
-    .subscribe({
+    this.baseDialogProcess('Excluindo foto...').subscribe({
       next: result => {
-        this.baseDialogSucess('Imagem excluida com sucesso!')
-      },
-      error: erro => {
-        this.baseDialogError('Erro', 'Falha na tentativa de exclusão da imagem.')
-      },
-      complete: () => {
-        this.onCarregar(this.produtoCodigo);
+
+        this._api.delFotoCor(this.produtoCodigo, fotoCor.codCor, fotoCor.posicao)
+        .pipe(
+          //take(1)
+          takeUntil(this.unsub$)
+        )
+        .subscribe({
+          next: () => {
+            this.baseDialogSucess('Imagem excluida com sucesso!');
+          },
+          error: erro => {
+            this.baseDialogError('Falha na tentativa de exclusão da imagem.', erro)
+          },
+          complete: () => {
+            this.onCarregar(this.produtoCodigo);
+          }
+        })
       }
-    })
+    });
+
+
   }
 
   private getImage(file: File): void {

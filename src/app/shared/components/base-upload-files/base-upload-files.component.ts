@@ -57,13 +57,6 @@ export class BaseUploadFilesComponent implements OnInit, OnDestroy {
 
   onUpload() : void {
 
-    // this.fileUploadControl.value.forEach(f => {
-    //   const fr =  this.getFile(f);
-    //   console.log('onUpload', fr)
-    // })
-
-    // console.log(this.fileUploadControl.value.length)
-
     const files = this.fileUploadControl.value;
 
     this.eventEmitterFiles.emit(files);

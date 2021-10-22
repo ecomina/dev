@@ -29,7 +29,8 @@ import { ProdutoDimensoesComponent } from '../ecommerce/produtos/produto-dimenso
 import { ProdutoItensComponent } from '../ecommerce/produtos/produto-itens/produto-itens.component';
 import { ProdutoFotosComponent } from '../ecommerce/produtos/produto-fotos/produto-fotos.component';
 import { ProdutoFotoCorComponent } from '../ecommerce/produtos/produto-foto-cor/produto-foto-cor.component';
-
+import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-list.component';
+import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,9 @@ import { ProdutoFotoCorComponent } from '../ecommerce/produtos/produto-foto-cor/
     ProdutoDimensoesComponent,
     ProdutoItensComponent,
     ProdutoFotosComponent,
-    ProdutoFotoCorComponent
+    ProdutoFotoCorComponent,
+    PedidoListComponent,
+    PedidoEditComponent,
   ],
   imports: [
     CommonModule,

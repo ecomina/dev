@@ -64,10 +64,10 @@
     position: absolute;
     margin: 10px;
     border-style: solid;
+    border-width: 2px;
     font-size: 16px;
-    height: 20px;
-    width: 20px;
-    border-width: 1px;
+    height: 24px;
+    width: 24px;
     border-color: #000;
     background-color: #fff;
     display: flex;
@@ -75,17 +75,24 @@
     justify-content: center;
 }
 
- .excluir {
-    border-style: none;
-    background: transparent;
-    position: absolute;
-    padding: 10px;
-    cursor: pointer;
-    margin: 152px 156px
- }
+.excluir {
+  border-style: none;
+  background: transparent;
+  position: absolute;
+  padding: 10px;
+  cursor: pointer;
+  margin: 152px 156px;
+}
+
+.excluir mat-icon {
+  background-color: #fff;
+  border-style: solid;
+  border-width: 2px;
+}
 
 .excluir:hover {
     transform: scale(1.2);
+    color: red;
 }
 
   .example-custom-placeholder {
@@ -95,10 +102,7 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
 
-
-
-
-.img-drop {
+  .img-drop {
     height: 100px;
     width: 100px;
 }

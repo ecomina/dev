@@ -2,11 +2,12 @@
     <div class="titulo">
         <span [class]="corTitulo">{{titulo}}</span>
     </div>
+    <mat-spinner *ngIf="process"></mat-spinner>
     <div class="mensagem">
         <span>{{mensagem}}</span>
     </div>
     <mat-divider></mat-divider>
-    <div class="action">
+    <div class="action" *ngIf="!process">
         <button class="btn ok" (click)="onOk()">Ok</button>
     </div>
 </div>

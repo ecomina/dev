@@ -14,6 +14,8 @@ import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/f
 import { GradeListComponent } from '../ecommerce/cadastros/grade/grade-list/grade-list.component';
 import { MarcaListComponent } from '../ecommerce/cadastros/marca/marca-list/marca-list.component';
 import { TamanhoListComponent } from '../ecommerce/cadastros/tamanho/tamanho-list/tamanho-list.component';
+import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
+import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-list.component';
 import { ProdutoEditComponent } from '../ecommerce/produtos/produto-edit/produto-edit.component';
 import { ProdutoListComponent } from '../ecommerce/produtos/produto-list/produto-list.component';
 import { HomeComponent } from '../home/home.component';
@@ -25,6 +27,7 @@ const routes: Routes = [
   {
     path: 'cadastros', component: CadastrosMainComponent,
     children: [  
+      // { path: 'cores', component: CoresListComponent, canActivate: [AuthGuard] }
     ]
   },
       { path: 'cadastros/cores', component: CoresListComponent, canActivate: [AuthGuard] },
@@ -36,6 +39,9 @@ const routes: Routes = [
       { path: 'cadastros/dimensao', component: DimensaoListComponent, canActivate: [AuthGuard] },
       { path: 'produto/list', component: ProdutoListComponent, canActivate: [AuthGuard] },
       { path: 'produto/edit/:codigo', component: ProdutoEditComponent, canActivate: [AuthGuard] },
+
+      { path: 'pedido/list', component: PedidoListComponent, canActivate: [AuthGuard] },
+      { path: 'pedido/edit', component: PedidoEditComponent, canActivate: [AuthGuard] },
   {
     path: 'home', component: HomeComponent
   },

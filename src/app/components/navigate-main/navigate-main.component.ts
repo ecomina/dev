@@ -23,8 +23,8 @@ export class NavigateMainComponent extends BaseComponent {
       caption: 'Pedidos',
       submenus: [
         {
-          caption: 'Localizar',
-          link:'localizar'
+          caption: 'Consulta',
+          link:'pedido/list'
         },
         {
           caption: 'Cancelamento',

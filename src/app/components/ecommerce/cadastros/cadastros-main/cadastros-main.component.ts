@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 
 @Component({
@@ -73,7 +73,8 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
   }
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _route: ActivatedRoute
   ) { 
     super();
   }
@@ -83,7 +84,8 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
   }
 
   onAbrir(item: any) {
-    this._router.navigate([item.link]);
+    console.log('onAbrir', item.link, this._route)
+    this._router.navigate([item.link]/*, { relativeTo: this._route }*/);
   }
 
   onFiltrar(event: any) {
