@@ -23,6 +23,22 @@ export class BaseDialogComponent implements OnInit {
     return this._mensagem;
   }
 
+  get canOk() {
+    return (this.tipo == DialogType.Ok || this.tipo == DialogType.OkCancel || this.tipo == DialogType.Sucess)
+  }
+
+  get canCancel() {
+    return (this.tipo == DialogType.OkCancel || this.tipo == DialogType.YesNoCancel)
+  }
+
+  get canYes() {
+    return (this.tipo == DialogType.YesNoCancel)
+  }
+
+  get canNo() {
+    return (this.tipo == DialogType.YesNoCancel)
+  }
+
   get process() {
     return this.tipo == DialogType.Process;
   }
@@ -47,6 +63,15 @@ export class BaseDialogComponent implements OnInit {
     return classTitulo;
   }
 
+  resultOk: DialogResult = DialogResult.OK;
+  resultCancel: DialogResult = DialogResult.Cancel;
+  resultYes: DialogResult = DialogResult.Yes;
+  resultNo: DialogResult = DialogResult.No;
+  resultAbort: DialogResult = DialogResult.Abort;
+  resultNone: DialogResult = DialogResult.None;
+  resultIgnore: DialogResult = DialogResult.Ignore;
+  resultRetry: DialogResult = DialogResult.Retry;
+
   constructor (
     public dialogRef: MatDialogRef<BaseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -59,9 +84,7 @@ export class BaseDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onOk() {
-    this.data.result = DialogResult.OK;
-    this.dialogRef.close(this.data);
+  onResult(result: any) {
+    this.dialogRef.close(result);
   }
-
 }

@@ -6,6 +6,7 @@ import { BaseRegisterComponent } from '@app/shared/components/base-register/base
 import {Location} from '@angular/common';
 import { fadeInItems } from '@angular/material/menu';
 import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-produto-edit',
@@ -56,8 +57,11 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     private _router: Router,
     private _builder : FormBuilder,
     private _activatedRoute: ActivatedRoute,
-    private _api: EcommerceService) { 
+    private _api: EcommerceService,
+    public matDialog: MatDialog) { 
       super();
+      this.baseMatDialog = this.matDialog;
+
       this._router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           this.history_nav.push(event.urlAfterRedirects)
@@ -92,7 +96,6 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   onTab(event: any) {
     alert(event);
   }
-
 
   createForm() {
     this.formulario = this._builder.group({
@@ -253,7 +256,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
       this._api.postProduto(this.formulario.value).subscribe({
         next: () => {
-          alert('Produto salva com sucesso!')
+          //alert('Produto salva com sucesso!')
         },
         error: erro => {
           console.error(erro);
@@ -262,7 +265,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         },
         complete: () => {
           this.base_salvando = false;
-          this.onBack();
+          this.baseDialogSucess("Registro atualizado com sucesso!").afterClosed()
+            .subscribe(() => {
+              this.onBack();
+            })
         }
       })
     }
@@ -277,6 +283,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   onComboChange(event: any, combo: any) {
     this.formulario.get(combo)?.setValue(event.id);
+  }
+
+  onPosicaoUp(event: any) {
+    console.log('onPosicaoUp', event);
   }
 
 }

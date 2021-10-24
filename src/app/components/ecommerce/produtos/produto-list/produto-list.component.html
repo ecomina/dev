@@ -12,7 +12,8 @@
         <div class="produto"*ngFor="let produto of list">
             <div class="esquerda">
                 <div class="foto">
-                    <img src="{{(produto.urlImagem == null) ? imgSemfoto : produto.urlImagem}}">
+                    <img src="{{(produto.urlImagem == null) ? imgSemfoto : produto.urlImagem}}" 
+                         onerror="this.src='../../../../../assets/images/image_not_found.png'">
                 </div>
                 <div class="codigo">
                     <button class="btn edit" (click)="onEdit(produto)">
@@ -56,42 +57,6 @@
                     </div>             
                 </div>  
             </div>
-
-            <!-- <div class="foto">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_2X_681024-MLB46169926300_052021-F.webp">
-            </div>
-            <mat-divider></mat-divider>
-            <div class="detalhes">
-                <div class="field categoria">
-                    <span class="label">Categoria Principal</span>
-                    <span class="txt">{{produto.categoriaPrincipal.descricao}}</span> 
-                </div>          
-                <div class="grupo">
-                    <div class="field marca">
-                        <span class="label">Marca</span>
-                        <span class="txt">{{produto.marca.descricao}}</span> 
-                    </div>    
-                    <div class="field modelo">
-                        <span class="label">Modelo</span>
-                        <span class="txt">{{produto.modelo}}</span> 
-                    </div>             
-                </div>                          
-                <div class="field descricao">
-                    <span class="label">Descrição Reduzida</span>
-                    <span class="txt">{{produto.descricaoReduzida}}</span> 
-                </div>
-                <div class="grupo">
-                    <div class="field preco">
-                        <span class="label">Preço</span>
-                        <span>{{produto.precoCheio| currency: 'R$ '}}</span>
-                    </div>    
-                    <div class="field preco_cheio">
-                        <span class="label">Preço Por</span>
-                        <span>{{produto.precoPor| currency: 'R$ '}}</span>
-                    </div>             
-                </div>                 
-                               
-            </div> -->
         </div>
     </div>
 </div>

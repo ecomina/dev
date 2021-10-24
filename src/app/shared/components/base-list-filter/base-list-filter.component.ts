@@ -5,7 +5,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './base-list-filter.component.html',
   styleUrls: ['./base-list-filter.component.css']
 })
+
 export class BaseListFilterComponent implements OnInit {
+
+  @Input() canFilter = false;
 
   @Output() eventFilter = new EventEmitter();
 

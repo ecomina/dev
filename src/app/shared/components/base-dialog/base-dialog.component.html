@@ -6,8 +6,11 @@
     <div class="mensagem">
         <span>{{mensagem}}</span>
     </div>
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider> -->
     <div class="action" *ngIf="!process">
-        <button class="btn ok" (click)="onOk()">Ok</button>
+        <button class="btn ok" *ngIf="canOk" (click)="onResult(resultOk)">Ok</button>
+        <button class="btn cancel" *ngIf="canCancel" (click)="onResult(resultCancel)">Cancelar</button>
+        <button class="btn yes" *ngIf="canYes" (click)="onResult(resultYes)">Sim</button>
+        <button class="btn no" *ngIf="canNo" (click)="onResult(resultNo)">Não</button>
     </div>
 </div>

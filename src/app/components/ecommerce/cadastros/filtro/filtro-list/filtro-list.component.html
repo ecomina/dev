@@ -21,8 +21,8 @@
       <td id="descricao">{{l.descricao}}</td>
       <td id="ativo"><mat-icon>{{iconCheck(l.ativo)}}</mat-icon></td>
       <mat-menu #openAction="matMenu" yPosition="above">
-        <button mat-menu-item (click)="onEdit(filtro)"><mat-icon>edit</mat-icon> Editar</button>
-        <button mat-menu-item disabled="true" (click)="onDelete(filtro)"><mat-icon>delete</mat-icon>Excluir</button>
+        <button mat-menu-item (click)="onEdit(l)"><mat-icon>edit</mat-icon> Editar</button>
+        <button mat-menu-item disabled="true" (click)="onDelete(l)"><mat-icon>delete</mat-icon>Excluir</button>
       </mat-menu>
     </tr>
   </table>

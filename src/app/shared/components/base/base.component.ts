@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogResult, DialogType } from '@app/modules/BaseDialog';
 import { Observable, of } from 'rxjs';
 import { BaseDialogComponent } from '../base-dialog/base-dialog.component';
@@ -17,18 +17,16 @@ export class BaseComponent implements OnInit {
   private obsProcess$ = null;
   dialogResult: DialogResult.None;
   
-  dialog : MatDialog;
-
   @Input() formulario: FormGroup;
   @Input() formularioArray: FormArray;
 
+  public baseMatDialog: MatDialog;
 
   public iconCheck(check: boolean) {
     return  (check) ? 'check_box' : 'check_box_outline_blank';
   }
 
   constructor() { 
-    
   }
 
   ngOnInit(): void {
@@ -38,7 +36,7 @@ export class BaseComponent implements OnInit {
     alert(msg);
   }
 
-  public baseDialogError(msg: string, error: any = null) : Observable<DialogResult> {
+  public baseDialogError(msg: string, error: any = null) {
     
     if (error != null)
       msg = msg+'\r\rErro Original: '+error
@@ -47,29 +45,33 @@ export class BaseComponent implements OnInit {
 
   }
 
-  public baseDialogAlert(titulo: string, msg: string) : Observable<DialogResult> {
+  public baseDialogAlert(titulo: string, msg: string) {
     return this.baseDialog(DialogType.Alert, titulo, msg);
   }
 
-  public baseDialogSucess(msg: string) : Observable<DialogResult> {
+  public baseDialogSucess(msg: string) {
     return this.baseDialog(DialogType.Sucess, 'Sucesso', msg);
   }
 
-  public baseDialogMsg(tipoDialogo: DialogType, titulo: string, msg: string) : Observable<DialogResult> {
+  public baseDialogConfirm(msg: string) {
+    return this.baseDialog(DialogType.OkCancel, 'Sucesso', msg);
+  }
+
+  public baseDialogMsg(tipoDialogo: DialogType, titulo: string, msg: string) {
     return this.baseDialog(tipoDialogo, titulo, msg);
   }
 
-  public baseDialogProcess(msg: string) : Observable<DialogResult> {
+  public baseDialogProcess(msg: string) {
     return this.baseDialog(DialogType.Process, "Processando...", msg);
   }
 
   public baseDialogClose() {
-    this.dialog.closeAll();
+    this.baseMatDialog.closeAll();
   }
 
-  private baseDialog(tipoDialogo: DialogType, titulo: string, msg: string) : Observable<DialogResult> {
+  private baseDialog(tipoDialogo: DialogType, titulo: string, msg: string) {
 
-    this.dialog.closeAll();
+    this.baseDialogClose();
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.data = {
@@ -81,17 +83,16 @@ export class BaseComponent implements OnInit {
 
     dialogConfig.disableClose = true;
 
-    const dialogRef = this.dialog.open(BaseDialogComponent, dialogConfig);
+    const dialogRef = this.baseMatDialog.open(BaseDialogComponent, dialogConfig);
 
-    setTimeout(() => {
-      dialogRef.close();
-    }, 80000)
+    if (tipoDialogo == DialogType.Sucess)
+    {
+      setTimeout(() => {
+        dialogRef.close();
+      }, 3000)
+    }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog Msg', result);
-    })
-
-    return of(DialogResult.OK);
+    return dialogRef;
   }
 
 }

@@ -1,11 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { BehaviorSubject, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, delay, map, take, takeUntil } from 'rxjs/operators';
+import { DialogResult } from '@app/modules/BaseDialog';
 
 // declare function modal(): any;
 
@@ -29,6 +30,8 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     this._codProduto = codProduto;
     this.onCarregar(codProduto);
   }
+
+  @Output() eventPosicaoUp = new EventEmitter;
 
   get produtoCores() : FormArray {
     return this.formulario.get('cores') as FormArray;
@@ -54,9 +57,9 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   constructor(
     private _api: EcommerceService,
     private _builder: FormBuilder,
-    public dialog: MatDialog) { 
-    super();
-  
+    public matDialog: MatDialog) { 
+      super();
+      this.baseMatDialog = matDialog;
   }
 
   ngOnInit(): void {
@@ -74,7 +77,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     this._api.getProdutoFotos(codProduto)
     .subscribe({
       next: result => {
-        //this.baseDialogProcess('Carregando imagens...');
         this._produtoFotos = [];
         this.base_carregando = true;
 
@@ -85,6 +87,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
             codProdutoEcommerce: c.codProdutoEcommerce,
             codCor: c.codCor,
             posicao: c.posicao,
+            posicaoAlt: c.posicao,
             urlImagem: c.urlImagem,
             file: null
           })
@@ -107,8 +110,27 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
    
     moveItemInArray(list, event.previousIndex, event.currentIndex);
 
-    list.forEach((f, i) => {
-      f.posicao = i+1
+    this.onPosicaoUp(of(list));
+  }
+
+  onPosicaoUp(obsList: Observable<any[]>) {
+
+    obsList.subscribe({
+      next: result => {
+        result.forEach((f, i) => {
+          f.posicao = i+1
+        })
+      },
+      complete: () => {
+        const listUp = this.fotos
+        .filter(f => f.posicao != f.posicaoAlt)
+        .map(function(item) {
+          delete item.posicaoAlt;
+          return item}
+        );
+  
+        this.eventPosicaoUp.emit(listUp);
+      }
     })
   }
 
@@ -153,6 +175,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
                     codProdutoEcommerce: result.codProdutoEcommerce,
                     codCor: result.codCor,
                     posicao: result.posicao,
+                    posicaoAlt: result.posicao,
                     urlImagem: result.urlImagem,
                     file: null
                   })
@@ -183,29 +206,34 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
 
   onDelete(fotoCor: any) {
 
-    this.baseDialogProcess('Excluindo foto...').subscribe({
-      next: result => {
 
-        this._api.delFotoCor(this.produtoCodigo, fotoCor.codCor, fotoCor.posicao)
-        .pipe(
-          //take(1)
-          takeUntil(this.unsub$)
-        )
-        .subscribe({
-          next: () => {
-            this.baseDialogSucess('Imagem excluida com sucesso!');
-          },
-          error: erro => {
-            this.baseDialogError('Falha na tentativa de exclusão da imagem.', erro)
-          },
-          complete: () => {
-            this.onCarregar(this.produtoCodigo);
-          }
-        })
-      }
-    });
+    this.baseDialogConfirm("Deseja excluir esta imagem?").afterClosed()
+      .subscribe(result => {
 
+        if (result == DialogResult.OK)
+        {
+          this.baseDialogProcess('Excluindo foto...')
 
+          this._api.delFotoCor(this.produtoCodigo, fotoCor.codCor, fotoCor.posicao)
+          .pipe(
+            //take(1)
+            takeUntil(this.unsub$)
+          )
+          .subscribe({
+            next: () => {
+            },
+            error: erro => {
+              this.baseDialogError('Falha na tentativa de exclusão da imagem.', erro)
+            },
+            complete: () => {
+              this.baseDialogSucess('Imagem excluida com sucesso!').afterClosed()
+                .subscribe(() => {
+                  this.onCarregar(this.produtoCodigo);
+               })
+            }
+          })
+        }
+      })
   }
 
   private getImage(file: File): void {

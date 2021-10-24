@@ -15,8 +15,8 @@ export class ProdutoFotosComponent extends BaseComponent implements OnInit {
       this.onCarregarFoto(codProduto);
   }
 
-  get imgSemfoto() : string {
-    return "../../../../../assets/images/semfoto.jfif";
+  get imgError() : string {
+    return "../../../../../assets/images/image_not_found.png";
   }
   
   get fotosControl() {

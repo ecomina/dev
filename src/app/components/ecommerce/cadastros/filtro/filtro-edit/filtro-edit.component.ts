@@ -21,6 +21,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     public dialogRef: MatDialogRef<BaseRegisterComponent>,
     @Inject(MAT_DIALOG_DATA) public dataObj: any) { 
       super();
+      console.log(dataObj)
   }
 
   ngOnInit(): void {
