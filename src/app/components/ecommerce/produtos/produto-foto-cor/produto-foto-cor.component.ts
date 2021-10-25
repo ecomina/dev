@@ -54,6 +54,11 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     return list;
   }
 
+  onMaxPosicao(cor: any) : number {
+    return this.fotosCor(cor).reduce(function(a, b) {
+      return (a.posicao > b.posicao) ? a.posicao : b.posicao})
+  }
+
   constructor(
     private _api: EcommerceService,
     private _builder: FormBuilder,
@@ -74,12 +79,11 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     if (codProduto == null)
       return;
 
+    this.base_carregando = true;
     this._api.getProdutoFotos(codProduto)
     .subscribe({
       next: result => {
         this._produtoFotos = [];
-        this.base_carregando = true;
-
         const list = result.sort((a, b) => (a.posicao > b.posicao) ? 1 : -1);
 
         list.forEach(c => {
@@ -99,7 +103,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
       },
       complete: () => {
         this.base_carregando = false;
-        //this.baseDialogClose();
       }
     })
   }
@@ -137,7 +140,8 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   onFilesUp(event: any, cor: any) {
     
     const files = event as File[];
-    
+    const maxPosition = this.onMaxPosicao(cor)+1;
+
     let registro = of(files);
 
     registro
@@ -147,8 +151,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
           this.baseDialogProcess("Carregando imagens");
 
           result.forEach((f, i) => {
-            let maxPosition = i;
-
+            
             let body = {
               extensao: "",
               base64Image: ""
@@ -161,7 +164,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
               body.extensao = f.name.split('.').pop() as string;
               body.base64Image = (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");
 
-              this._api.postCorFoto(this.produtoCodigo, cor.value.codCorECommerce, maxPosition+1, body)
+              this._api.postFotoBase64(this.produtoCodigo, cor.value.codCorECommerce, maxPosition+i, body)
               .pipe(
                 delay(3000),
                 catchError(err => {
@@ -181,7 +184,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
                   })
                 },
                 complete: () => {
-                  console.log(body);
                   this.base_carregando = false;
                   this.baseDialogClose();
                 }
@@ -196,8 +198,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
         },
         complete: () => {
           this.base_carregando = false;
-          
-          //this.baseDialogSucess('Imagens enviadas com sucesso!');
         }
       })
   }
@@ -206,8 +206,8 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
 
   onDelete(fotoCor: any) {
 
-
-    this.baseDialogConfirm("Deseja excluir esta imagem?").afterClosed()
+    this.baseDialogConfirm("Deseja excluir esta imagem?")
+      .afterClosed()
       .subscribe(result => {
 
         if (result == DialogResult.OK)
@@ -245,7 +245,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
         this.uploadedFile.next(e.target?.result);
       }
       fr.readAsDataURL(file);
-      console.log('getImage', fr.result);
     } else {
         this.uploadedFile.next("");
     }
@@ -254,7 +253,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   ngOnDestroy() {
     this.unsub$.next();
     this.unsub$.complete();
-    console.log(`${this} foi desctruido`);
   }
 
 }

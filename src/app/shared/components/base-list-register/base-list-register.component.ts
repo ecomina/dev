@@ -18,4 +18,8 @@ export class BaseListRegisterComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onBasePesquisar() {
+
+  }
+
 }

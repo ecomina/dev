@@ -4,7 +4,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
 import {Location} from '@angular/common';
-import { fadeInItems } from '@angular/material/menu';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -17,6 +16,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   private history_nav: string[] = []
   private list_marcas: any[] = [];
+  private fotosPosicaoUp: any[] = [];
   public list_categorias: any[] = [];
   public tabIndex = 0;
 
@@ -265,6 +265,11 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         },
         complete: () => {
           this.base_salvando = false;
+          if (this.fotosPosicaoUp.length > 0)
+          {
+            this._api.postFotoUrl(this.fotosPosicaoUp);
+          }
+
           this.baseDialogSucess("Registro atualizado com sucesso!").afterClosed()
             .subscribe(() => {
               this.onBack();
@@ -285,8 +290,8 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     this.formulario.get(combo)?.setValue(event.id);
   }
 
-  onPosicaoUp(event: any) {
-    console.log('onPosicaoUp', event);
+  onPosicaoUp(event: any[]) {
+    this.fotosPosicaoUp =  event;
   }
 
 }

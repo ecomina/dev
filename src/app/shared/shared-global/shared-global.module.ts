@@ -42,7 +42,6 @@ import { BaseListSelectComponent } from '../components/base-list-select/base-lis
 import { BaseUploadFilesComponent } from '../components/base-upload-files/base-upload-files.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseDialogComponent } from '../components/base-dialog/base-dialog.component';
 
 const maskConfig: Partial<IConfig> = {

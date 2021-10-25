@@ -72,7 +72,7 @@ export class UserLoginComponent extends BaseComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+console.log('Login')
     // stop here if form is invalid
     if (this.formLogin.invalid) {
         return;
@@ -89,7 +89,7 @@ export class UserLoginComponent extends BaseComponent implements OnInit {
                 this.loading = false;
             },
             error: error => {
-              //alert('Email ou senha incorretos');
+               //alert(error);
                 this.error = error;
                 this.loading = false;
             }

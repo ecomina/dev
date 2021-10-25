@@ -31,6 +31,22 @@ import { ProdutoFotosComponent } from '../ecommerce/produtos/produto-fotos/produ
 import { ProdutoFotoCorComponent } from '../ecommerce/produtos/produto-foto-cor/produto-foto-cor.component';
 import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-list.component';
 import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
+import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido-filter.component';
+// import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+// import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+
+// export const MY_FORMATS = {
+//   parse: {
+//     dateInput: 'LL',
+//   },
+//   display: {
+//     dateInput: 'LL',
+//     monthYearLabel: 'DD MM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'DD MM YYYY',
+//   },
+// };
+
 
 @NgModule({
   declarations: [
@@ -58,6 +74,7 @@ import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edi
     ProdutoFotoCorComponent,
     PedidoListComponent,
     PedidoEditComponent,
+    PedidoFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -72,7 +89,15 @@ import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edi
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // {
+    //   provide: DateAdapter,
+    //   useClass: MomentDateAdapter,
+    //   deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    // },
+
+    // {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
+
 })
 export class NavigateMainModule { }

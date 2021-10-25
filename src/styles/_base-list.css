@@ -59,6 +59,7 @@
     -moz-box-shadow:    2px 3px 5px rgba(125, 125, 125, 0.77);
     box-shadow:         2px 3px 5px rgba(125, 125, 125, 0.77);
     margin-top: 20px;
+    margin: 10px 5px;
  }
   
 .tabela td, .tabela th {

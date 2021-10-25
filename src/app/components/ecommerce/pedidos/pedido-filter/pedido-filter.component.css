@@ -1,0 +1,56 @@
+mat-divider {
+    margin: 10px 0px;
+}
+
+mat-radio-button {
+    margin: 10px;
+}
+
+#label {
+    font-size: 14px;
+    color: #517ff7;
+}
+
+.container  {
+    padding: 0px;
+}
+
+.grupo {
+    margin: 10px 0px;
+}
+
+.action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn {
+    height: 40px;
+    width: 100%;
+    margin: 5px;
+    border-radius: 5px;
+    border-width: 0px;
+    border-style: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(81 127 247);
+    -webkit-box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
+    -moz-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
+    box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
+}
+
+.marketplace {
+    display: flex;
+    flex-direction: column;
+}
+
+.status {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.status mat-radio-button {
+    width: 100px;
+}

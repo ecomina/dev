@@ -40,7 +40,7 @@ export class AuthenticationService {
         }
 
         const body = JSON.stringify(resquest);
- 
+        //console.log(body)
         return this.http.post<any>(this.apiUrl_auth, body, this.httpOptions)
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -48,7 +48,6 @@ export class AuthenticationService {
                 this.currentUserSubject.next(user);
                 return user;
             }))
-
     }
 
     logout() {

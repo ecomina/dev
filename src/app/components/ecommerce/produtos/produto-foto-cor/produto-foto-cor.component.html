@@ -7,7 +7,7 @@
                 </div>
                 <mat-spinner *ngIf="base_carregando"></mat-spinner>
                 <span class="caption">Imagens</span>
-                <div class="fotos" *ngIf="!base_carregando" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, cor)">
+                <div class="fotos" *ngIf="!base_carregando" cdkDropList cdkDropListOrientation="vertical" (cdkDropListDropped)="drop($event, cor)">
                     <div class="foto" *ngFor="let foto of fotosCor(cor)" cdkDrag>
                         <div class="imagem">
                             <span class="posicao">{{foto.posicao}}</span>

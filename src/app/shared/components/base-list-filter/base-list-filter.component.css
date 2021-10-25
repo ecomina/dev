@@ -15,6 +15,10 @@ button {
     border-style: none;
 }
 
+.btn-filter:hover {
+    transform: scale(1.2);
+}
+
 .container {
     display: flex;
     flex-direction: row;

@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
-import { Observable, ReplaySubject, throwError } from 'rxjs';
+import { Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
@@ -24,7 +24,6 @@ export class EcommerceService {
     private _httpClient: HttpClient,
     private _appConfig: AppConfigurarion,
     private domSanitizer: DomSanitizer) { }
-
 
 getProduto(somenteAtivos: boolean) : Observable<any[]> {
 
@@ -271,16 +270,15 @@ getProdutoFotos(codProduto: number) : Observable<any[]> {
   return result;
 }
 
-convertFile(file : File) : Observable<string> {
-  const result = new ReplaySubject<string>(1);
-  const reader = new FileReader();
-  reader.readAsBinaryString(file);
-  reader.onload = (event:any) => result.next(btoa(event.target.result.toString()));
-  return result;
-}
+// convertFile(file : File) : Observable<string> {
+//   const result = new ReplaySubject<string>(1);
+//   const reader = new FileReader();
+//   reader.readAsBinaryString(file);
+//   reader.onload = (event:any) => result.next(btoa(event.target.result.toString()));
+//   return result;
+// }
 
-postCorFoto(codProduto: any, codCor: any, codPosicao: any, body: any) :Observable<any> {
- console.log('postCorFoto', codCor, codPosicao, body)
+postFotoBase64(codProduto: any, codCor: any, codPosicao: any, body: any) :Observable<any> {
  
   var url = this.urlApi+'api/Produto/';
   url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao).concat("/Base64");
@@ -291,6 +289,30 @@ postCorFoto(codProduto: any, codCor: any, codPosicao: any, body: any) :Observabl
       catchError(this.handleError));
 
   return result;
+}
+
+postFotoUrl(fotos: any[]) {
+
+  of(fotos).subscribe({
+    next: result => {
+      result.forEach(f => {
+        var url = this.urlApi+'api/Produto/';
+        url = url.concat(f.codProdutoEcommerce).concat("/Cor/").concat(f.codCor).concat("/Foto/").concat(f.posicao).concat("/Url");
+
+        const body = {
+          urlImagem: f.urlImagem,
+        }
+
+        console.log('postFotoUrl', url, body)
+
+        // this._httpClient.post<any>(url, body)
+        //   .pipe(
+        //     retry(0),
+        //     catchError(this.handleError))
+        //   .subscribe();
+      })
+    }
+  });
 }
 
 delFotoCor(codProduto: any, codCor: any, codPosicao: any) {
@@ -307,6 +329,21 @@ delFotoCor(codProduto: any, codCor: any, codPosicao: any) {
   return result;  
 }
 
+getMarketplace(somenteAtivos: boolean = false) : Observable<any[]> {
+
+  var url = this.urlApi+'api/ProvedorMarketplace';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('somenteAtivos', String(somenteAtivos));
+
+  var result = this._httpClient.get<any[]>(url, { params: parametros })
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
 
 handleError(error: HttpErrorResponse) {
   let errorMessage = '';

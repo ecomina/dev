@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="titulo">
+        <span>Filtros</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="grupo">
+        <div class="periodo">
+            <mat-form-field appearance="fill">
+                <mat-label>Periodo de Cadastro</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input matStartDate placeholder="Data inicial" [formControl]="dataInicial">
+                  <input matEndDate placeholder="Data final"  [formControl]="dataFinal">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="grupo">
+        <label id="label">Marketplace</label>
+        <mat-radio-group class="marketplace" aria-label="Selecione">
+            <mat-radio-button *ngFor="let item of list_marketplaces;let i = index" [value]="item">{{item.descricao}}</mat-radio-button>
+        </mat-radio-group>
+    </div>    
+    <div class="grupo">
+        <label id="label">Status</label>
+        <mat-radio-group class="status" aria-label="Selecione">
+            <mat-radio-button value="0">Status 0</mat-radio-button>
+            <mat-radio-button value="1">Status 1</mat-radio-button>
+            <mat-radio-button value="98">Status 98</mat-radio-button>
+            <mat-radio-button value="99">Status 99</mat-radio-button>
+        </mat-radio-group>
+    </div>    
+    <div class="action">
+        <button class="btn apply" (click)="onAplicar()">Aplicar Filtros</button>
+    </div>
+</div>
