@@ -74,7 +74,7 @@ export class BaseComboFilterComponent implements OnInit {
   formulario: FormGroup = this._formBuilder.group({
       selecionado : [null],
       itens: this._formBuilder.array([this._formBuilder.group({
-        id: [0, Validators.required],
+        id: [null, Validators.required],
         descricao: ['', Validators.required],
         grupo: '',
         object: [null, Validators.required]}), Validators.required])

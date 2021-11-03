@@ -1,0 +1,8 @@
+<div class="container">
+    <app-base-combo-filter comboLabel="Tipos" [comboListObs]="obsTiposMarketplace" (eventEmiterBase)="onTipoSelecionado($event)"></app-base-combo-filter>
+    <div class="detalhes" *ngFor="let detalhe of listDetalhes">
+        <div>{{detalhe}}</div>
+        
+    </div>
+    {{listDetalhes}}
+</div>

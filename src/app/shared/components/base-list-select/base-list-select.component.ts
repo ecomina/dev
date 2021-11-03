@@ -17,7 +17,7 @@ export interface DialogData {
 })
 export class BaseListSelectComponent extends BaseComponent implements OnInit {
 
-  base_list: any[] = [];
+  base_list: any[] = [null, null];
   filtro: string = "";
   
   get carregando() {
@@ -34,15 +34,14 @@ export class BaseListSelectComponent extends BaseComponent implements OnInit {
   }
 
   constructor(
-    private _builder: FormBuilder,
     public dialogRef: MatDialogRef<BaseComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { 
       super();
-      this.base_title = data.titulo;
-      this.base_list = this.data.list;
     }
 
   ngOnInit(): void {
+    this.base_list = this.data.list;
+    this.base_title = this.data.titulo;
   }
 
   onClose() {

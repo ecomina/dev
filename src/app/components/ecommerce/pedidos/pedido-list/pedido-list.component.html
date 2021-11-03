@@ -2,7 +2,7 @@
     <mat-icon>color_lens</mat-icon>
     <span>Pedidos</span>
   </div>
-  <app-base-list-filter [canFilter]="true" (eventFilter)="onFiltrar($event)"></app-base-list-filter>
+  <app-base-list-filter [canFilter]="true" [baseFilters]="baseFilters" (eventFilter)="onPesquisar($event)" (eventFilterShow)="onFiltrar($event)"></app-base-list-filter>
   <div class="container">
     <div class="carregando" *ngIf="base_carregando"> 
       <span>Carregando...</span>
@@ -11,31 +11,36 @@
     <table class="tabela" *ngIf="!base_carregando">
       <thead>
         <tr>
-          <th class="tb-col col-code">Código</th>
-          <th class="tb-col col-text">Marketplace</th>
-          <th class="tb-col col-date">Data do Pedido</th>
-          <th class="tb-col col-curr">R$ Vlr. Total</th>
-          <th class="tb-col col-curr">R$ Vlr. Frete</th>
-          <th class="tb-col col-text">Cliente</th>
-          <th class="tb-col col-text">Status</th>
-          <th class="tb-col col-text">Status MP</th>
+          <th class="tb-col butt"><mat-icon>more_vert</mat-icon></th>
+          <th class="tb-col code">Código</th>
+          <th class="tb-col text">Marketplace</th>
+          <th class="tb-col date">Data do Pedido</th>
+          <th class="tb-col curr">R$ Vlr. Total</th>
+          <th class="tb-col curr">R$ Vlr. Frete</th>
+          <th class="tb-col text">Cliente</th>
+          <th class="tb-col text">Status</th>
+          <th class="tb-col text">Status MP</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="item" *ngFor="let l of base_list">
-          <!-- <td id="edit" matTooltip="Opções"[matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
-          <td id="codigo">{{l.codigo}}</td>
-          <td id="descricao">{{l.descricao}}</td>
-          <td id="ativo"><mat-icon>{{iconCheck(l.ativo)}}</mat-icon></td>
+        <tr class="item" *ngFor="let l of list">
+          <td class="cel butt"  matTooltip="Opções"[matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
+          <td class="cel code">{{l.codigo}}</td>
+          <td class="cel text">{{l.descricaoMarketplace}}</td>
+          <td class="cel date">{{l.dataPedido | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td class="cel curr">{{l.valorTotalPedido | currency:'BRL':true}}</td>
+          <td class="cel curr">{{l.valorTotalFrete | currency:'BRL':true}}</td>
+          <td class="cel text">{{l.nomeCliente}}</td>
+          <td class="cel text">{{l.descricaoStatus}}</td>
+          <td class="cel text">{{l.statusPedidoMarketplace}}</td>
           <mat-menu #openAction="matMenu" yPosition="above">
-            <button mat-menu-item (click)="onEdit(l)"><mat-icon>edit</mat-icon> Editar</button>
-            <button mat-menu-item disabled="true" (click)="onDelete(l)"><mat-icon>delete</mat-icon>Excluir</button>
-          </mat-menu> -->
+            <button mat-menu-item (click)="onEdit(l)"><mat-icon>edit</mat-icon>Abrir</button>
+          </mat-menu>          
         </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td>Qtde 10</td>
+          <td class="cel code">{{list.length}}</td>
           <!-- <td></td>
           <td></td>
           <td></td>

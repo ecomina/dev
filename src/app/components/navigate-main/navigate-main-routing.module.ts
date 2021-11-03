@@ -10,6 +10,7 @@ import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/ca
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
 import { CoresListComponent } from '../ecommerce/cadastros/cores/cores-list/cores-list.component';
 import { DimensaoListComponent } from '../ecommerce/cadastros/dimensao/dimensao-list/dimensao-list.component';
+import { FiltroEditComponent } from '../ecommerce/cadastros/filtro/filtro-edit/filtro-edit.component';
 import { FiltroListComponent } from '../ecommerce/cadastros/filtro/filtro-list/filtro-list.component';
 import { GradeListComponent } from '../ecommerce/cadastros/grade/grade-list/grade-list.component';
 import { MarcaListComponent } from '../ecommerce/cadastros/marca/marca-list/marca-list.component';
@@ -35,13 +36,26 @@ const routes: Routes = [
       { path: 'cadastros/marca', component: MarcaListComponent, canActivate: [AuthGuard] },
       { path: 'cadastros/tamanho', component: TamanhoListComponent, canActivate: [AuthGuard] },
       { path: 'cadastros/categoria', component: CategoriaListComponent, canActivate: [AuthGuard] },
-      { path: 'cadastros/filtro', component: FiltroListComponent, canActivate: [AuthGuard] },
+      {
+        path: 'cadastros/filtro/edit/:codigo', component: FiltroEditComponent, canActivate: [AuthGuard]
+      },
+      {
+        path: 'cadastros/filtro/new', component: FiltroEditComponent, canActivate: [AuthGuard]
+      },
+      { 
+        path: 'cadastros/filtro', component: FiltroListComponent, canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'cadastros/filtro/edit/:codigo', component: FiltroEditComponent, canActivate: [AuthGuard]
+          }
+        ]
+      },
       { path: 'cadastros/dimensao', component: DimensaoListComponent, canActivate: [AuthGuard] },
       { path: 'produto/list', component: ProdutoListComponent, canActivate: [AuthGuard] },
       { path: 'produto/edit/:codigo', component: ProdutoEditComponent, canActivate: [AuthGuard] },
 
       { path: 'pedido/list', component: PedidoListComponent, canActivate: [AuthGuard] },
-      { path: 'pedido/edit', component: PedidoEditComponent, canActivate: [AuthGuard] },
+      { path: 'pedido/edit/:codigo', component: PedidoEditComponent, canActivate: [AuthGuard] },
   {
     path: 'home', component: HomeComponent
   },

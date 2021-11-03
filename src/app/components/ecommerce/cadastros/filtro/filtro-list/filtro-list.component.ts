@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseListRegisterComponent } from '@app/shared/components/base-list-register/base-list-register.component';
 import { FiltroEditComponent } from '../filtro-edit/filtro-edit.component';
@@ -26,6 +27,7 @@ export class FiltroListComponent extends BaseListRegisterComponent implements On
 
   constructor(
     private _api: EcommerceService,
+    public _router: Router,
     public dialog: MatDialog) { 
       super()
     }
@@ -40,29 +42,14 @@ export class FiltroListComponent extends BaseListRegisterComponent implements On
   }
 
   onAdd() {
-    this.onEdit(null);  
+    this._router.navigate(['cadastros/filtro/new'])
   }
 
-  onEdit(obj: any) {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.data = {
-      confirmou: false,
-      data: obj}
-
-    dialogConfig.disableClose = true;
-
-    const dialogRef = this.dialog.open(FiltroEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.onListar();
-    })
+  onEdit(codigo: any) {
+    this._router.navigate(['cadastros/filtro/edit', codigo])
   }
 
-  onDelete(action: any) {
-
-  }
+  onDelete(action: any) {}
 
   onListar() {
     this._api.getFiltro().subscribe({

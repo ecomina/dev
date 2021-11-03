@@ -9,7 +9,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class BaseRegisterComponent extends BaseComponent implements OnInit {
 
-  @Input() formulario: FormGroup;
+  // @Input() formulario: FormGroup;
   @Input() canSave: boolean = true;
   @Input() salving: boolean = true;
   @Input() canCancel: boolean = true;

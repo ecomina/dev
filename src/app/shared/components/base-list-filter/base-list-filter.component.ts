@@ -1,10 +1,6 @@
-import { APP_INITIALIZER, Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { initializerFn } from '@app/app-routing.module';
-import { PedidoFilterComponent } from '@app/components/ecommerce/pedidos/pedido-filter/pedido-filter.component';
-import { AppConfigurarionJsonService } from '@app/_config/app-configuration-json-service';
+import { BaseFilter } from '@app/modules/BaseFilter';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -17,19 +13,31 @@ import { BaseComponent } from '../base/base.component';
 export class BaseListFilterComponent extends BaseComponent implements OnInit {
 
   @Input() canFilter = false;
+  @Input() baseFilters: BaseFilter[] = [];
 
   @Output() eventFilter = new EventEmitter();
+  @Output() eventFilterShow = new EventEmitter();
 
   public base_list: any[] = [];
-  txt_pesquisa = '';
+  
+  public txt_pesquisa = '';
 
   get can_clear(): boolean {
     return (this.txt_pesquisa.length > 0);
   }
 
-  public constructDialog<T>(TCtor: new (...args: any[]) => T,data: any): MatDialogRef<T,any> {
+  get filters() {
+    return this.baseFilters;
+  }
+
+  public baseDialogCtor<T>(TCtor: new (...args: any[]) => T, data: any): MatDialogRef<T,any> {
     const dialogConfig = new MatDialogConfig();
+    
     dialogConfig.autoFocus = true;
+    dialogConfig.data = data;
+
+    console.log('data',dialogConfig.data )
+
     const dialogRef = this.matDialog.open(TCtor, dialogConfig);
     return dialogRef;
  }
@@ -43,35 +51,21 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClear() {
+  baseFilterShow() {
+    this.eventFilterShow.emit(true);
+  }
+
+  baseClear() {
     this.txt_pesquisa = '';
     this.eventFilter.emit(this.txt_pesquisa);
   }
 
-  onFilterShow() {
-
-    this.eventFilter.emit(true);
-    // const dialogRef =  this.constructDialog(PedidoFilterComponent, {
-    //   data: {
-    //     msg: ''
-    //   }
-    // })
-    // const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.data = {
-    //   data: null};
-
-    // dialogConfig.disableClose = false;      
-
-    // const dialogRef = this.matDialog.open(BaseListFilterComponent, dialogConfig)
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result)
-    // })
-  }
-
-  onFilterList() {
+  baseFilterList() {
     this.eventFilter.emit(this.txt_pesquisa);
   }  
+
+  baseRemoveFilter(index: any) {
+    this.baseFilters.splice(index, 1);
+  }
 
 }

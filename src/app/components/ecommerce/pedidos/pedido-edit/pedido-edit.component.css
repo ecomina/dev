@@ -1,0 +1,63 @@
+@import url("../../../../../styles/_base-edit.css");
+
+.container {
+    flex-direction: column;
+}
+
+.grupo {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.grupo-fields {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);     
+}
+
+.grupo-fields .titulo {
+    display: flex;  
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+    padding: 5px;
+    border-radius: 2px;
+    background-color: #d8d7d7;
+    color: #fff;
+    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+}
+
+
+.marketplace #descricaoMarketplace {
+    color: blue;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.field label {
+    color: gray;
+    font-size: 16px;
+}
+
+.field span {
+    font-size: 18px;
+}
+
+.cliente {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
+    -moz-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
+    box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
+}

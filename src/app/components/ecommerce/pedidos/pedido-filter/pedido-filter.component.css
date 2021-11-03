@@ -47,8 +47,9 @@ mat-radio-button {
 
 .status {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .status mat-radio-button {

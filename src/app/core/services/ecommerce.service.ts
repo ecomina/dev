@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, Htt
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BaseFilter } from '@app/modules/BaseFilter';
 import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
@@ -165,7 +166,59 @@ getFiltro() : Observable<any[]> {
   return result;
 }
 
+getFiltroCodigo(codigo: any) {
+  
+  var url = this.urlApi+'api/Filtro/';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codigo', String(codigo));
+
+  var result = this._httpClient.get<any>(url.concat(codigo))
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+getFiltroProvedor(codProvedorMarketplace: any) : Observable<any[]> {
+  var url = this.urlApi+'api/Filtro/Provedor/';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codProvedorMarketplace', String(codProvedorMarketplace));
+
+  var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace))
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+salvarFiltro(obj: any, novo: boolean) : Observable<any> {
+  if (novo)
+    return this.postFiltro(obj);
+  else
+    return this.putFiltro(obj)
+}
+
 postFiltro(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Filtro';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
+putFiltro(obj: any) : Observable<any> {
 
   var url = this.urlApi+'api/Filtro';
 
@@ -270,14 +323,6 @@ getProdutoFotos(codProduto: number) : Observable<any[]> {
   return result;
 }
 
-// convertFile(file : File) : Observable<string> {
-//   const result = new ReplaySubject<string>(1);
-//   const reader = new FileReader();
-//   reader.readAsBinaryString(file);
-//   reader.onload = (event:any) => result.next(btoa(event.target.result.toString()));
-//   return result;
-// }
-
 postFotoBase64(codProduto: any, codCor: any, codPosicao: any, body: any) :Observable<any> {
  
   var url = this.urlApi+'api/Produto/';
@@ -340,6 +385,63 @@ getMarketplace(somenteAtivos: boolean = false) : Observable<any[]> {
   var result = this._httpClient.get<any[]>(url, { params: parametros })
     .pipe(
       retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+getPedidos(filtros: BaseFilter[]) {
+
+  var url = this.urlApi+'api/Pedido';
+
+  let parametros = new HttpParams();
+
+  filtros.forEach(f => {
+    
+    if (f.Param1 != null)
+      parametros.append(f.Param1, String(f.Value1))
+    
+    if (f.Param2 != null)
+      parametros.append(f.Param2, String(f.Value2))
+  })
+
+  console.log('Parametros', parametros);
+
+  var result = this._httpClient.get<any[]>(url, { params: parametros })
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+
+}
+
+getPedidoCodigo(codigo: any) {
+  var url = this.urlApi+'api/Pedido/';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codigo', String(codigo));
+
+  var result = this._httpClient.get<any>(url.concat(codigo))
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+getMarketplaces(somenteAtivos: boolean = false) : Observable<any[]> {
+
+  var url = this.urlApi+'api/ProvedorMarketplace';
+
+  let parametros = new HttpParams();
+
+  parametros.append('somenteAtivos', String(somenteAtivos))
+
+  var result = this._httpClient.get<any[]>(url, {params: parametros})
+    .pipe(
+      retry(1),
       catchError(this.handleError));
 
   return result;

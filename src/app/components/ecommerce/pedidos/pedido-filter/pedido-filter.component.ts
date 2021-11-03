@@ -1,10 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { UtilsService } from '@app/core/services/utils.service';
 import { BaseFilter } from '@app/modules/BaseFilter';
+import { BaseComponent } from '@app/shared/components/base/base.component';
 import * as moment from 'moment';
+import { catchError } from 'rxjs/operators';
+
+export interface DialogData {
+  filtrar: Boolean;
+  filtros: BaseFilter[]}
 
 @Component({
   selector: 'app-pedido-filter',
@@ -12,12 +20,15 @@ import * as moment from 'moment';
   styleUrls: ['./pedido-filter.component.css'],
 
 })
-export class PedidoFilterComponent implements OnInit {
+export class PedidoFilterComponent extends BaseComponent implements OnInit {
 
   list_filter: BaseFilter[] = [];
 
-  dataInicial = new FormControl(moment());
-  dataFinal = new FormControl(moment())
+  dataInicial = new FormControl(new Date(), Validators.required);
+  dataFinal = new FormControl(new Date(), Validators.required)
+  marketplace = new FormControl(null, Validators.required)
+  status = new FormControl(null, Validators.required)
+
   list_marketplaces: any[] = []
 
   get marketplaces() {
@@ -27,35 +38,48 @@ export class PedidoFilterComponent implements OnInit {
   constructor(
     private _api: EcommerceService,
     public dialogRef: MatDialogRef<PedidoFilterComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private _util: UtilsService,
     private dateAdapter: DateAdapter<Date>) {
+      super();
       this.onCarregar();
 
     // this.dateAdapter.setLocale('pt-BR');
    }
 
   ngOnInit(): void {
+    console.log(this.data)
   }
 
   onCarregar() {
+
+    
+
+    this.base_carregando = true;
     this._api.getMarketplace(false)
-    .subscribe(result => {
-      result.forEach(o => {
-        this.list_marketplaces.push(o)
-      })
+    .subscribe({
+      next: result => {
+        result.forEach(o => {
+          this.list_marketplaces.push(o)})
+      },
+      complete: () => {
+        this.base_carregando = false;
+      }
     })
   }
 
   onAplicar() {
 
-    for (let i=0; i < 10; i++)
-      this.list_filter.push({
-        Name: 'Name',
-        Caption: '',
-        Value1: 0,
-        Value2: 0
-      })
+    this.list_filter.push({Param1: 'dataInicial', Param2: 'dataFinal', Value1: this.dataInicial.value, Value2:  this.dataFinal.value,
+      Display: this._util.formataData(this.dataInicial.value)+' à '+this._util.formataData(this.dataInicial.value), Caption:'Periodo de Cadastro' });
 
-    this.dialogRef.close(this.list_filter);
+    this.list_filter.push({Param1: 'marketplace', Param2: '', Value1: this.marketplace.value, Value2: null, Display: this.marketplace.value, Caption:'Marketplace'});
+    this.list_filter.push({Param1: 'status',      Param2: '', Value1: this.status.value, Value2: null, Display: this.status.value, Caption:'Status'});
+
+    this.data.filtrar = true;
+    this.data.filtros = this.list_filter.filter(f => f.Value1 != null);
+
+
+    this.dialogRef.close(this.data);
   }
-
 }

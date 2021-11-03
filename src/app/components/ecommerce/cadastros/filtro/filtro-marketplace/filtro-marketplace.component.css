@@ -1,0 +1,16 @@
+.container {
+    height: 400px;
+    max-height: 80%;
+}
+
+.tipos {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.tipo {
+    padding: 5px;
+}
+

@@ -1,1 +1,39 @@
-<p>pedido-edit works!</p>
+<div class="titulo">
+    <span>Editando Pedido: {{codigoPedido}}</span>
+</div> 
+<div class="container" [formGroup]="formulario">
+    <div class="grupo-fields">
+        <span class="titulo">Pedido</span>
+        <div class="grupo">
+            <div class="field">
+                <label>Marketplace</label>
+                <span id="descricaoMarketplace">{{formPedido.descricaoMarketplace}}</span>
+            </div>
+            <div class="field">
+                <label>Pedido</label>
+                <span id="idMarketplacePedido">{{formPedido.pedidoMarketplace.idMarketplacePedido}}</span>
+            </div>
+            <div class="field">
+                <label>Data Ultima Alteração</label>
+                <span id="dataUltimaAlteracao">{{formPedido.pedidoMarketplace.dataUltimaAlteracao | date:'dd/MM/yyyy hh:mm:ss'}}</span> 
+            </div>
+            <div class="field">
+                <label>Status</label>
+                <span id="status">{{formPedido.pedidoMarketplace.status}}</span>                
+            </div>
+        </div>        
+    </div>
+    <div class="grupo-fields">
+        <span class="titulo">Cliente</span>
+    </div>
+    <div class="grupo-fields">
+        <span class="titulo">Endereço Entrega</span>
+    </div>
+    <div class="grupo-fields">
+        <span class="titulo">Endereço Cobrança</span>
+    </div>
+
+    
+
+</div>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

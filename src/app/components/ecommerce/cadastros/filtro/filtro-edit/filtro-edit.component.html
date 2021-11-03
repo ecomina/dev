@@ -1,29 +1,123 @@
 <div class="titulo">
-    <span>{{(formulario.value.codigo === null) ? 'Novo Cadastro': 'Editando Filtro'}}</span>
+    <mat-icon>{{(formulario.value.codigo === null) ? 'add_circle' : 'edit'}}</mat-icon>
+    <span>{{(formulario.value.codigo === null) ? 'Cadastrando FILTRO' : 'Editando FILTRO'}}</span>
 </div>  
-<mat-divider></mat-divider>  
 <div class="container">
-    <div class="form" [formGroup]="formulario">
-        <!-- <div class="field codigo">
-            <mat-form-field appearance="outline">
-                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
-              </mat-form-field>
-        </div> -->
-        <div class="field descricao">
-            <mat-form-field appearance="outline">
-                <mat-label>Descrição</mat-label>
-                <input matInput formControlName="descricao">
-              </mat-form-field>
+    <mat-spinner *ngIf="base_carregando"></mat-spinner>
+    <div class="form" [formGroup]="formulario" *ngIf="!base_carregando">
+        <div class="grupo">
+            <div class="sub-grupo">
+                <div class="field codigo">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Código</mat-label>
+                        <input type="number" matInput readonly formControlName="codigo" matTooltip="Campo não editável" >
+                    </mat-form-field>
+                </div>
+                <div class="field descricao">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Descrição</mat-label>
+                        <input type="text" matInput maxlength="50" required formControlName="descricao">
+                    </mat-form-field>
+                </div>
+                <div class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tipo</mat-label>
+                        <mat-select formControlName="tipoFiltro" (ngModelChange)="onChangeTipoFiltro()" placeholder="Tipo de filtro" required>
+                          <mat-option *ngFor="let tipo of tiposFiltros;let i=index" #valor [value]="tipo.codigo">
+                            {{tipo.descricao}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="sub-grupo-col">
+                <div class="field boleano">
+                    <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+                </div>
+                <div class="field boleano">
+                    <mat-slide-toggle formControlName="obrigatorio" >Obrigatório</mat-slide-toggle>
+                </div>
+                <div class="field boleano">
+                    <mat-slide-toggle formControlName="suportaItens" >Suporta Itens</mat-slide-toggle>
+                </div>
+            </div>
         </div>
-        <div class="field boleano">
-            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        <div class="grupo">
+            <label>Marketplaces Relacionados</label>
+            <div class="marketplaces">
+                <div class="marketplace" *ngFor="let item of listMarketplaces;let i2=index">
+                    <div class="relacionar-tipo">
+                        <span>{{item.descricao}}</span>
+                        <button class="btn-relacionar {{(item.descricaoMarketplace == null)? 'vazio' : ''}}"  (click)="onRelacionarFiltro(i2)">
+                            <span id="btn">{{(item.descricaoMarketplace == null)? 'Clique aqui para relacionar' : item.descricaoMarketplace}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="field boleano">
-            <mat-slide-toggle formControlName="obrigatorio" >Obrigatório</mat-slide-toggle>
+        <div class="grupo" *ngIf="!requerValor">
+            <div class="field descricao"  *ngIf="tipoFiltro === 2">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Padrão</mat-label>
+                    <input type="text" maxlength="20" class="valor-padrao-texto" matInput formControlName="valorPadrao">
+                </mat-form-field>
+            </div>              
+            <div class="field descricao"  *ngIf="tipoFiltro === 3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Padrão</mat-label>
+                    <input type="number" step='any' class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                </mat-form-field>
+            </div>              
+            <div class="field descricao"  *ngIf="tipoFiltro === 4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Padrão</mat-label>
+                    <input type="number" class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                </mat-form-field>
+            </div>            
+            <div class="valor-padrao-sim-nao" *ngIf="tipoFiltro === 5">
+                <label>Valor Padrão</label>
+                <mat-radio-group formControlName="valorPadrao">
+                    <mat-radio-button value="S">Sim</mat-radio-button>
+                    <mat-radio-button value="N">Não</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+
+                <!-- <input type="number" matInput maxlength="50" required formControlName="descricao"> -->
         </div>
-        <div class="field boleano">
-            <mat-slide-toggle formControlName="suportaItens" >Suporta Itens</mat-slide-toggle>
+        <div class="grupo" *ngIf="requerValor"> 
+            <label>Valores</label>
+            <table class="tabela">
+                <thead>
+                    <tr>    
+                        <th class="col-action"><button class="add" (click)="onAddValor()"><mat-icon>add</mat-icon></button></th>
+                        <th class="text col-valor">Valor</th>
+                        <th class="bool col-ativo">Ativo</th>
+                        <th class="col-marketplace" *ngFor="let item of listMarketplaces">
+                            <div class="marketplace-detalhe">
+                                <span>{{item.descricao}}</span>
+                                <span>({{item.idMarketplace}})</span>
+                            </div>
+                        </th>
+                    </tr>       
+                </thead>     
+                <tbody>
+                    <tr *ngFor="let valor of valoresControl.controls;let i=index" formArrayName="valores">
+                        <th class="col-action"><button class="del" (click)="onDeleteValor(valor)"><mat-icon>delete</mat-icon></button></th>
+                        <td [formGroupName]="i"> 
+                            <input type="text" class="inp-field" formControlName="valor" maxlength="50" required>
+                        </td>
+                        <td class="bool" [formGroupName]="i"><mat-checkbox formControlName="ativo"></mat-checkbox> </td>
+                        <td *ngFor="let mp of listMarketplaces;let idx=index">
+                            <button class="btn-relacionar-valor {{(getValorMarketplace(valor, mp) === null)? 'vazio' : ''}}"  (click)="onRelacionarValor(valor, idx)">
+                                <span id="btn">{{(getValorMarketplace(valor, mp) === null) ? 'Não relacionado' : getValorMarketplace(valor, mp)}}</span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>    
+            </table>
         </div>
     </div>
 </div>
 <app-base-register [canSave]="canSaveBase" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,10 +16,7 @@ import { UserRegisterComponent } from './components/user/user-register/user-regi
 import { AppConfigurarion } from './_config/app-configuration';
 import { AppConfigurarionJsonService } from './_config/app-configuration-json-service';
 import { NgxCurrencyModule } from 'ngx-currency';
-
-import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-
+import { MAT_DATE_LOCALE} from '@angular/material/core';
 
 export function initializerFn(jsonConfigService: AppConfigurarionJsonService) {
   return (): Promise<any> => {
@@ -64,6 +61,7 @@ export const MY_FORMATS = {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: LOCALE_ID, useValue: 'pt-BR'},
     {
       provide: AppConfigurarion,
       deps: [HttpClient],

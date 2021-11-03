@@ -13,15 +13,17 @@
       <th id="add" (click)="onAdd()" matTooltip="Novo"><mat-icon>add</mat-icon></th>
       <th id="codigo">Código</th>
       <th id="descricao">Descrição</th>
+      <th id="boleano">Obrigatório</th>
       <th id="ativo">Ativo</th>
     </tr>
     <tr class="item" *ngFor="let l of list">
       <td id="edit" matTooltip="Opções"[matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
       <td id="codigo">{{l.codigo}}</td>
       <td id="descricao">{{l.descricao}}</td>
+      <td id="boleano"><mat-icon>{{iconCheck(l.obrigatorio)}}</mat-icon></td>
       <td id="ativo"><mat-icon>{{iconCheck(l.ativo)}}</mat-icon></td>
       <mat-menu #openAction="matMenu" yPosition="above">
-        <button mat-menu-item (click)="onEdit(l)"><mat-icon>edit</mat-icon> Editar</button>
+        <button mat-menu-item (click)="onEdit(l.codigo)"><mat-icon>edit</mat-icon> Editar</button>
         <button mat-menu-item disabled="true" (click)="onDelete(l)"><mat-icon>delete</mat-icon>Excluir</button>
       </mat-menu>
     </tr>

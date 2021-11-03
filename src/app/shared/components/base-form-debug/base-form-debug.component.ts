@@ -9,9 +9,8 @@ import { environment } from '@environments/environment';
 export class BaseFormDebugComponent implements OnInit {
 
   @Input() form: any;
-  exibir: boolean = false;
+  exibir: boolean = true;
   producao: boolean = environment.production;
-
 
   constructor() {}
 

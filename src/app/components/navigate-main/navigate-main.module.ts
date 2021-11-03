@@ -32,6 +32,8 @@ import { ProdutoFotoCorComponent } from '../ecommerce/produtos/produto-foto-cor/
 import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-list.component';
 import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
 import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido-filter.component';
+import { FiltroMarketplaceComponent } from '../ecommerce/cadastros/filtro/filtro-marketplace/filtro-marketplace.component';
+
 // import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 // import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -62,6 +64,7 @@ import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido
     MarcaListComponent,
     FiltroEditComponent,
     FiltroListComponent,  
+    FiltroMarketplaceComponent,
     DimensaoListComponent,
     DimensaoEditComponent,  
     TamanhoListComponent,

@@ -1,12 +1,22 @@
 <div class="container">
-    <div class="filtro">
-        <button class="btn-filter" *ngIf="canFilter" (click)="onFilterShow()"><mat-icon>filter_alt</mat-icon></button>
-    </div>
-    <div class="pesquisa">
+    <div class="menu-pesquisa">
+        <button class="btn-filter" *ngIf="canFilter" (click)="baseFilterShow()"><mat-icon>filter_alt</mat-icon></button>
+        <div class="pesquisa">
             <mat-icon>search</mat-icon>
-        <input class="txt-pesquisa" type="text" placeholder="Pesquisa rápida" [(ngModel)]="txt_pesquisa" (ngModelChange)="onFilterList()">
-        <div class="btn-clear">
-            <button *ngIf="can_clear" (click)="onClear()"><mat-icon>clear</mat-icon></button>
+            <input class="txt-pesquisa" type="text" placeholder="Pesquisa rápida" [(ngModel)]="txt_pesquisa" (ngModelChange)="baseFilterList()">
+            <div class="btn-clear">
+                <button *ngIf="can_clear" (click)="baseClear()"><mat-icon>clear</mat-icon></button>
+            </div>
+        </div>
+    </div>
+    <div class="filtros">
+        <div class="filtro" *ngFor="let f of filters;let i=index">
+            <div class="caption">
+                <span>{{f.Caption}}</span> 
+                <button (click)="baseRemoveFilter(i)"><mat-icon>cancel</mat-icon></button>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="display">{{f.Display}}</div>
         </div>
     </div>
 </div>

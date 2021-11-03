@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { catchError, delay, map, take, takeUntil } from 'rxjs/operators';
 import { DialogResult } from '@app/modules/BaseDialog';
+import { UtilsService } from '@app/core/services/utils.service';
 
 // declare function modal(): any;
 
@@ -45,6 +46,11 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
     return this._produtoFotos;
   }
 
+  private _viewportOrientation = 'horizontal';
+  get viewportOrientation() : string {
+    return this._viewportOrientation;
+  }
+
   fotosCor(cor: any) {
 
     const codCor = cor.value.codCorECommerce;
@@ -61,13 +67,14 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
 
   constructor(
     private _api: EcommerceService,
-    private _builder: FormBuilder,
+    private _util: UtilsService,
     public matDialog: MatDialog) { 
       super();
       this.baseMatDialog = matDialog;
   }
 
   ngOnInit(): void {
+    this._viewportOrientation = (this._util.isMobile) ? 'vertical' : 'horizontal';
   }
 
   onImgError(event: any) {

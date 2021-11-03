@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/services/authentication.service';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '@app/modules/user';
+import { UtilsService } from '@app/core/services/utils.service';
+import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { PageService } from '@app/core/services/page.service';
 
 @Component({
   selector: 'app-navigate-main',
@@ -49,7 +52,7 @@ export class NavigateMainComponent extends BaseComponent {
       caption: 'Configuração',
       submenus: [
         {
-          caption: 'Plataformas',
+          caption: 'Marketplaces',
           link:'plataforma'
         },
         {
@@ -79,13 +82,20 @@ export class NavigateMainComponent extends BaseComponent {
       shareReplay()
     );
 
+  get title_menu() {
+    return this._page.title_menu;
+  }
+  
   constructor(
     private _breakpointObserver: BreakpointObserver,
     private _router: Router,
+    private _page: PageService,
+    private _api: EcommerceService,
     private _authenticationService: AuthenticationService,
     public dialog: MatDialog) {
       super();
       this._authenticationService.currentUser.subscribe(x => this.currentUser = x);
+      this.base_title = 'VYA online'
     }
 
     ngOnInit(): void {
@@ -123,6 +133,7 @@ export class NavigateMainComponent extends BaseComponent {
 
     onHome() {
       this.base_title = "Home";
+      this._page.title_menu = 'Home'
       this._router.navigate(['home']);
     }
   

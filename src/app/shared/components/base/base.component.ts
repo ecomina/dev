@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { PageService } from '@app/core/services/page.service';
+import { UtilsService } from '@app/core/services/utils.service';
 import { DialogResult, DialogType } from '@app/modules/BaseDialog';
 import { Observable, of } from 'rxjs';
 import { BaseDialogComponent } from '../base-dialog/base-dialog.component';
@@ -8,28 +11,31 @@ import { BaseDialogComponent } from '../base-dialog/base-dialog.component';
 @Component({
   selector: 'app-base',
   templateUrl: './base.component.html',
-  styleUrls: ['./base.component.css']
+  styleUrls: ['./base.component.css'],
+  providers:[PageService]
 })
 export class BaseComponent implements OnInit {
 
   public base_title: string;
   public base_carregando: Boolean = false;
-  private obsProcess$ = null;
-  dialogResult: DialogResult.None;
-  
+  public baseMatDialog: MatDialog;
+  private page: PageService = new PageService();
+
   @Input() formulario: FormGroup;
   @Input() formularioArray: FormArray;
 
-  public baseMatDialog: MatDialog;
-
-  public iconCheck(check: boolean) {
-    return  (check) ? 'check_box' : 'check_box_outline_blank';
+  set title_menu(title: string) {
+    this.page.title_menu = title;
   }
 
   constructor() { 
   }
 
   ngOnInit(): void {
+  }
+
+  public iconCheck(check: boolean) {
+    return  (check) ? 'check_box' : 'check_box_outline_blank';
   }
 
   public onBaseError(titulo: string, msg: string) {
@@ -54,7 +60,11 @@ export class BaseComponent implements OnInit {
   }
 
   public baseDialogConfirm(msg: string) {
-    return this.baseDialog(DialogType.OkCancel, 'Sucesso', msg);
+    return this.baseDialog(DialogType.OkCancel, msg, '');
+  }
+
+  public baseDialogYesNoCancel(msg: string) {
+    return this.baseDialog(DialogType.YesNoCancel, 'Confirmar sua ação', msg);
   }
 
   public baseDialogMsg(tipoDialogo: DialogType, titulo: string, msg: string) {

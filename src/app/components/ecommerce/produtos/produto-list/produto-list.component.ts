@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { PageService } from '@app/core/services/page.service';
 import { BaseListRegisterComponent } from '@app/shared/components/base-list-register/base-list-register.component';
 
 @Component({
   selector: 'app-produto-list',
   templateUrl: './produto-list.component.html',
-  styleUrls: ['./produto-list.component.css']
+  styleUrls: ['./produto-list.component.css'],
+  providers:[PageService]
 })
 export class ProdutoListComponent extends BaseListRegisterComponent implements OnInit {
 
@@ -40,6 +42,7 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
     private _router: Router
   ) { 
     super();
+    this.title_menu = 'Produto';
   }
 
   ngOnInit(): void {
