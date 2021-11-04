@@ -1,64 +1,156 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location} from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
 import { Observable, of } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { Marketplace } from '@app/modules/Marketplace';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CategoriaMarketplaceComponent } from '../categoria-marketplace/categoria-marketplace.component';
 
 @Component({
   selector: 'app-categoria-edit',
   templateUrl: './categoria-edit.component.html',
-  styleUrls: ['./categoria-edit.component.css']
+  styleUrls: ['./categoria-edit.component.css', '../../../../../../styles/_base-button.css', '../../../../../../styles/_base-edit.css']
 })
 export class CategoriaEditComponent extends BaseRegisterComponent implements OnInit {
   
-  list_categorias: any[] = [];
+  _list_categorias: any[] = [];
+  _listMarketplaces: Marketplace[] = [];
 
   get salvando() {
     return this.base_salvando;
   }
 
-  constructor(
-    private _builder: FormBuilder,
-    private _api: EcommerceService,
-    public dialogRef: MatDialogRef<BaseRegisterComponent>,
-    @Inject(MAT_DIALOG_DATA) public dataObj: any) { 
-      super();
+  get listMarketplaces() {
+
+    this._listMarketplaces.forEach((x, i) => {
+      const mp = this.marketplacesControl.controls.find(control => control.value.codProvedorMarketplace === x.codigo);
+
+      this._listMarketplaces[i].descricaoMarketplace = (mp != null) ? mp.value.descricaoMarketplace : this._listMarketplaces[i].descricaoMarketplace;
+      this._listMarketplaces[i].idMarketplace = (mp != null) ? mp.value.idMarketplace : this._listMarketplaces[i].idMarketplace;
+    })
+     
+    return this._listMarketplaces.filter(x => !x.permiteCadastrarCategoria)
   }
 
-  ngOnInit(): void {
-    this.onCreateForm();  
-  }
- 
-  onComboChange(event: any, combo: any){
-    this.formulario.get(combo)?.setValue(event.id);
+  get marketplacesControl() : FormArray {
+    return this.formulario.get('marketplaces') as FormArray;
   }
 
   get obs_categorias() : Observable<any[]> {
-    return of(this.list_categorias);
+    return of(this._list_categorias);
   }
 
   get codigo_categoria_pai() {
     return this.formulario.value.codCategoriaECommercePai;
   }
 
+  constructor(
+    private _builder: FormBuilder,
+    private _location: Location,
+    private _api: EcommerceService,
+    private _activatedRoute: ActivatedRoute,
+    public matDialog: MatDialog) { 
+      super();
+      this.onCreateForm();  
+  }
+
+  ngOnInit(): void {
+    this.onLoad();
+    this.loadMarketPlaces();
+  }
+
+  onLoad() {
+    const codigo = this._activatedRoute.snapshot.paramMap.get('codigo');
+    const codigoPai = this._activatedRoute.snapshot.paramMap.get('codigoPai');
+    
+    if (codigo != null) {
+      this.novoCadastro = true;
+      this._api.getCategoriaCodigo(codigo)
+        .pipe(
+          take(1)
+        )
+        .subscribe({
+          next: result => {
+            this.buildForm(result);
+          }
+        }) 
+    }
+    else {
+      let control = this.formulario.get('codCategoriaECommercePai') as FormControl;
+      control.setValue(codigoPai)
+    }
+  }
+
+  loadMarketPlaces() {
+    this.base_carregando = true;
+    this._api.getMarketplace(true)
+    .pipe(
+      take(1)
+    )
+    .subscribe({
+      next: result => {
+        result.forEach(o => {
+          this._listMarketplaces.push(o)
+        })
+
+        this.base_carregando = false;
+      }
+    })
+  }
+
+  onComboChange(event: any, combo: any) {
+
+    if (event == null)
+      this.formulario.get(combo)?.setValue(null);
+    else
+      this.formulario.get(combo)?.setValue(event.id);
+  }
+
+  onRelacionar(marketplace: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+
+    const dialogRef = this.matDialog.open(CategoriaMarketplaceComponent, dialogConfig);
+
+    dialogRef.afterClosed()
+    .subscribe(result => {
+
+      if (result != null)
+      {
+        this.onCreateMarketplace(marketplace, result)
+      }
+    }) 
+  }
+
+  onCreateMarketplace(marketplace: any, categoria: any) {
+
+    this.marketplacesControl.controls.forEach((x: any) => {
+      if (x.value.codProvedorMarketplace === marketplace.codigo)
+        this.marketplacesControl.removeAt(x)
+    }) 
+
+    const control = 
+      this.buildMarketplace({
+        descricaoProvedorMarketplace: marketplace.descricao,
+        descricaoMarketplace: categoria.descricao,
+        codProvedorMarketplace: marketplace.codigo,
+        idMarketplace: categoria.id});
+
+    this.marketplacesControl.push(control);
+  }
+
   onCreateForm() {
     
-    if (this.dataObj.data == null)
-    {
-      this.dataObj.data = {
-        codigo: null,
-        descricao: '',
-        codCategoriaECommercePai: null,
-        ativo: true
-      }
-    }
-
     this.formulario = this._builder.group({
-      codigo: [this.dataObj.data.codigo], 
-      descricao: [this.dataObj.data.descricao, Validators.required], 
-      codCategoriaECommercePai: [this.dataObj.data.pai, Validators.required], 
-      ativo: [this.dataObj.data.ativo, Validators.required] 
+      codigo: [null], 
+      descricao: ['', Validators.required], 
+      codCategoriaECommercePai: [null], 
+      ativo: [true, Validators.required],
+      marketplaces: this._builder.array([])
     }); 
 
     this.formulario.valueChanges.subscribe(value => {
@@ -68,14 +160,31 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
     this.onCarregaCategorias();
   }
 
+  buildForm(object: any) {
+    this.formulario.patchValue(object);
+
+    object.marketplaces.forEach((m:any) => {
+      this.marketplacesControl.push(this.buildMarketplace(m));
+    })
+  }
+
+  buildMarketplace(object: any) : FormGroup {
+    return this._builder.group({
+      descricaoProvedorMarketplace: object.descricaoProvedorMarketplace,
+      descricaoMarketplace: object.descricaoMarketplace,
+      codProvedorMarketplace: object.codProvedorMarketplace,
+      idMarketplace: object.idMarketplace
+    })
+  }
+
   onCarregaCategorias() {
-    this.list_categorias = [];
+    this._list_categorias = [];
 
     this._api.getCategoria(false).subscribe({
       next: result => {
         result.forEach(o => {
           const item = {id: o.codigo, descricao: o.codigo+' '+o.descricao, object: o, grupo: ''}
-          this.list_categorias.push(item)
+          this._list_categorias.push(item)
         }) 
       },
       error: erro => {
@@ -100,23 +209,18 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
 
       this._api.postCategoria(this.formulario.value).subscribe({
         next: result => {
-          this.dataObj.confirmou = event;
-          this.dataObj.data = this.formulario.value;
+          this._location.back()
         },
         error: erro => {
           console.error(erro);
           this.base_salvando = false;
-          this.dialogRef.close(this.dataObj);
-        },
-        complete: () => {
-          this.base_salvando = false;
-          this.dialogRef.close(this.dataObj)
         }
       })
     }
     else {
-      this.dialogRef.close()
+      this._location.back();
     }
+
   }
 
 }

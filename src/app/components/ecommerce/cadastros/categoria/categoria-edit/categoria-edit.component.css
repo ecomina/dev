@@ -1,27 +1,8 @@
+/* @import url("../../../../../../styles/_base-button.css"); */
+/* @import url("../../../../../../styles/_base-edit.css"); */
+
 mat-divider {
     margin: 10px 10px;    
-}
-
-.container {
-    display: flex;
-    /* flex-direction: row; */
-    flex-wrap: wrap;
-    /* width: 100%; */
-}
-
-.titulo {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #46277c;
-    color: #fff;
-    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
-}
-
-.form {
-    margin: 10px;
 }
 
 .combo {
@@ -31,14 +12,13 @@ mat-divider {
 }
 
 .combo button {
-    margin-top: -20px;
     border-style: none;
     background: transparent;
     padding: 10px;
 }
 
-.mat-dialog-container {
-    background-color: #303030;
+.btn-remove {
+    cursor: pointer;
 }
 
 .codigo mat-form-field {
@@ -47,4 +27,17 @@ mat-divider {
 
 .descricao mat-form-field {
     width: 250px;
+}
+
+.marketplace {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-color: #aeaeae;
+    border-radius: 5px;
+    border-width: 1px;
+    width: 250px;
+    height: 60px;
+    margin: 12px;
+    padding: 10px;
 }

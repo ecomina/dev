@@ -1,0 +1,26 @@
+.btn-relacionar {
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    height: 35px;
+    margin: 5px;
+    border-color: #46277c;
+}
+
+.btn-relacionar span {
+    font-size: 14px;
+}
+
+.btn-relacionar:hover {
+    color: #46277c;
+    transform: scale(1.03);
+}
+
+.btn-relacionar.vazio {
+    border-color: rgb(255, 0, 0);
+}
+
+.btn-relacionar.vazio:hover {
+    color: rgb(255, 0, 0);
+}

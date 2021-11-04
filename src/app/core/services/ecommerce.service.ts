@@ -88,6 +88,38 @@ getCategoria(somenteAtivos: boolean = false) : Observable<any[]> {
   return result;
 }
 
+getCategoriaCodigo(codigo: any) : Observable<any[]> {
+
+  var url = this.urlApi+'api/Categoria/';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codigo', String(codigo));
+
+  var result = this._httpClient.get<any>(url.concat(codigo))
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+getCategoriaProvedor(codProvedorMarketplace: any) : Observable<any[]> {
+
+  var url = this.urlApi+'api/Categoria/Provedor/';
+
+  let parametros = new HttpParams();
+
+  parametros = parametros.append('codProvedorMarketplace', String(codProvedorMarketplace));
+
+  var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace))
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
 postCategoria(obj: any) : Observable<any> {
 
   var url = this.urlApi+'api/Categoria';
@@ -221,6 +253,9 @@ postFiltro(obj: any) : Observable<any> {
 putFiltro(obj: any) : Observable<any> {
 
   var url = this.urlApi+'api/Filtro';
+
+  let parametros = new HttpParams();
+  parametros = parametros.append('codigo', String(obj.codigo));
 
   const body = JSON.stringify(obj);
 

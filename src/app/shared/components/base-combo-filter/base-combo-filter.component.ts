@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class BaseComboFilterComponent implements OnInit {
 
+  @Input() canEmpty: boolean = false;
   @Input() comboLabel: string;
   @Input() comboEnabled: boolean = true;
   @Input() comboCanEdit: boolean = false;
@@ -138,6 +139,9 @@ export class BaseComboFilterComponent implements OnInit {
     {
       this.formulario.get('selecionado')?.setValue(event.value.value);
       this.eventEmiterBase.emit(event.value);
+    }
+    else if (this.canEmpty) {
+      this.eventEmiterBase.emit(null);
     }
   }
 

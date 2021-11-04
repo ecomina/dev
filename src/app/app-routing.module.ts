@@ -18,11 +18,7 @@ const routes: Routes = [
   { path: '',
     component: NavigateMainComponent,
     loadChildren: () => import('@app/components/navigate-main/navigate-main.module').then(m => m.NavigateMainModule),
-    canActivate: [AuthGuard],
-    // children: [
-    //   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-    //   { path: 'categoria', component: CategoriaListComponent, canActivate: [AuthGuard] },
-    // ]
+    canActivate: [AuthGuard]
   },
   {
     path: 'login', component: UserLoginComponent,

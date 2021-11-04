@@ -3,22 +3,22 @@ mat-divider {
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
+    background-color: #fff;
 }
 
 .titulo {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 30px;
-    margin: 10px 10px 5px 10px;
-    padding: 5px;
+    padding: 10px;
     background-color: #46277c;
     color: #fff;
     -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
     box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+}
+
+.titulo mat-icon {
+    margin-right: 10px;
 }
 
 .btn-voltar {
@@ -41,3 +41,31 @@ mat-divider {
     background-color: #303030;
 }
 
+.grupo {
+    /* background-color: #fff; */
+    padding: 10px;
+}
+
+.grupo-label {
+    padding: 5px;
+    background-color: #303030;
+    color: #fff;
+}
+
+.grupo label {
+    font-size: 16px;
+    color: #673ab7;
+}
+
+.sub-grupo {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sub-grupo-col {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}

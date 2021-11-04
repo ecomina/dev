@@ -1,26 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
-import { delay, map, take } from 'rxjs/operators';
-import {Location} from '@angular/common';
+import { take } from 'rxjs/operators';
+import { Location} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FiltroMarketplaceComponent } from '../filtro-marketplace/filtro-marketplace.component';
 import { BaseListSelectComponent } from '@app/shared/components/base-list-select/base-list-select.component';
-import { combineLatest, Observable, of } from 'rxjs';
-import { DialogResult, DialogType } from '@app/modules/BaseDialog';
-
-export class Marketplace {
-  codigo: any
-  descricao: any
-  permiteCadastrarCategoria: any
-  permiteCadastrarFiltro: any
-  ativo: any
-  idMarketplace: string
-  descricaoMarketplace: string
-}
+import { Observable, of } from 'rxjs';
+import { DialogResult } from '@app/modules/BaseDialog';
+import { Marketplace } from '@app/modules/Marketplace';
 
 @Component({
   selector: 'app-filtro-edit',
@@ -28,8 +18,6 @@ export class Marketplace {
   styleUrls: ['./filtro-edit.component.css']
 })
 export class FiltroEditComponent extends BaseRegisterComponent implements OnInit {
-
-  private novoCadastro = true;
 
   get salvando() {
     return this.base_salvando;
@@ -74,7 +62,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     })
 
-    return this._listMarketplaces
+    return this._listMarketplaces.filter(x => !x.permiteCadastrarFiltro)
   }
 
   constructor(
@@ -93,8 +81,9 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     this.loadMarketPlaces();
 
     const codigo = this._activatedRoute.snapshot.paramMap.get('codigo');
-
-    if (codigo != null)
+    console.log('codigo', codigo)
+    
+    if (codigo != 'new')
       this.onLoad(codigo)
   }
 
@@ -105,12 +94,18 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   loadMarketPlaces() {
-    this._api.getMarketplace()
+    this.base_carregando = true;
+    this._api.getMarketplace(true)
+      .pipe(
+        take(1)
+      )
       .subscribe({
         next: result => {
           result.forEach(o => {
             this._listMarketplaces.push(o)
           })
+
+          this.base_carregando = false;
         }
       })
   }
@@ -164,6 +159,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
             codProvedorMarketplace: marketplace.codigo,
             idMarketplace: result.obj.id}
 
+            this.removeValorMarketplace(marketplace);
             this.marketplacesControl.removeAt(this.marketplacesControl.value.findIndex((x:any) => x.codProvedorMarketplace === marketplace.codigo  ))
             this.marketplacesControl.push(this.buildMarketplace(element))
         }
@@ -271,6 +267,23 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
       if (x.value.codProvedorMarketplace === marketplace.codigo) {
         formArray.removeAt(x.value)
       }
+    })
+  }
+
+  removeValorMarketplace(marketplace: any) {
+
+    let formArray = this.valoresControl.controls;
+    console.log(marketplace, formArray)
+    formArray.forEach(valor => {
+
+        let formMarketplaces = valor.get('marketplaces') as FormArray
+
+        formMarketplaces.controls.forEach(x => {
+          if (x.value.codProvedorMarketplace === marketplace.codigo) {
+            x.value.idMarketplace = null;
+            x.value.descricaoMarketplace = null;
+          }
+        })
     })
   }
 
@@ -424,11 +437,16 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
      if (event)
     {
 
-      if (this.requerValor && this.valoresControl.controls.length == 0)
-      {
+      if (this.requerValor && this.valoresControl.controls.length == 0) {
         this.baseDialogAlert('Lista de valores vazia', 'Informe ao menos um registro para lista de valores.');
       }
-      else{
+      else {
+
+        if (!this.requerValor && this.valoresControl.controls.length > 0) 
+        {
+          this.valoresControl.setValue([]);
+        }
+
         this.base_salvando = true;
 
         this._api.salvarFiltro(this.formulario.value, this.novoCadastro).subscribe({

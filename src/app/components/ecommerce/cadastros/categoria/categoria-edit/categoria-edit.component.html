@@ -1,28 +1,37 @@
 <div class="titulo">
-    <span>{{(formulario.value.codigo === null) ? 'Novo Cadastro': 'Editando Categoria'}}</span>
-</div>  
-<mat-divider></mat-divider>  
+    <mat-icon>{{(formulario.value.codigo === null) ? 'add_circle' : 'edit'}}</mat-icon>
+    <span>{{(formulario.value.codigo === null) ? 'Cadastrando CATEGORIA' : 'Editando CATEGORIA'}}</span>
+</div>
 <div class="container">
     <div class="form" [formGroup]="formulario">
-        <!-- <div class="field codigo">
-            <mat-form-field appearance="outline">
-                <mat-label>{{(formulario.value.codigo === null) ? 'Novo': 'Código'}}</mat-label>
-                <input matInput formControlName="codigo" readonly>
-              </mat-form-field>
-        </div> -->
-        <div class="combo">
-            <app-base-combo-filter comboLabel="Categoria Pai" [comboListObs]="obs_categorias" [comboIdValue]="codigo_categoria_pai" (eventEmiterBase)="onComboChange($event, 'codCategoriaECommercePai')" ></app-base-combo-filter>
-            <button *ngIf="codigo_categoria_pai != null" (click)="onClear()"><mat-icon>clear</mat-icon></button> 
+        <div class="grupo">
+            <div class="field descricao">
+                <mat-form-field appearance="outline">
+                    <mat-label>Descrição</mat-label>
+                    <input matInput formControlName="descricao">
+                </mat-form-field>
+            </div>
+            <div class="combo">
+                <app-base-combo-filter comboLabel="Categoria Pai" [canEmpty]="true" [comboListObs]="obs_categorias" [comboIdValue]="codigo_categoria_pai" (eventEmiterBase)="onComboChange($event, 'codCategoriaECommercePai')" ></app-base-combo-filter>
+            </div>
         </div>
-        <div class="field descricao">
-            <mat-form-field appearance="outline">
-                <mat-label>Descrição</mat-label>
-                <input matInput formControlName="descricao">
-              </mat-form-field>
+        <div class="grupo">
+            <label>Marketplaces Relacionados</label>
+            <div class="marketplaces">
+                <div class="marketplace" *ngFor="let item of listMarketplaces">
+                    <span>{{item.descricao}}</span>
+                    <button class="btn-relacionar {{(item.descricaoMarketplace == null)? 'vazio' : ''}}" (click)="onRelacionar(item)">
+                        <span id="btn">{{(item.descricaoMarketplace == null)? 'Clique aqui para relacionar' : item.descricaoMarketplace}}</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="field ativo">
-            <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+        <div class="grupo">
+            <div class="field ativo">
+                <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+            </div>
         </div>
     </div>
 </div>
 <app-base-register [canSave]="canSaveBase" [salving]="salvando" (eventEmiterBase)="onRegister($event)"></app-base-register>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

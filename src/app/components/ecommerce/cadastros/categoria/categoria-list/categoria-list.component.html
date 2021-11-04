@@ -8,7 +8,7 @@
 </div>
 <div class="categoria" *ngIf="!base_carregando">
   <div class="nivel novo">
-    <button class="add"  matTooltip="Novo" (click)="onAdd(null)"><mat-icon>add</mat-icon></button>
+    <button class="add"  matTooltip="Novo" (click)="onAdd('null')"><mat-icon>add</mat-icon></button>
   </div>
 
   <ul class="categorias">
@@ -18,8 +18,8 @@
         <span id="ativo" *ngIf="!pri.ativo">Inativo</span>
       </div>
       <mat-menu #openPrimeiro="matMenu" yPosition="above">
-        <button mat-menu-item (click)="onAdd(pri)"><mat-icon>add</mat-icon>Subcategoria</button>
-        <button mat-menu-item (click)="onEdit(pri)"><mat-icon>edit</mat-icon>Editar</button>
+        <button mat-menu-item (click)="onAdd(pri.codigo)"><mat-icon>add</mat-icon>Subcategoria</button>
+        <button mat-menu-item (click)="onEdit(pri.codigo)"><mat-icon>edit</mat-icon>Editar</button>
         <button mat-menu-item disabled="true" (click)="onDelete(pri)"><mat-icon>delete</mat-icon>Excluir</button>
       </mat-menu>
       
@@ -33,8 +33,8 @@
             </div>
           </div>
           <mat-menu #openSegundo="matMenu" yPosition="above">
-            <button mat-menu-item (click)="onAdd(seg)"><mat-icon>add</mat-icon>Subcategoria</button>
-            <button mat-menu-item (click)="onEdit(seg)"><mat-icon>edit</mat-icon>Editar</button>
+            <button mat-menu-item (click)="onAdd(seg.codigo)"><mat-icon>add</mat-icon>Subcategoria</button>
+            <button mat-menu-item (click)="onEdit(seg.codigo)"><mat-icon>edit</mat-icon>Editar</button>
             <button mat-menu-item disabled="true" (click)="onDelete(seg)"><mat-icon>delete</mat-icon>Excluir</button>
           </mat-menu>
 
@@ -48,8 +48,8 @@
                 </div>
              </div>
               <mat-menu #openTerceiro="matMenu" yPosition="above">
-                <button mat-menu-item (click)="onAdd(ter)"><mat-icon>add</mat-icon>Subcategoria</button>
-                <button mat-menu-item (click)="onEdit(ter)"><mat-icon>edit</mat-icon>Editar</button>
+                <button mat-menu-item (click)="onAdd(ter.codigo)"><mat-icon>add</mat-icon>Subcategoria</button>
+                <button mat-menu-item (click)="onEdit(ter.codigo)"><mat-icon>edit</mat-icon>Editar</button>
                 <button mat-menu-item disabled="true" (click)="onDelete(ter)"><mat-icon>delete</mat-icon>Excluir</button>
               </mat-menu>
               <ul *ngFor="let qua of ter.filhos" >
@@ -62,8 +62,8 @@
                     </div>
                   </div>
                   <mat-menu #openQuarto="matMenu" yPosition="above">
-                    <button mat-menu-item (click)="onAdd(qua)"><mat-icon>add</mat-icon>Subcategoria</button>
-                    <button mat-menu-item (click)="onEdit(qua)"><mat-icon>edit</mat-icon>Editar</button>
+                    <button mat-menu-item (click)="onAdd(qua.codigo)"><mat-icon>add</mat-icon>Subcategoria</button>
+                    <button mat-menu-item (click)="onEdit(qua.codigo)"><mat-icon>edit</mat-icon>Editar</button>
                     <button mat-menu-item disabled="true" (click)="onDelete(qua)"><mat-icon>delete</mat-icon>Excluir</button>
                   </mat-menu>
                 </li>

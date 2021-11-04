@@ -11,13 +11,14 @@
             <mat-option *ngIf="canAdd">
                 <button class="btn add" mat-button (click)="onAdd()">Incluir</button>
             </mat-option>
-            <div *ngFor="let obj of listObjects;let i = index">
-                <mat-option class="option" [value]="obj">
-                    <div class="item">
-                        <div class="descricao">{{obj.descricao}}</div>
-                    </div>
-                </mat-option>
-            </div>
+            <mat-option *ngIf="canEmpty">
+                <div class="descricao">-- Nenhum --</div>
+            </mat-option>
+            <mat-option class="option" [value]="obj" *ngFor="let obj of listObjects;let i = index">
+                <div class="item">
+                    <div class="descricao">{{obj.descricao}}</div>
+                </div>
+            </mat-option>
         </mat-select>
     </mat-form-field>
     <mat-form-field class="field descricao" *ngIf="editando" appearance="outline">

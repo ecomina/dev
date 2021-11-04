@@ -1,3 +1,7 @@
+@import url("../../../../../../styles/_base-edit.css");
+/* @import url("../../../../../../styles/_base-list.css"); */
+
+
 ul {
     list-style-type: none;
     margin-left: -20px;
@@ -8,7 +12,7 @@ ul {
     color: red;
 }
 
-.titulo {
+/* .titulo {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,7 +30,7 @@ ul {
 .titulo span {
     margin-left: 10px;
 }
-
+ */
 /* .item::before {
     content: "\2610";
 } */

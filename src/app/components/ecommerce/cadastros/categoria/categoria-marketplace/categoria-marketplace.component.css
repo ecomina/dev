@@ -1,0 +1,69 @@
+.titulo-divider {
+    -webkit-box-shadow: 2px 2px 5px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    2px 2px 5px rgba(125, 125, 125, 0.77);
+    box-shadow:         2px 2px 5px rgba(125, 125, 125, 0.77);  
+}
+
+.titulo {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    height: 40px;
+    color: #000;
+    margin: 5px;
+}
+
+.categoria {
+    width: 250px
+}
+
+.btn-descricao {
+    border-style: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.btn-descricao:hover {
+    color: rgb(114, 140, 141);
+    cursor: pointer;
+}
+
+.filho button {
+   height: 45px;
+   margin-left: 30px;
+   color: rgb(48, 48, 48)
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.tree::before {
+    content: "\2517";
+}
+
+.btn-expand {
+    padding: 5px;
+    border-style: none;
+    background: transparent;
+    cursor: pointer;
+    width: 25px;
+}
+
+.menu {
+    text-align: end;
+    margin-top: -15px;
+    margin-right: -15px;
+}
+
+.menu button {
+    border-style: none;
+    background: transparent;
+    cursor: pointer;
+}
+

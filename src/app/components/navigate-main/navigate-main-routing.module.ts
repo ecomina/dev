@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { SharedGlobalModule } from '@app/shared/shared-global/shared-global.module';
 import { AuthGuard } from '@app/_helpers/auth.guard';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { CadastrosMainComponent } from '../ecommerce/cadastros/cadastros-main/cadastros-main.component';
+import { CategoriaEditComponent } from '../ecommerce/cadastros/categoria/categoria-edit/categoria-edit.component';
 import { CategoriaListComponent } from '../ecommerce/cadastros/categoria/categoria-list/categoria-list.component';
 import { CoresListComponent } from '../ecommerce/cadastros/cores/cores-list/cores-list.component';
 import { DimensaoListComponent } from '../ecommerce/cadastros/dimensao/dimensao-list/dimensao-list.component';
@@ -35,19 +36,16 @@ const routes: Routes = [
       { path: 'cadastros/grade', component: GradeListComponent, canActivate: [AuthGuard] },
       { path: 'cadastros/marca', component: MarcaListComponent, canActivate: [AuthGuard] },
       { path: 'cadastros/tamanho', component: TamanhoListComponent, canActivate: [AuthGuard] },
+      
       { path: 'cadastros/categoria', component: CategoriaListComponent, canActivate: [AuthGuard] },
-      {
-        path: 'cadastros/filtro/edit/:codigo', component: FiltroEditComponent, canActivate: [AuthGuard]
-      },
-      {
-        path: 'cadastros/filtro/new', component: FiltroEditComponent, canActivate: [AuthGuard]
-      },
+      { path: 'cadastros/categoria/edit/:codigo', component: CategoriaEditComponent, canActivate: [AuthGuard] },
+      { path: 'cadastros/categoria/new/:codigoPai', component: CategoriaEditComponent, canActivate: [AuthGuard] },
+      
+      { path: 'cadastros/filtro/edit/:codigo', component: FiltroEditComponent, canActivate: [AuthGuard] },
       { 
         path: 'cadastros/filtro', component: FiltroListComponent, canActivate: [AuthGuard],
         children: [
-          {
-            path: 'cadastros/filtro/edit/:codigo', component: FiltroEditComponent, canActivate: [AuthGuard]
-          }
+          { path: 'cadastros/filtro/edit/new', component: FiltroEditComponent, canActivate: [AuthGuard] },
         ]
       },
       { path: 'cadastros/dimensao', component: DimensaoListComponent, canActivate: [AuthGuard] },

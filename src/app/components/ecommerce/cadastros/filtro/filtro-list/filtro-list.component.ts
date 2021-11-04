@@ -42,7 +42,7 @@ export class FiltroListComponent extends BaseListRegisterComponent implements On
   }
 
   onAdd() {
-    this._router.navigate(['cadastros/filtro/new'])
+    this._router.navigate(['cadastros/filtro/edit/new'])
   }
 
   onEdit(codigo: any) {

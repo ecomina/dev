@@ -16,6 +16,7 @@ export class BaseRegisterComponent extends BaseComponent implements OnInit {
   @Input() visible: boolean = true;
   @Output() eventEmiterBase = new EventEmitter();
 
+  public novoCadastro = true;
   public base_editado: boolean = false;
   public base_canSave: boolean = false;
   public base_salvando: boolean = false;

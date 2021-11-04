@@ -33,6 +33,7 @@ import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-lis
 import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
 import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido-filter.component';
 import { FiltroMarketplaceComponent } from '../ecommerce/cadastros/filtro/filtro-marketplace/filtro-marketplace.component';
+import { CategoriaMarketplaceComponent } from '../ecommerce/cadastros/categoria/categoria-marketplace/categoria-marketplace.component';
 
 // import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 // import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -55,6 +56,7 @@ import { FiltroMarketplaceComponent } from '../ecommerce/cadastros/filtro/filtro
     HomeComponent,
     CategoriaListComponent,
     CategoriaEditComponent,
+    CategoriaMarketplaceComponent,
     CadastrosMainComponent,
     CoresListComponent,
     CoresEditComponent,

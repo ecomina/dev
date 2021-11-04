@@ -1,14 +1,9 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { NgForOf } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { CategoriaEditComponent } from '../categoria-edit/categoria-edit.component';
+import { take} from 'rxjs/operators';
 
 interface Categoria {
   codigo: number,
@@ -48,7 +43,7 @@ export class CategoriaListComponent implements OnInit, OnDestroy {
 
   constructor(
     private _api: EcommerceService,
-    public dialog: MatDialog,
+    private _router: Router,
     private sanitizer: DomSanitizer) {
       this.onListar();
   }
@@ -122,46 +117,15 @@ export class CategoriaListComponent implements OnInit, OnDestroy {
     return  (check) ? 'check_box' : 'check_box_outline_blank';
   }
 
-  onEdit(obj: any) {
-
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.data = {
-      confirmou: false,
-      data: obj}
-
-    dialogConfig.disableClose = true;
-
-    const dialogRef = this.dialog.open(CategoriaEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.onListar();
-    })
+  onEdit(codigo: any) {
+    console.log('onEdit')
+    this._router.navigate(['cadastros/categoria/edit', codigo])
   }
 
+  onAdd(codigoPai: any) {
 
-  onAdd(obj: any) {
-
-    if (obj != null)
-    {
-      obj.pai = obj.codigo;
-      obj.codigo = null,
-      obj.descricao = null;
-      obj.ativo = true;
-    }
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.data = {
-      confirmou: false,
-      data: obj}
-
-    dialogConfig.disableClose = true;
-
-    const dialogRef = this.dialog.open(CategoriaEditComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.onListar();
-    })
+    console.log('onAdd')
+    this._router.navigate(['cadastros/categoria/new', codigoPai])
   }
 
   onDelete(obj: any){
@@ -214,7 +178,6 @@ export class CategoriaListComponent implements OnInit, OnDestroy {
         }
       }
     }
-
   }
 
 }
