@@ -216,11 +216,7 @@ getFiltroCodigo(codigo: any) {
 
 getFiltroProvedor(codProvedorMarketplace: any) : Observable<any[]> {
   var url = this.urlApi+'api/Filtro/Provedor/';
-
-  let parametros = new HttpParams();
-
-  parametros = parametros.append('codProvedorMarketplace', String(codProvedorMarketplace));
-
+  
   var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace))
     .pipe(
       retry(0),
@@ -228,6 +224,25 @@ getFiltroProvedor(codProvedorMarketplace: any) : Observable<any[]> {
 
   return result;
 }
+
+getFiltroProvedorCategorias(codProvedorMarketplace: any, categorias: any[]) : Observable<any[]> {
+  var url = this.urlApi+'api/Filtro/Provedor/';
+
+  let parametros = new HttpParams();
+  
+  categorias.forEach(c => {
+    parametros = parametros.append('codCategorias', String(c));
+  })
+  
+  console.log(parametros)
+  var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace), {params: parametros})
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
 
 salvarFiltro(obj: any, novo: boolean) : Observable<any> {
   if (novo)

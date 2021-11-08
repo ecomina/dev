@@ -99,7 +99,9 @@
         <mat-tab label="Fotos">
             <app-produto-foto-cor [form]="formulario" [codProduto]="codigoProduto" (eventPosicaoUp)="onPosicaoUp($event)" ></app-produto-foto-cor>
         </mat-tab>
-        <mat-tab label="Filtros" disabled></mat-tab>
+        <mat-tab label="Filtros">
+            <app-produto-filtros [form]="formulario"></app-produto-filtros>
+        </mat-tab>
         <mat-tab label="Categorias" disabled></mat-tab>
     </mat-tab-group>
 </div> 

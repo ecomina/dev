@@ -62,9 +62,9 @@
 
 .posicao {
     position: absolute;
-    margin: 0px;
+    margin: 1px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     font-size: 16px;
     height: 24px;
     width: 24px;
@@ -81,13 +81,13 @@
   position: absolute;
   padding: 10px;
   cursor: pointer;
-  margin: 100px 100px;
+  margin: 112px 112px;
 }
 
 .excluir mat-icon {
   background-color: #fff;
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
 }
 
 .excluir:hover {

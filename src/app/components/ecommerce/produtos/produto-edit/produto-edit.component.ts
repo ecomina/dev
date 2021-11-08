@@ -24,6 +24,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     return this.formulario.get('cores') as FormArray;
   }
 
+  get filtrosControls() : FormArray {
+    return this.formulario.get('filtros') as FormArray;
+  }
+
   get obs_marcas() : Observable<any[]> {
     return of(this.list_marcas);
   }
@@ -99,24 +103,28 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   createForm() {
     this.formulario = this._builder.group({
-      dataCadastro: null,
       codigo: null,
       codigoNexttLegado: null,
-      codMarca: [null, Validators.required],
+      modelo: null,
       titulo: null,
       descricaoReduzida: null,
-      descricaoCompleta: null,
-      modelo: null,
-      dimensao: this.builderDimensao(),
       ativo: true,
-      visivelSite: true,
-      mostrarProdutoEsgotado: false,
       precoCheio: 0,
       precoPor: 0,
-      custo: 0,
-      codCategoriaPrincipal: 4,
-      filtros: null,
-      cores: this._builder.array([])}) 
+      custo: 0,      
+      descricaoCompleta: null,
+      marca: this.builderMarca(),
+      dimensao: this.builderDimensao(),
+      visivelSite: true,
+      mostrarProdutoEsgotado: false,
+      categoriaPrincipal: this.builderCategoriaPrincipal(),
+      filtros: this._builder.array([]),
+      cores: this._builder.array([]),
+
+      dataCadastro: null,
+      codMarca: 0,
+      codCategoriaPrincipal: 0,
+    }) 
 
       this.onCarregaMarcas(); 
       this.onCarregaCategorias();     
@@ -195,6 +203,12 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     cores.forEach(cor => {
       this.coresControls.push(cor);
     })
+
+    const filtros = this.builderFiltros(produto.filtros).controls;
+
+    filtros.forEach(filtro => {
+      this.filtrosControls.push(filtro);
+    })
   }
 
   builderDimensao() {
@@ -211,6 +225,22 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         largura: [0, Validators.required],
         profundidade: [0, Validators.required]
       })
+    })
+  }
+
+  builderMarca() {
+    return this._builder.group({
+      codigo: [0, Validators.required],
+      descricao: null,
+      ativo: null
+    })
+  }
+
+  builderCategoriaPrincipal() {
+    return this._builder.group({
+      codigo: 0,
+      descricao: null,
+      ativo: null
     })
   }
 
@@ -243,6 +273,48 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
           ean13: i.ean13 ,
           codTamanhoECommerce: i.codTamanhoECommerce,
           ativo: i.ativo})
+      )
+    })
+
+    return formArray;
+  }
+
+  builderFiltros(filtros: any[]) : FormArray {
+
+    let formArray = this._builder.array([]);
+
+    filtros.forEach(x => {
+      formArray.push(
+        this._builder.group({
+          filtro: this._builder.group({
+            descricaoTipoFiltro: x.filtro.descricaoTipoFiltro,
+            codigo: x.filtro.codigo,
+            descricao: x.filtro.descricao,
+            obrigatorio: x.filtro.obrigatorio,
+            tipoFiltro: x.filtro.tipoFiltro,
+            valorPadrao: x.filtro.valorPadrao,
+            ativo: x.filtro.ativo,
+            valores: this.buildFiltrosValores(x.filtro.valores)
+          })
+        })
+        
+      )
+    })
+
+    return formArray;
+  }
+
+  buildFiltrosValores(valores: any[]) : FormArray {
+    let formArray = this._builder.array([]);
+
+    valores.forEach(x => {
+      formArray.push(
+        this._builder.group({
+          codigo: x.codigo,
+          valor: x.valor,
+          ativo: x.ativo,
+          ordem: x.ordem
+        })
       )
     })
 
@@ -283,7 +355,6 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   onCodNextt() {
-    alert('Cod Legado')
   }
 
   onComboChange(event: any, combo: any) {

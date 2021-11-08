@@ -2,6 +2,10 @@
 @import url("../../../../../../styles/_base-edit.css");
 @import url("../../../../../../styles/_base-button.css");
 
+.view-categorias {
+    margin: 10px 20px;
+}
+
 .tabela {
     overflow: auto;
     white-space: nowrap;
@@ -52,19 +56,20 @@ label {
     width: 150px;
 }
 
-.marketplace-detalhe {
+/* .marketplace-detalhe {
     display: flex;
     flex-direction: column;
-}
+} */
 
 .inp-field {
     width: 100%;
     padding: 12px 20px;
-    margin: 8px 0;
+    /* margin: 8px 0; */
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    border-style: none;
 }
 
 .valor-padrao-sim-nao {

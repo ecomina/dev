@@ -1,0 +1,16 @@
+.field {
+    margin: 10px;
+}
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.filtro {
+    margin: 10px;
+    -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
+}

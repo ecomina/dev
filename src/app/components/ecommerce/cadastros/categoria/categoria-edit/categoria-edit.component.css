@@ -1,5 +1,5 @@
-/* @import url("../../../../../../styles/_base-button.css"); */
-/* @import url("../../../../../../styles/_base-edit.css"); */
+@import url("../../../../../../styles/_base-button.css");
+@import url("../../../../../../styles/_base-edit.css");
 
 mat-divider {
     margin: 10px 10px;    

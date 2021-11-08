@@ -43,6 +43,8 @@ import { BaseUploadFilesComponent } from '../components/base-upload-files/base-u
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { BaseDialogComponent } from '../components/base-dialog/base-dialog.component';
+import { BaseTreeviewComponent } from '../components/base-treeview/base-treeview.component';
+import { TreeviewModule } from 'ngx-treeview';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -59,9 +61,11 @@ const maskConfig: Partial<IConfig> = {
     BaseComboFilterComponent,
     BaseFormDebugComponent,
     BaseUploadFilesComponent,
+    BaseTreeviewComponent,   
   ],
   imports: [
     NgxMaskModule.forRoot(maskConfig),
+    TreeviewModule.forRoot(),
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -106,6 +110,7 @@ const maskConfig: Partial<IConfig> = {
     BaseFormDebugComponent,
     BaseListSelectComponent,
     BaseUploadFilesComponent,
+    BaseTreeviewComponent,   
 
     MatMenuModule,
     MatButtonModule,

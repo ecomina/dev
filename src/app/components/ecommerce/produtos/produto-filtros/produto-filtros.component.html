@@ -1,0 +1,30 @@
+<div class="container">
+    <form class="form" [formGroup]="formulario">
+        <div class="filtros" formArrayName="filtros">
+            <div class="filtro" *ngFor="let filtro of filtrosControl.controls;let i=index">
+                <div class="field" [formGroupName]="i">
+                    <div formGroupName="filtro">
+                        <mat-form-field class="field" appearance="fill">
+                            <mat-label>Descrição</mat-label>
+                            <input matInput readonly formControlName="descricao" ng-model="required" >
+                        </mat-form-field>
+
+                        <mat-form-field class="field" appearance="fill">
+                            <mat-label>Tipo Filtro</mat-label>
+                            <input matInput readonly formControlName="descricaoTipoFiltro" ng-model="required" >
+                        </mat-form-field>
+
+                        <mat-form-field class="field" appearance="fill">
+                            <mat-label>Valor Padrão</mat-label>
+                            <input matInput readonly formControlName="valorPadrao" ng-model="required" >
+                        </mat-form-field>
+                    <!-- <mat-error *ngIf="form.controls.name.hasError('required')">Name required</mat-error> -->                    
+                    </div>
+
+                </div>
+                <mat-divider></mat-divider>
+            </div>
+        </div>
+    </form>
+</div>
+<app-base-form-debug [form]="formulario"></app-base-form-debug>

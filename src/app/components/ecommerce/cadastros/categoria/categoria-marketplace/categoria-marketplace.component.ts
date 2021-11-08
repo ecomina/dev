@@ -53,7 +53,6 @@ export class CategoriaMarketplaceComponent extends BaseComponent implements OnIn
   }
 
   montarArvoreCategoria(categorias: any[]) {
-    categorias = this.teste;
 
     categorias.forEach(c => {
       const categoria: CategoriaMarketplace = {

@@ -29,11 +29,13 @@ import { ProdutoDimensoesComponent } from '../ecommerce/produtos/produto-dimenso
 import { ProdutoItensComponent } from '../ecommerce/produtos/produto-itens/produto-itens.component';
 import { ProdutoFotosComponent } from '../ecommerce/produtos/produto-fotos/produto-fotos.component';
 import { ProdutoFotoCorComponent } from '../ecommerce/produtos/produto-foto-cor/produto-foto-cor.component';
+import { ProdutoFiltrosComponent } from '../ecommerce/produtos/produto-filtros/produto-filtros.component';
 import { PedidoListComponent } from '../ecommerce/pedidos/pedido-list/pedido-list.component';
 import { PedidoEditComponent } from '../ecommerce/pedidos/pedido-edit/pedido-edit.component';
 import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido-filter.component';
 import { FiltroMarketplaceComponent } from '../ecommerce/cadastros/filtro/filtro-marketplace/filtro-marketplace.component';
 import { CategoriaMarketplaceComponent } from '../ecommerce/cadastros/categoria/categoria-marketplace/categoria-marketplace.component';
+import { DefaultTreeviewI18n, DropdownTreeviewComponent, TreeviewI18n } from 'ngx-treeview';
 
 // import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 // import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -77,6 +79,7 @@ import { CategoriaMarketplaceComponent } from '../ecommerce/cadastros/categoria/
     ProdutoItensComponent,
     ProdutoFotosComponent,
     ProdutoFotoCorComponent,
+    ProdutoFiltrosComponent,
     PedidoListComponent,
     PedidoEditComponent,
     PedidoFilterComponent,
@@ -95,6 +98,22 @@ import { CategoriaMarketplaceComponent } from '../ecommerce/cadastros/categoria/
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    DropdownTreeviewComponent,
+    {
+        provide: TreeviewI18n, useValue: Object.assign(new DefaultTreeviewI18n(), {
+            getFilterPlaceholder(): string {
+                return 'Localizar';
+            },
+            getAllCheckboxText(): string {
+                return 'Todos';
+            },
+            getFilterNoItemsFoundText(): string {
+                return 'your custom placeholder';
+            },
+        }),
+    }
+
     // {
     //   provide: DateAdapter,
     //   useClass: MomentDateAdapter,

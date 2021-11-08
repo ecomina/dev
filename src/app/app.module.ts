@@ -42,7 +42,7 @@ export const MY_FORMATS = {
     BaseComponent,
     UserLoginComponent,
     NavigateMainComponent,
-    UserRegisterComponent,    
+    UserRegisterComponent,
   ],
   imports: [
     AppRoutingModule,

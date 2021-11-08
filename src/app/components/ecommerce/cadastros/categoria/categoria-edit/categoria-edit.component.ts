@@ -13,7 +13,7 @@ import { CategoriaMarketplaceComponent } from '../categoria-marketplace/categori
 @Component({
   selector: 'app-categoria-edit',
   templateUrl: './categoria-edit.component.html',
-  styleUrls: ['./categoria-edit.component.css', '../../../../../../styles/_base-button.css', '../../../../../../styles/_base-edit.css']
+  styleUrls: ['./categoria-edit.component.css']
 })
 export class CategoriaEditComponent extends BaseRegisterComponent implements OnInit {
   

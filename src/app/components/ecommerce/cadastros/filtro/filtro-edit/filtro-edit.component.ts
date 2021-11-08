@@ -11,6 +11,7 @@ import { BaseListSelectComponent } from '@app/shared/components/base-list-select
 import { Observable, of } from 'rxjs';
 import { DialogResult } from '@app/modules/BaseDialog';
 import { Marketplace } from '@app/modules/Marketplace';
+import { BaseViewItem } from '@app/modules/BaseViewItem';
 
 @Component({
   selector: 'app-filtro-edit',
@@ -31,6 +32,10 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     return this.formulario.get('valores') as FormArray;
   }
 
+  get categoriasControl() : FormArray {
+    return this.formulario.get('categorias') as FormArray;
+  }
+
   get tipoFiltro() : any {
     return this.formulario.get('tipoFiltro')?.value;
   }
@@ -39,6 +44,11 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     const codigo = this.formulario.get('tipoFiltro')?.value;
 
     return [0, 1].includes(codigo);
+  }
+
+  public _categoriasView: BaseViewItem[] = [];
+  get categoriasView() : Observable<BaseViewItem[]> {
+    return of(this._categoriasView);
   }
 
   tiposFiltros: any[] = [
@@ -79,9 +89,8 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
   ngOnInit(): void {
     this.loadMarketPlaces();
-
+ 
     const codigo = this._activatedRoute.snapshot.paramMap.get('codigo');
-    console.log('codigo', codigo)
     
     if (codigo != 'new')
       this.onLoad(codigo)
@@ -91,6 +100,37 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     let control = this.formulario.get('valorPadrao') as FormControl;
 
     control.setValue(null);
+  }
+
+  loadCategorias() {
+
+    this.base_carregando = true;
+    this._categoriasView = [];
+
+    this._api.getCategoria()
+    .pipe(
+      take(1)
+    )
+    .subscribe({
+      next: result => {
+
+        let itens: BaseViewItem[] = [];
+        result.forEach(c => {
+          let item = new BaseViewItem();
+
+          item.id = c.codigo
+          item.idPai = c.codCategoriaECommercePai
+          item.descricao = c.descricao
+          item.selecionado = this.existCategoria(c.codigo)
+          item.object = c
+
+          itens.push(item)
+          this._categoriasView.push(item)
+        })
+
+        this.base_carregando = false;
+      }
+    })
   }
 
   loadMarketPlaces() {
@@ -110,11 +150,19 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
       })
   }
 
+  existCategoria(codCategoria: any) : boolean {
+
+    const categorias = this.categoriasControl.controls.map(val => {
+      return val.value})
+
+      return categorias.includes(codCategoria);
+  }
+
   onRelacionarFiltro(idx: number) {
 
     const marketplace = this._listMarketplaces[idx];
 
-    const list$ = this.loadFiltroProvedor(marketplace.codigo)
+    const list$ = this.loadFiltroProvedorCategoria(marketplace.codigo)
 
     list$.subscribe(result => {
       const tipos$ = of(result);
@@ -200,10 +248,15 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     }
   }
 
-  loadFiltroProvedor(codMarketplace: any) : Observable<any[]> {
+  loadFiltroProvedorCategoria(codMarketplace: any) : Observable<any[]> {
     let list: any[] = [];
+    const categorias: any[] = [];
 
-    this._api.getFiltroProvedor(codMarketplace)
+    this.categoriasControl.controls.forEach(c => {
+      categorias.push(c.value)
+    })
+    
+    this._api.getFiltroProvedorCategorias(codMarketplace, categorias)
     .subscribe(result => {
         if (result != null)
         {
@@ -215,7 +268,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     return of(list);
   }
-
+  
   loadFiltroProvedorValor(valor: FormGroup, marketplace: any) : Observable<any[]> {
 
     let list: any[] = [];
@@ -273,7 +326,6 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   removeValorMarketplace(marketplace: any) {
 
     let formArray = this.valoresControl.controls;
-    console.log(marketplace, formArray)
     formArray.forEach(valor => {
 
         let formMarketplaces = valor.get('marketplaces') as FormArray
@@ -291,8 +343,6 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     let formArray = valor.get('marketplaces') as FormArray;
 
-    console.log('addValorDetalhe', valor, object)
-
     formArray.push(
       this.buildMarketplace({
         descricaoProvedorMarketplace: marketplace.descricaoProvedorMarketplace,
@@ -308,13 +358,13 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     this.formulario = this._builder.group({
       codigo: null,
       descricao: ['', Validators.required],
-      ativo: true,
       obrigatorio: false,
-      suportaItens: false,
       tipoFiltro: [null, Validators.required],
       valorPadrao:[null], 
+      ativo: true,
+      valores: this._builder.array([]),
       marketplaces: this._builder.array([]),
-      valores: this._builder.array([])
+      categorias: this._builder.array([])
     });
 
     this.formulario.valueChanges.subscribe(value => {
@@ -338,6 +388,13 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
     valores.forEach(element => {
       this.valoresControl.push(this.buildValores(element))
     })
+
+    const categorias: any[] = (object.categorias == null) ? [] : object.categorias;
+    categorias.forEach(element => {
+      this.categoriasControl.push(new FormControl(element))
+    })
+
+    this.loadCategorias();
   }
 
   drop(event: CdkDragDrop<unknown>) {
@@ -417,6 +474,16 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     return retorno;
 
+  }
+
+  onCategoriasChange(categorias: BaseViewItem[]) {
+
+    this.categoriasControl.clear();
+
+    categorias.forEach(c => {
+      this.categoriasControl.push(new FormControl(c.id))
+    })  
+    
   }
 
   onAddValor() {
