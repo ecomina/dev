@@ -7,10 +7,6 @@
   }
    */
 
-.container {
-    background-color: #fff;
-}
-
 .carregando {
     display: flex;
     height: 40%;

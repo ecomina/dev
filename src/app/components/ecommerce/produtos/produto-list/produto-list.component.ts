@@ -37,6 +37,14 @@ export class ProdutoListComponent extends BaseListRegisterComponent implements O
     return "../../../../../assets/images/semfoto.jfif";
   }
 
+  getCategoriaPrincipalDescricao(produto: any) {
+    return (produto.categoriaPrincipal == null) ? '' : produto.categoriaPrincipal.descricao;
+  }
+
+  getMarcaDescricao(produto: any) {
+    return (produto.marca == null) ? '' : produto.marca.descricao;
+  }
+
   constructor(
     private _api: EcommerceService,
     private _router: Router

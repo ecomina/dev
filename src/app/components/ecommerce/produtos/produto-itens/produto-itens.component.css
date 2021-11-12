@@ -26,8 +26,8 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 3px;
-    margin: 20px;
-    padding: 10px;
+    margin: 10px;
+    padding: 10px 0px;
     background-color: #fff;
     -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
@@ -52,11 +52,12 @@
 }
 
 .caption {
-    text-align: center;
+    /* text-align: center; */
+    font-size: 16px;
     margin: 0px 10px;
     padding: 5px;
-    background-color: #424242;
-    color: #fff;
+    /* background-color: #424242; */
+    /* color: #fff; */
 }
 
 .tamanho {
@@ -75,6 +76,7 @@
 .tam-desc {
     display: flex;
     align-items: center;
+    margin-top: 5px;
     justify-content: center;
     background-color: #424242;
     height: 50px;

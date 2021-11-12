@@ -30,6 +30,10 @@ export class ProdutoItensComponent extends BaseComponent implements OnInit {
     return this.formulario.get('cores') as FormArray
   }
 
+  getChecked(cor: any): boolean {
+    return true;
+  }
+
   constructor(
     private _api: EcommerceService) { 
     super();
@@ -37,6 +41,14 @@ export class ProdutoItensComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.onListas()
+  }
+
+  onCorPrincipal(event: any) {
+    this.coresControl.controls.forEach(x => {
+      x.value.principal = false;
+    })
+
+    event.value.value.principal = true;
   }
 
   onListas() {

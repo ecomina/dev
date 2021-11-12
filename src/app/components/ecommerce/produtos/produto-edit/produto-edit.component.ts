@@ -247,13 +247,22 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   builderCores(cores: any[]) : FormArray {
 
     let formArray = this._builder.array([]);
+    let existTrue: boolean = false;
 
     cores.forEach(cor => {
+
+      let isPrincipal = cor.principal;
+
+      if (!existTrue && isPrincipal)
+          existTrue = isPrincipal;
+      else
+        isPrincipal = false;
+
       formArray.push(this._builder.group({
         codCorECommerce: cor.codCorECommerce,
         descricao: cor.descricao,
-        principal: cor.principal,
-        ativo: cor.principal,
+        principal: (isPrincipal),
+        ativo: cor.ativo,
         itens: this.builderItens(cor.itens)
       }))
     })
@@ -294,7 +303,8 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
             tipoFiltro: x.filtro.tipoFiltro,
             valorPadrao: x.filtro.valorPadrao,
             ativo: x.filtro.ativo,
-            valores: this.buildFiltrosValores(x.filtro.valores)
+            // valores: this.buildFiltrosValores(x.filtro.valores),
+            detalhesSelecionado: this.buildDetalheSelecionado(x.filtro.detalhesSelecionado)
           })
         })
         
@@ -317,6 +327,26 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         })
       )
     })
+
+    return formArray;
+  }
+
+  buildDetalheSelecionado(detalhes: any[]) : FormArray {
+    let formArray = this._builder.array([]);
+
+    if (detalhes != null) 
+    {
+      detalhes.forEach(x => {
+        formArray.push(
+          this._builder.group({
+            codigo: x.codigo,
+            valor: x.valor,
+            ativo: x.ativo,
+            ordem: x.ordem
+          })
+        )
+      })
+    }
 
     return formArray;
   }

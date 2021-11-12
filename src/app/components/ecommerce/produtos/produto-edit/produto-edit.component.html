@@ -102,7 +102,9 @@
         <mat-tab label="Filtros">
             <app-produto-filtros [form]="formulario"></app-produto-filtros>
         </mat-tab>
-        <mat-tab label="Categorias" disabled></mat-tab>
+        <mat-tab label="Marketplaces">
+        </mat-tab>
+
     </mat-tab-group>
 </div> 
 <app-base-register  *ngIf="canView" [canSave]="canSaveBase" [salving]="base_salvando" (eventEmiterBase)="onRegister($event)"></app-base-register> 

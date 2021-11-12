@@ -1,5 +1,5 @@
-.field {
-    margin: 10px;
+mat-divider {
+    margin:  0px 20px;
 }
 
 .filtros {
@@ -8,9 +8,50 @@
     flex-direction: column;
 }
 
-.filtro {
+.field {
+    margin: 10px;
+}
+
+/* .filtro {
     margin: 10px;
     -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
     box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
+} */
+
+.valores {
+    margin-left: 10px;
+}
+
+.grupo {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.valor-lista {
+    margin-top: 6px ;
+}
+
+.valor-padrao-texto {
+    margin-top: 7px;
+}
+
+.valor-padrao-sim-nao {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    font-size: 11px;
+}
+
+.valor-padrao-sim-nao label {
+    margin: 5px 5px;
+    font-size: 11px;
+}
+
+.valor-padrao-decimal {
+    text-align: right;
+}
+
+mat-radio-button {
+    margin-left: 16px;
 }

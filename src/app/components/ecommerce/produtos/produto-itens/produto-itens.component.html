@@ -5,52 +5,59 @@
 <div class="container" [formGroup]="formulario">
 
     <div class="cores" formArrayName="cores" *ngIf="!base_carregando">
+        <!-- <div class="teste" *ngFor="let cor of coresControl.controls; let c = index" [formGroupName]="c">
+            <mat-radio-button  (change)="onCorPrincipal($event)" [checked]="cor.value.principal" [value]="cor">{{cor.value.descricao}} - {{cor.value.principal}}</mat-radio-button>
+        </div> -->
+
+
         <div class="cor" *ngFor="let cor of coresControl.controls; let c = index"  [formGroupName]="c">
-            <div class="item">
-                <div class="grupo">
+            <mat-radio-group formControlName="principal">
+                <div class="item">
                     <div class="grupo">
-                        <div class="field cor-desc">
-                            <span>{{cor.value.descricao}}</span> 
-                          </div> 
-                        <div class="field combo">
-                            <app-base-combo-filter comboLabel="Código Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.codCorECommerce"  (eventEmiterBase)="onChangeValue($event, cor, 'codCorECommerce')"></app-base-combo-filter>
-                        </div>
-                    </div>
-                    <div class="grupo">
-                        <div class="field">
-                            <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
-                        </div>
-                        <div class="field">
-                            <mat-slide-toggle formControlName="principal">Principal</mat-slide-toggle>
-                        </div> 
-                    </div>
-                 </div>                
-            </div>
-            <div class="tamanhos" formArrayName="itens">
-                <span class="caption">Tamanhos</span>
-                <div class="tamanho" *ngFor="let tam of tamanhosControls(c).controls;let t = index" [formGroupName]="t">
                         <div class="grupo">
-                            <div class="field tam-desc">
-                                <span>{{tam.value.descricao}}</span> 
+                            <div class="field cor-desc">
+                                <span>{{cor.value.descricao}}</span> 
                             </div> 
-                            <div class="field ean13">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>EAN13</mat-label>
-                                    <input matInput [minLength]=13 maxlength="13" formControlName="ean13" ng-model="required" >
-                                </mat-form-field>
-                            </div>  
                             <div class="field combo">
-                                <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeValue($event, tam, 'codTamanhoECommerce')" ></app-base-combo-filter>
-                            </div>      
-                            <div class="group">
-                                <div class="field">
-                                    <mat-slide-toggle color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
-                                </div>             
-                            </div>     
-                    
+                                <app-base-combo-filter comboLabel="Código Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.codCorECommerce"  (eventEmiterBase)="onChangeValue($event, cor, 'codCorECommerce')"></app-base-combo-filter>
+                            </div>
+                        </div>
+                        <div class="grupo">
+                            <div class="field">
+                                <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
+                            </div>
+                            <div class="field">
+                                <mat-radio-button  (change)="onCorPrincipal($event)" [checked]="cor.value.principal" [value]="cor">Principal</mat-radio-button>
+                            </div> 
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="tamanhos" formArrayName="itens">
+                    <span class="caption">Tamanhos</span>
+                    <div class="tamanho" *ngFor="let tam of tamanhosControls(c).controls;let t = index" [formGroupName]="t">
+                            <div class="grupo">
+                                <div class="field tam-desc">
+                                    <span>{{tam.value.descricao}}</span> 
+                                </div> 
+                                <div class="field ean13">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>EAN13</mat-label>
+                                        <input matInput [minLength]=13 maxlength="13" formControlName="ean13" ng-model="required" >
+                                    </mat-form-field>
+                                </div>  
+                                <div class="field combo">
+                                    <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeValue($event, tam, 'codTamanhoECommerce')" ></app-base-combo-filter>
+                                </div>      
+                                <div class="group">
+                                    <div class="field">
+                                        <mat-slide-toggle color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
+                                    </div>             
+                                </div>     
+                        
+                        </div>
+                    </div>
+                </div>
+            </mat-radio-group>
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: space-between;
     border-radius: 3px;
-    margin: 20px;
+    /* margin: 20px; */
     padding: 10px;
     background-color: #fff;
     -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);

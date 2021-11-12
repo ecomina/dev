@@ -3,24 +3,63 @@
         <div class="filtros" formArrayName="filtros">
             <div class="filtro" *ngFor="let filtro of filtrosControl.controls;let i=index">
                 <div class="field" [formGroupName]="i">
-                    <div formGroupName="filtro">
+                    <div class="grupo" formGroupName="filtro">
                         <mat-form-field class="field" appearance="fill">
                             <mat-label>Descrição</mat-label>
                             <input matInput readonly formControlName="descricao" ng-model="required" >
                         </mat-form-field>
+                        <div class="valores">
+                            <div class="valor-lista"  *ngIf="onRequerValor(filtro)">
+                                <!-- <mat-form-field appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 0">
+                                    <mat-label>Valores</mat-label>
+                                    <mat-select [formControl]="getValoresControl(filtro)" (selectionChange)="onValor($event, filtro)">
+                                        <mat-select-trigger>
+                                            {{onConsultar(filtro)}}
+                                        </mat-select-trigger>
+                                        <mat-option *ngFor="let valor of getValores2(filtro.value.filtro.codigo).controls" [value]="valor.value.valor">{{valor.value.valor}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
 
-                        <mat-form-field class="field" appearance="fill">
-                            <mat-label>Tipo Filtro</mat-label>
-                            <input matInput readonly formControlName="descricaoTipoFiltro" ng-model="required" >
-                        </mat-form-field>
-
-                        <mat-form-field class="field" appearance="fill">
-                            <mat-label>Valor Padrão</mat-label>
-                            <input matInput readonly formControlName="valorPadrao" ng-model="required" >
-                        </mat-form-field>
+                                <!-- <mat-form-field appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 1">
+                                    <mat-label>Valores</mat-label>
+                                    <mat-select [formControl]="getValoresControl(filtro)" (selectionChange)="onValor($event, filtro)" multiple>
+                                        <mat-select-trigger>
+                                            {{onConsultar()}}
+                                        </mat-select-trigger>
+                                        <mat-option *ngFor="let valor of getValores2(filtro.value.filtro.codigo).controls" [value]="valor.value.valor">{{valor.value.valor}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </div>
+                            <div  *ngIf="!onRequerValor(filtro)">
+                                <div class="valor-padrao-texto" *ngIf="filtro.value.filtro.tipoFiltro === 2">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Valor Padrão</mat-label>
+                                        <input type="text" maxlength="20" matInput formControlName="valorPadrao">
+                                    </mat-form-field>
+                                </div>              
+                                <div class="field"  *ngIf="filtro.value.filtro.tipoFiltro === 3">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Valor Padrão</mat-label>
+                                        <input type="number" step='any' class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                                    </mat-form-field>
+                                </div>              
+                                <div class="field"  *ngIf="filtro.value.filtro.tipoFiltro === 4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Valor Padrão</mat-label>
+                                        <input type="number" class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                                    </mat-form-field>
+                                </div>            
+                                <div class="valor-padrao-sim-nao" *ngIf="filtro.value.filtro.tipoFiltro === 5">
+                                    <label>Valor Padrão</label>
+                                    <mat-radio-group formControlName="valorPadrao">
+                                        <mat-radio-button value="S">Sim</mat-radio-button>
+                                        <mat-radio-button value="N">Não</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                        </div>
                     <!-- <mat-error *ngIf="form.controls.name.hasError('required')">Name required</mat-error> -->                    
                     </div>
-
                 </div>
                 <mat-divider></mat-divider>
             </div>

@@ -4,6 +4,7 @@ mat-divider {
 
 .container {
     background-color: #fff;
+    padding: 5px;
 }
 
 .titulo {
@@ -41,10 +42,9 @@ mat-divider {
     background-color: #303030;
 }
 
-.grupo {
-    /* background-color: #fff; */
+/* .grupo {
     padding: 10px;
-}
+} */
 
 .grupo-label {
     padding: 5px;

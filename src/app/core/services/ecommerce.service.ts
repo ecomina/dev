@@ -58,6 +58,21 @@ getProdutoCodigo(codigo: any) {
   return result;
 }
 
+getProdutoFiltros(codigo: any) : Observable<any[]> {
+
+  var url = this.urlApi+'api/Produto/';
+
+  url = url.concat(codigo)+"/Filtros"
+
+  var result = this._httpClient.get<any>(url)
+    .pipe(
+      retry(0),
+      catchError(this.handleError));
+
+  return result;
+}
+
+
 postProduto(obj: any) : Observable<any> {
 
   var url = this.urlApi+'api/Produto';
@@ -65,6 +80,20 @@ postProduto(obj: any) : Observable<any> {
   const body = JSON.stringify(obj);
 
   var result = this._httpClient.post<any>(url, body, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError));
+
+  return result;
+}
+
+putProduto(obj: any) : Observable<any> {
+
+  var url = this.urlApi+'api/Produto';
+
+  const body = JSON.stringify(obj);
+
+  var result = this._httpClient.put<any>(url, body, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError));

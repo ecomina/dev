@@ -6,11 +6,6 @@
     margin: 10px 20px;
 }
 
-.tabela {
-    overflow: auto;
-    white-space: nowrap;
-}
-
 button:hover {
     cursor: pointer;
 }
@@ -223,6 +218,7 @@ label {
 
 .field {
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .ordem {
