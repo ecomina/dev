@@ -1,11 +1,9 @@
 @import url("../../../../../styles/_base-edit.css");
 
-
 /* ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
     background-color: white;
     border-radius: 5px;
-  }
-   */
+} */
 
 .carregando {
     display: flex;
@@ -17,6 +15,11 @@
 
 .field {
     margin: 5px 10px;
+    padding-top: 5px;
+}
+
+.combo {
+    margin: -5px 10px 10px 10px;
 }
 
 .moeda {
@@ -46,6 +49,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .categorias {
@@ -56,6 +60,24 @@
 
 .dimensoes {
     margin-left: 10px;
+}
+
+.marketplaces {
+    margin: 10px;
+}
+
+.marketplace {
+    padding: 10px;
+    /* border-radius: 3px; */
+    background-color: #ededed;
+    -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
+}
+
+.marketplace label {
+    font-size: 16px;
+    color: #673ab7;
 }
 
 mat-form-field button {

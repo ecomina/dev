@@ -35,25 +35,24 @@
                 <div class="tamanhos" formArrayName="itens">
                     <span class="caption">Tamanhos</span>
                     <div class="tamanho" *ngFor="let tam of tamanhosControls(c).controls;let t = index" [formGroupName]="t">
-                            <div class="grupo">
-                                <div class="field tam-desc">
-                                    <span>{{tam.value.descricao}}</span> 
-                                </div> 
-                                <div class="field ean13">
-                                    <mat-form-field appearance="outline">
-                                        <mat-label>EAN13</mat-label>
-                                        <input matInput [minLength]=13 maxlength="13" formControlName="ean13" ng-model="required" >
-                                    </mat-form-field>
-                                </div>  
-                                <div class="field combo">
-                                    <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeValue($event, tam, 'codTamanhoECommerce')" ></app-base-combo-filter>
-                                </div>      
-                                <div class="group">
-                                    <div class="field">
-                                        <mat-slide-toggle color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
-                                    </div>             
-                                </div>     
-                        
+                        <div class="grupo">
+                            <div class="field tam-desc">
+                                <span>{{tam.value.descricao}}</span> 
+                            </div> 
+                            <div class="field ean13">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>EAN13</mat-label>
+                                    <input matInput [minLength]=13 maxlength="13" formControlName="ean13" ng-model="required" >
+                                </mat-form-field>
+                            </div>  
+                            <div class="field combo">
+                                <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeValue($event, tam, 'codTamanhoECommerce')" ></app-base-combo-filter>
+                            </div>      
+                            <div class="group">
+                                <div class="field">
+                                    <mat-slide-toggle color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

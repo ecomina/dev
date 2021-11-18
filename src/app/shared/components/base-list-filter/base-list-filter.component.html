@@ -9,14 +9,19 @@
             </div>
         </div>
     </div>
-    <div class="filtros">
-        <div class="filtro" *ngFor="let f of filters;let i=index">
-            <div class="caption">
-                <span>{{f.Caption}}</span> 
-                <button (click)="baseRemoveFilter(i)"><mat-icon>cancel</mat-icon></button>
+    <div class="area-filtros" *ngIf="canFilter">
+        <button class="filter-list" *ngIf="filters.length > 0" (click)="baseExibirFiltros()"><mat-icon>filter_list</mat-icon></button> 
+        <div class="filtros" *ngIf="exibirFiltros">
+            <div class="filtro" *ngFor="let f of filters;let i=index">
+                <div class="caption">
+                    <span>{{f.Caption}}</span> 
+                    <button (click)="baseRemoveFilter(i)"><mat-icon>cancel</mat-icon></button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="display">{{f.Display}}</div>
             </div>
             <mat-divider></mat-divider>
-            <div class="display">{{f.Display}}</div>
-        </div>
+        </div>    
     </div>
+
 </div>

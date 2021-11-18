@@ -67,10 +67,10 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 3px;
-    margin: 5px 10px;
-    -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
+    /* margin: 5px 10px; */
+    /* -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
-    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
+    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77);  */
 }
 
 .tam-desc {

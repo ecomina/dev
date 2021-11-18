@@ -2,7 +2,7 @@
     <mat-icon>local_offer</mat-icon>
     <span>Produtos</span>
 </div>
-<app-base-list-filter (eventFilter)="onFiltrar($event)"></app-base-list-filter>
+<app-base-list-filter [canFilter]="true" [baseFilters]="baseFilters" (eventFilter)="onPesquisar($event)" (eventFilterShow)="onFiltrar($event)" (eventQuery)="onQuery()"></app-base-list-filter>
 <div class="container">
     <div class="carregando" *ngIf="base_carregando"> 
         <span>Carregando...</span>

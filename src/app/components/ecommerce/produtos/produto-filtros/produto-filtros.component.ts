@@ -40,29 +40,33 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.filtrosControl.valueChanges
+    .subscribe(x => {
+      let filtro = x[x.length-1];
+      if (filtro != undefined)
+      this.onConsultar(filtro)
+    })
   }
 
-  onConsultar() {
+  onConsultar(filtro: any) {
 
-    if (!this.carregou_filtros ) {
-      if (this.list_filtros.length == 0)
-      {
-        this.carregou_filtros = true;
-        this._api.getProdutoFiltros(this.codigoProduto)
-        .pipe(
-          take(1)
-        )
-        .subscribe({
-          next: result => {
-            result.forEach(x => {
-              this.list_filtros.push({
-                codigo: x.codigo,
-                valores: this.builderValores(x.valores)
-              })              
-            })
-          }
-        })
-      }
+    const codFiltro =  filtro.filtro.codigo;
+    let valoresArray = filtro.valores as FormArray;
+
+    if (valoresArray.length === 0 && codFiltro != null)
+    {
+      this._api.getProdutoFiltrosCodigo(this.codigoProduto, codFiltro)
+      .pipe(
+        take(1)
+      )
+      .subscribe({
+        next: result => {
+          const array = this.builderValores(result.valores);
+          array.controls.forEach(c => {
+           valoresArray.push(c.value)
+          })
+        }
+      })
     }
   }
 
@@ -80,32 +84,14 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
     })
 
     return formArray;
-
   }
 
   onValor(event: any, filtro: any) {
 
-    const options: any[] = event.value;
-    const valores: any[] = filtro.value.filtro.detalhesSelecionado;
+    const detalhes = filtro.value.detalhesSelecionado as FormArray;
 
-    filtro.value.filtro.detalhesSelecionado.length = 0;
-
-    let retorno: Filtro[] = this.list_filtros.filter(x => x.codigo === filtro.value.filtro.codigo);
-
-    retorno.forEach(x => {
-      x.valores.controls.forEach((f, i) => {
-        if (options.includes(f.value.valor)) {
-          console.log('achou')
-          filtro.value.filtro.detalhesSelecionado.push({
-            codigo: i,
-            valor: f.value.valor,
-            ativo: f.value.ativo,
-            ordem: i
-          })
-        }
-      })
-    })
-
+    filtro.value.detalhesSelecionado.length = 0;
+    detalhes.push(event.value);
   }
 
   compareFunction(o1: any, o2: any) : boolean{
@@ -139,10 +125,10 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
 
     let ctrl = new FormControl();
 
-    if (filtro.value.filtro.detalhesSelecionado.length > 0) {
+    if (filtro.value.detalhesSelecionado.length > 0) {
 
-      const valores = filtro.value.filtro.detalhesSelecionado.map((x: any) => {
-        return x.valor
+      const valores = filtro.value.detalhesSelecionado.map((x: any) => {
+        return x
       });
 
     if (filtro.value.filtro.tipoFiltro === 0)

@@ -175,7 +175,6 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   onRelacionarValor(valor: any, idx: number) {
-
     const marketplace = this._listMarketplaces[idx];
 
     this.loadFiltroProvedorValor(valor, marketplace);
@@ -273,6 +272,9 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     let list: any[] = [];
 
+    
+    console.log(valor, marketplace)
+
     this._api.getFiltroProvedor(marketplace.codigo)
     .subscribe(result => {
       const filtros =  of(result.filter(x => x.id == marketplace.idMarketplace))
@@ -283,6 +285,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
         const detalhes = of(x[0].detalhes)
 
         detalhes.subscribe((z: any[]) => {
+          console.log('z',z)
           z.forEach(x => {
             list.push({id: x.id, descricao: x.valor, object: x, grupo: ''})
           })
@@ -433,11 +436,21 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   createValor() {
+
+    let codigoMax = 0;
+
+    if (this.valoresControl.controls.length > 0){
+      codigoMax = this.valoresControl.controls.map(x => x.value.codigo).reduce(function(a, b) {
+        return Math.max(a, b)
+      })
+    } 
+
+    codigoMax++;
     return this._builder.group({
-      codigo: [0],
+      codigo: [codigoMax],
       valor: [null, Validators.required],
       ativo: [true, Validators.required],
-      ordem: [0, Validators.required],
+      ordem: [codigoMax, Validators.required],
       marketplaces: this._builder.array([]) //this.buildMarketplaces(object.marketplaces)
     })
   }
@@ -487,6 +500,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   onAddValor() {
+    console.log('onAddValor', this.valoresControl)
     this.valoresControl.push(this.createValor())
 
   }

@@ -1,0 +1,98 @@
+<div class="container">
+    <div class="titulo">
+        <span>Filtros</span>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-spinner *ngIf="base_carregando"></mat-spinner>
+    <div class="filtros" *ngIf="!base_carregando">
+        <mat-dialog-content class="scroll">
+            <div class="grupo">
+                <div class="sub-grupo">
+                    <mat-checkbox [formControl]="somenteAtivosControl">Somente ativos</mat-checkbox>
+                </div>                
+            </div>            
+            <div class="grupo">
+                <div class="grupo">
+                    <div>
+                        <mat-form-field class="periodo" appearance="fill">
+                            <mat-label>Periodo de Cadastro</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Data inicial" [formControl]="dataCadastroInicial">
+                            <input matEndDate placeholder="Data final"  [formControl]="dataCadastroFinal">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="grupo">
+                <div class="sub-grupo">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Código</mat-label>
+                        <input matInput type="number" maxlength="50" [formControl]="codigoControl" #codigoValue>
+                        <button *ngIf="codigoControl.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="codigoControl.setValue(null)">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+                <div class="sub-grupo">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Código Legado</mat-label>
+                        <input matInput type="number" maxlength="50" [formControl]="codigoLegadoControl" #codigoLegValue>
+                        <button *ngIf="codigoLegadoControl.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="codigoLegadoControl.setValue(null)">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>         
+            <div class="grupo">
+                <div class="sub-grupo">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Modelo</mat-label>
+                        <input matInput type="text" maxlength="50" [formControl]="modeloControl" #modeloValue>
+                        <button *ngIf="modeloControl.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="modeloControl.setValue(null)">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>                
+                <div class="sub-grupo">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Descrição</mat-label>
+                        <input matInput type="text" maxlength="50" [formControl]="descricaoControl" #descricaoValue>
+                        <button *ngIf="descricaoControl.value != null" matSuffix mat-icon-button aria-label="Clear" (click)="descricaoControl.setValue(null)">
+                        <mat-icon>close</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>              
+            </div>        
+            <div class="grupo">
+                <div class="sub-grupo">
+                    <app-base-combo-filter class="field combo" comboLabel="Marca" [comboListObs]="obs_marcas" (eventEmiterBase)="onMarcaChange($event)" ></app-base-combo-filter>
+                </div>
+                <div class="sub-grupo">
+                    <app-base-combo-filter class="field combo" comboLabel="Categoria" [comboListObs]="obs_categorias" (eventEmiterBase)="onCategoriaChange($event)"></app-base-combo-filter>
+                </div>
+            </div>
+        </mat-dialog-content>
+        
+        <!-- <div class="grupo">
+            <label id="label">Marketplace</label>
+            <mat-radio-group class="marketplace" aria-label="Selecione" [formControl]="marketplace">
+                <mat-radio-button *ngFor="let item of list_marketplaces;let i = index" [value]="item.codigo">{{item.descricao}}</mat-radio-button>
+            </mat-radio-group>
+        </div>    
+        <div class="grupo">
+            <label id="label">Status</label>
+            <mat-radio-group class="status" aria-label="Selecione" [formControl]="status">
+                <mat-radio-button value="0">Pendente</mat-radio-button>
+                <mat-radio-button value="1">Pago</mat-radio-button>
+                <mat-radio-button value="98">Desconhecido</mat-radio-button>
+                <mat-radio-button value="99">Cancelado</mat-radio-button>
+            </mat-radio-group>
+        </div>  -->
+    </div>
+    <div class="action" *ngIf="!base_carregando">
+        <button class="btn apply" (click)="onAplicar()">Aplicar Filtros</button>
+    </div>
+</div>

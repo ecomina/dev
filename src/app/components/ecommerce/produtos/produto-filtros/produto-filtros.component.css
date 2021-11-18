@@ -2,6 +2,11 @@ mat-divider {
     margin:  0px 20px;
 }
 
+.titulo {
+    margin: 10px 20px;
+    font-size: 16px;
+}
+
 .filtros {
     display: flex;
     flex-wrap: wrap;
@@ -9,15 +14,8 @@ mat-divider {
 }
 
 .field {
-    margin: 10px;
+    margin: 5px 10px;
 }
-
-/* .filtro {
-    margin: 10px;
-    -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
-    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77); 
-} */
 
 .valores {
     margin-left: 10px;
@@ -33,7 +31,7 @@ mat-divider {
 }
 
 .valor-padrao-texto {
-    margin-top: 7px;
+    margin-top: 10px;
 }
 
 .valor-padrao-sim-nao {

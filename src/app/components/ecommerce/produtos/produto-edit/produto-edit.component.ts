@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
@@ -26,6 +26,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   get filtrosControls() : FormArray {
     return this.formulario.get('filtros') as FormArray;
+  }
+
+  get marketplacesControls() : FormArray {
+    return this.formulario.get('marketplaces') as FormArray;
   }
 
   get obs_marcas() : Observable<any[]> {
@@ -78,7 +82,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   ngOnInit(): void {
-    this.onCarregar();
+    this.onLoad();
   }
 
   ngOnDestroy() {
@@ -120,6 +124,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       categoriaPrincipal: this.builderCategoriaPrincipal(),
       filtros: this._builder.array([]),
       cores: this._builder.array([]),
+      marketplaces: this._builder.array([]),
 
       dataCadastro: null,
       codMarca: 0,
@@ -172,7 +177,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     })
   }
 
-  onCarregar() {
+  onLoad() {
 
     const codigo = this._activatedRoute.snapshot.paramMap.get('codigo');
 
@@ -199,15 +204,18 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       this.formDimensao?.patchValue(produto.dimensao)
 
     const cores = this.builderCores(produto.cores).controls;
-
     cores.forEach(cor => {
       this.coresControls.push(cor);
     })
 
     const filtros = this.builderFiltros(produto.filtros).controls;
-
     filtros.forEach(filtro => {
       this.filtrosControls.push(filtro);
+    })
+
+    const marketplaces = this.builderMarketplaces(produto.marketplaces).controls;
+    marketplaces.forEach(marketplace => {
+      this.marketplacesControls.push(marketplace);
     })
   }
 
@@ -281,7 +289,28 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
           descricao: i.descricao,
           ean13: i.ean13 ,
           codTamanhoECommerce: i.codTamanhoECommerce,
-          ativo: i.ativo})
+          ativo: i.ativo
+        })
+      )
+    })
+
+    return formArray;
+  }
+
+  builderMarketplaces(marketplaces: any[]) : FormArray {
+
+    let formArray = this._builder.array([]);
+
+    marketplaces.forEach(x => {
+      formArray.push(
+        this._builder.group({
+          desmembrarProdutosPorCor: x.desmembrarProdutosPorCor,
+          ativo: x.ativo,
+          descricaoProvedorMarketplace: x.descricaoProvedorMarketplace,
+          descricaoMarketplace: x.descricaoMarketplace,
+          idMarketplace: x.idMarketplace,
+          codProvedorMarketplace: x.codProvedorMarketplace
+        })
       )
     })
 
@@ -302,12 +331,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
             obrigatorio: x.filtro.obrigatorio,
             tipoFiltro: x.filtro.tipoFiltro,
             valorPadrao: x.filtro.valorPadrao,
-            ativo: x.filtro.ativo,
-            // valores: this.buildFiltrosValores(x.filtro.valores),
-            detalhesSelecionado: this.buildDetalheSelecionado(x.filtro.detalhesSelecionado)
-          })
+            ativo: x.filtro.ativo}),
+          valores: this._builder.array([]),
+          detalhesSelecionado: this.buildDetalheSelecionado(x.filtro.detalhesSelecionado)
         })
-        
       )
     })
 
@@ -355,6 +382,16 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
     if (event) {
       this.base_salvando = true;
+
+      // let formPut =  this.formulario;
+
+      // let formArray = formPut.get('filtros') as FormArray;
+
+      // formArray.controls.map(x => delete x.value.valores);
+
+      this.filtrosControls.controls.map(x => delete x.value.valores);
+      
+      //console.log(formPut)
 
       this._api.postProduto(this.formulario.value).subscribe({
         next: () => {

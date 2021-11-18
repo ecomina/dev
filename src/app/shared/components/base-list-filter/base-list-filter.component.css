@@ -9,11 +9,17 @@
     flex-direction: row;
 }
 
+.area-filtros {
+    display: flex;
+    margin-left: 5px;
+}
+
 .filtros {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 0px 20px;
+    margin: -10px 0px 10px -6px;
+    padding: 10px
 }
 
 .filtro {
@@ -22,6 +28,12 @@
     border-width: 1px;
     padding: 5px;
     margin: 5px;
+}
+
+.filter-list {
+    border-style: none;
+    background: transparent;
+    padding: 5px;
 }
 
 .caption {
@@ -64,7 +76,9 @@ button {
 
 .btn-filter {
     padding: 10px;
+    margin-right: -10px;
     border-style: none;
+    background: transparent;
 }
 
 .btn-filter:hover {

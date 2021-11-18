@@ -17,10 +17,11 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
 
   @Output() eventFilter = new EventEmitter();
   @Output() eventFilterShow = new EventEmitter();
+  @Output() eventQuery = new EventEmitter();
 
   public base_list: any[] = [];
-  
   public txt_pesquisa = '';
+  public exibirFiltros = false;
 
   get can_clear(): boolean {
     return (this.txt_pesquisa.length > 0);
@@ -66,6 +67,11 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
 
   baseRemoveFilter(index: any) {
     this.baseFilters.splice(index, 1);
+    this.eventQuery.emit(this.baseFilters);
+  }
+
+  baseExibirFiltros() {
+    this.exibirFiltros = !this.exibirFiltros;
   }
 
 }

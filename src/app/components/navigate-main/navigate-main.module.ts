@@ -36,6 +36,7 @@ import { PedidoFilterComponent } from '../ecommerce/pedidos/pedido-filter/pedido
 import { FiltroMarketplaceComponent } from '../ecommerce/cadastros/filtro/filtro-marketplace/filtro-marketplace.component';
 import { CategoriaMarketplaceComponent } from '../ecommerce/cadastros/categoria/categoria-marketplace/categoria-marketplace.component';
 import { DefaultTreeviewI18n, DropdownTreeviewComponent, TreeviewI18n } from 'ngx-treeview';
+import { ProdutoFilterComponent } from '../ecommerce/produtos/produto-filter/produto-filter.component';
 
 // import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 // import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -80,6 +81,7 @@ import { DefaultTreeviewI18n, DropdownTreeviewComponent, TreeviewI18n } from 'ng
     ProdutoFotosComponent,
     ProdutoFotoCorComponent,
     ProdutoFiltrosComponent,
+    ProdutoFilterComponent,
     PedidoListComponent,
     PedidoEditComponent,
     PedidoFilterComponent,
