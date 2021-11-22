@@ -109,10 +109,10 @@ export class ProdutoItensComponent extends BaseComponent implements OnInit {
  onChangeTamanho(event: any, control: any) {
 
   let tamControl = control as FormGroup;
-  console.log(tamControl)
-  // const cor = corControl.get('cor') as FormGroup;
-  // cor.patchValue(event.object)
-  // console.log(cor.value, event)
+  const tam = tamControl.get('tamanho') as FormGroup;
+  console.log(tam, event.object)
+  tam.patchValue(event.object)
+  console.log(tam.value, event)
 
  }
 

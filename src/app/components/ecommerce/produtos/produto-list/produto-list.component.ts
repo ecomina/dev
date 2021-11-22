@@ -73,10 +73,13 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
     //   console.log(res.headers.get('x-amzn-trace-id'))
     // })
 
+    //https://cursos.alura.com.br/forum/topico-como-recuperar-valores-no-response-headers-73597
+
     this._api.getProduto(filtros).subscribe({
       next: result => {
         this.base_list.length = 0;
         this.base_carregando = true;
+        console.log(result.headers.getAll('Content-Disposition'));
         result.body.forEach((o: any) => {
           this.base_list.push(o)
         })

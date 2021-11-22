@@ -107,17 +107,8 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
   }
 
   onCarregar() {
-    this.base_carregando = true;
-    this._api.getMarketplace(false)
-    .subscribe({
-      next: result => {
-        result.forEach(o => {
-          this.list_marketplaces.push(o)})
-      },
-      complete: () => {
-        this.base_carregando = false;
-      }
-    })
+    const f = this.data;
+    console.log('onCarregar', f.filtrar);
   }
 
   onAplicar() {
