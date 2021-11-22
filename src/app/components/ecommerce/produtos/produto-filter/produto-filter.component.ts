@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -21,8 +22,8 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
 
   list_filter: BaseFilter[] = [];
 
-  dataCadastroInicial = new FormControl(new Date());
-  dataCadastroFinal = new FormControl(new Date())
+  dataCadastroInicial = new FormControl(null);
+  dataCadastroFinal = new FormControl(null)
   somenteAtivosControl = new FormControl(false)
   codigoControl = new FormControl(null)
   codigoLegadoControl = new FormControl(null)
@@ -124,9 +125,9 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
     this.list_filter.push({
       Param1: 'dataCadastroInicial', 
       Param2: 'dataCadastroFinal', 
-      Value1: this.dataCadastroInicial.value, 
-      Value2:  this.dataCadastroFinal.value,
-      Display: this._util.formataData(this.dataCadastroInicial.value)+' à '+this._util.formataData(this.dataCadastroInicial.value), 
+      Value1:  (this.dataCadastroInicial.value == null) ? null : this._util.dataParam(this.dataCadastroInicial.value),
+      Value2:  (this.dataCadastroFinal.value == null) ? null : this._util.dataParam(this.dataCadastroFinal.value),
+      Display: this._util.formataData(this.dataCadastroInicial.value)+' à '+this._util.formataData(this.dataCadastroFinal.value), 
       Caption:'Periodo de Cadastro' });
 
    this.list_filter.push({

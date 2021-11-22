@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
@@ -54,6 +54,14 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
   get codigoProduto() {
     return this.formulario.get('codigo')?.value;
+  }
+
+  get precoControl() : FormGroup {
+    return this.formulario.get('preco') as FormGroup;
+  }
+
+  get precoMarketplacesControl() : FormArray {
+    return this.precoControl.get('marketplaces') as FormArray;
   }
 
   get canView() {
@@ -113,12 +121,15 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       titulo: null,
       descricaoReduzida: null,
       ativo: true,
-      precoCheio: 0,
-      precoPor: 0,
       custo: 0,      
       descricaoCompleta: null,
       marca: this.builderMarca(),
       dimensao: this.builderDimensao(),
+      preco: this._builder.group({
+        precoDe: 0,
+        precoPor: 0,
+        marketplaces: this._builder.array([])
+      }),
       visivelSite: true,
       mostrarProdutoEsgotado: false,
       categoriaPrincipal: this.builderCategoriaPrincipal(),
@@ -217,6 +228,9 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     marketplaces.forEach(marketplace => {
       this.marketplacesControls.push(marketplace);
     })
+
+    this.builderPreco(produto.preco);
+
   }
 
   builderDimensao() {
@@ -267,10 +281,15 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         isPrincipal = false;
 
       formArray.push(this._builder.group({
-        codCorECommerce: cor.codCorECommerce,
+        codigo: cor.codigo,
         descricao: cor.descricao,
         principal: (isPrincipal),
         ativo: cor.ativo,
+        cor: this._builder.group({
+          codigo: null,
+          descricao: null,
+          ativo:false
+        }),
         itens: this.builderItens(cor.itens)
       }))
     })
@@ -286,9 +305,15 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     itens.forEach(i => {
       formArray.push(
         this._builder.group({
+          codigo: i.codigo,
+          tamanho: this._builder.group({
+            codigo: null,
+            descricao: null,
+            ordem: 0,
+            ativo: true
+          }),
           descricao: i.descricao,
           ean13: i.ean13 ,
-          codTamanhoECommerce: i.codTamanhoECommerce,
           ativo: i.ativo
         })
       )
@@ -336,6 +361,36 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
           detalhesSelecionado: this.buildDetalheSelecionado(x.filtro.detalhesSelecionado)
         })
       )
+    })
+
+    return formArray;
+  }
+
+  builderPreco(preco: any)  {
+   
+    if (preco != null) {
+
+      let formArray = this.builderPrecoMarketplace(preco.marketplaces);
+
+      formArray.controls.forEach(x => {
+        this.precoMarketplacesControl.push(x)
+      })
+    }
+  }
+
+  builderPrecoMarketplace(marketplaces: any[]) : FormArray {
+
+    let formArray = this._builder.array([]);
+
+    marketplaces.forEach(x => {
+      const formGroup = this._builder.group({
+        codProvedorMarketplace: x.codProvedorMarketplace,
+        precoDe: x.precoDe,
+        precoPor: x.precoPor,
+        descricaoProvedorMarketplace: x.descricaoProvedorMarketplace
+      })
+
+      formArray.push(formGroup);
     })
 
     return formArray;
@@ -391,19 +446,11 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
       this.filtrosControls.controls.map(x => delete x.value.valores);
       
-      //console.log(formPut)
+      console.log(JSON.stringify(this.formulario.value));
 
-      this._api.postProduto(this.formulario.value).subscribe({
+      this._api.putProduto(this.formulario.value).subscribe({
         next: () => {
-          //alert('Produto salva com sucesso!')
-        },
-        error: erro => {
-          console.error(erro);
-          this.base_salvando = false;
-          this.onBack();
-        },
-        complete: () => {
-          this.base_salvando = false;
+          
           if (this.fotosPosicaoUp.length > 0)
           {
             this._api.postFotoUrl(this.fotosPosicaoUp);
@@ -413,7 +460,16 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
             .subscribe(() => {
               this.onBack();
             })
-        }
+        },
+        error: erro => {
+          console.error(erro);
+          this.base_salvando = false;
+          this.onBack();
+        },
+        // complete: () => {
+        //   this.base_salvando = false;
+
+        // }
       })
     }
     else {

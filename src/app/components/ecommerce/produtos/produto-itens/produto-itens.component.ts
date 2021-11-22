@@ -97,4 +97,23 @@ export class ProdutoItensComponent extends BaseComponent implements OnInit {
     control.get(controlName)?.setValue(event.id)
  }
 
+ onChangeCor(event: any, control: any) {
+
+  let corControl = control as FormGroup;
+  const cor = corControl.get('cor') as FormGroup;
+  cor.patchValue(event.object)
+  console.log(cor.value, event)
+
+ }
+
+ onChangeTamanho(event: any, control: any) {
+
+  let tamControl = control as FormGroup;
+  console.log(tamControl)
+  // const cor = corControl.get('cor') as FormGroup;
+  // cor.patchValue(event.object)
+  // console.log(cor.value, event)
+
+ }
+
 }

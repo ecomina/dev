@@ -35,8 +35,6 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
           ((m.marca === null) ? '' : m.marca.descricao)).concat(
           ((m.modelo === null) ? '' : m.modelo))
           .toUpperCase().includes(this.txt_pesquisa.toUpperCase()));
-
-        console.log(result);
       }
 
     return result;
@@ -78,7 +76,6 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
     this._api.getProduto(filtros).subscribe({
       next: result => {
         this.base_list.length = 0;
-
         this.base_carregando = true;
         result.body.forEach((o: any) => {
           this.base_list.push(o)

@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="preco-produto">
+        <div class="field" [formGroup]="precoControl">
+            <mat-form-field class="moeda" appearance="outline">
+                <mat-label>Preço De</mat-label>
+                <input formControlName="precoDe" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+            </mat-form-field>
+        </div>
+        <div class="field" [formGroup]="precoControl">
+            <mat-form-field class="moeda" appearance="fill">
+                <mat-label>Preço Por</mat-label>
+                <input formControlName="precoPor" readonly currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+            </mat-form-field>
+        </div>
+        <div class="field" [formGroup]="formulario">
+            <mat-form-field class="moeda" appearance="fill">
+                <mat-label>Custo</mat-label>
+                <input formControlName="custo" readonly currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+            </mat-form-field>
+        </div>
+    </div>
+    <table class="tabela" [formGroup]="precoControl">
+        <caption>Preço nos Marketplaces</caption>
+        <thead>
+            <tr>
+                <th>Marketplace</th>
+                <th>Preço De</th>
+                <th>Preço Por</th>
+            </tr>
+        </thead>
+        <!-- <tfoot>
+            <tr>
+                <th>Marketplace</th>
+                <th>Preço De</th>
+                <th>Preço Por</th>
+            </tr>        
+        </tfoot> -->
+        <tbody formArrayName="marketplaces">
+            <tr *ngFor="let marketplace of marketplacesControl.controls;let i= index" [formGroupName]="i">
+                <td class="text">
+                    {{marketplace.value.descricaoProvedorMarketplace}}
+                </td>
+                <td class="currency">
+                    <input class="field-currency" readonly formControlName="precoDe" currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+                </td>
+                <td class="currency">
+                    <input class="field-currency" readonly formControlName="precoPor"  currencyMask [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

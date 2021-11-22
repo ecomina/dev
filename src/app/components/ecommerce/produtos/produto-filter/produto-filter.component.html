@@ -17,13 +17,14 @@
                         <mat-form-field class="periodo" appearance="fill">
                             <mat-label>Periodo de Cadastro</mat-label>
                             <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate placeholder="Data inicial" [formControl]="dataCadastroInicial">
-                            <input matEndDate placeholder="Data final"  [formControl]="dataCadastroFinal">
+                                <input matStartDate placeholder="Data inicial" [formControl]="dataCadastroInicial">
+                                <input matEndDate placeholder="Data final"  [formControl]="dataCadastroFinal">
                             </mat-date-range-input>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-date-range-picker touchUi #picker></mat-date-range-picker>
                         </mat-form-field>
                     </div>
+
                 </div>
             </div>
             <div class="grupo">

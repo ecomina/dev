@@ -8,6 +8,7 @@ import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
 import { Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
+import { Key } from 'selenium-webdriver';
 
 @Injectable({
   providedIn: 'root'
@@ -39,23 +40,20 @@ export class EcommerceService extends BaseComponent {
     var url = this.urlApi+'api/Produto';
 
     let parametros = new HttpParams();
-    let parametrosList = '';
-
-    parametros.set('oi','ja')
 
     filtros.forEach(f => {
       if (f.Param1 != null)
       {
-        parametros.set(f.Param1, String(f.Value1))
+        parametros = parametros.append(f.Param1, String(f.Value1))
       }
       
       if (f.Param2 != null)
       {
-        parametros.set(f.Param2, String(f.Value2))
+        parametros = parametros.append(f.Param2, String(f.Value2))
       }
     })
     
-    var result = this._httpClient.get<any>(url, this.httpOptions2)
+    var result = this._httpClient.get<any>(url, {headers: new HttpHeaders({ 'Content-Type': 'application/json' }), observe: 'response' as 'response', params: parametros})
       .pipe(
         retry(0),
         catchError(this.handleError))
@@ -298,7 +296,6 @@ export class EcommerceService extends BaseComponent {
       parametros = parametros.append('codCategorias', String(c));
     })
     
-    console.log(parametros)
     var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace), {params: parametros})
       .pipe(
         retry(0),
@@ -456,18 +453,6 @@ export class EcommerceService extends BaseComponent {
         result.forEach(f => {
           var url = this.urlApi+'api/Produto/';
           url = url.concat(f.codProdutoEcommerce).concat("/Cor/").concat(f.codCor).concat("/Foto/").concat(f.posicao).concat("/Url");
-
-          const body = {
-            urlImagem: f.urlImagem,
-          }
-
-          console.log('postFotoUrl', url, body)
-
-          // this._httpClient.post<any>(url, body)
-          //   .pipe(
-          //     retry(0),
-          //     catchError(this.handleError))
-          //   .subscribe();
         })
       }
     });
@@ -476,8 +461,6 @@ export class EcommerceService extends BaseComponent {
   delFotoCor(codProduto: any, codCor: any, codPosicao: any) {
     var url = this.urlApi+'api/Produto/';
     url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao);
-
-    console.log('delFotoCor',url)
 
     var result = this._httpClient.delete<any>(url, this.httpOptions)
       .pipe(
@@ -517,8 +500,6 @@ export class EcommerceService extends BaseComponent {
       if (f.Param2 != null)
         parametros.append(f.Param2, String(f.Value2))
     })
-
-    console.log('Parametros', parametros);
 
     var result = this._httpClient.get<any[]>(url, { params: parametros })
       .pipe(

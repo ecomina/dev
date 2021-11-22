@@ -7,11 +7,16 @@ import { Injectable } from '@angular/core';
 })
 export class UtilsService {
 
+
   constructor(
     private _breakpointObserver: BreakpointObserver) { }
 
   formataData(data: Date) {
     return formatDate(data, 'dd/MM/yyyy', 'en-US')
+  }
+
+  dataParam(data: Date) {
+    return formatDate(data, 'yyyy-MM-dd', 'en-US');
   }
 
   isMobile() {

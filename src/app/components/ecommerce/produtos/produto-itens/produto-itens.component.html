@@ -3,13 +3,10 @@
     <mat-spinner></mat-spinner>
 </div>
 <div class="container" [formGroup]="formulario">
-
     <div class="cores" formArrayName="cores" *ngIf="!base_carregando">
         <!-- <div class="teste" *ngFor="let cor of coresControl.controls; let c = index" [formGroupName]="c">
             <mat-radio-button  (change)="onCorPrincipal($event)" [checked]="cor.value.principal" [value]="cor">{{cor.value.descricao}} - {{cor.value.principal}}</mat-radio-button>
         </div> -->
-
-
         <div class="cor" *ngFor="let cor of coresControl.controls; let c = index"  [formGroupName]="c">
             <mat-radio-group formControlName="principal">
                 <div class="item">
@@ -19,7 +16,7 @@
                                 <span>{{cor.value.descricao}}</span> 
                             </div> 
                             <div class="field combo">
-                                <app-base-combo-filter comboLabel="Código Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.codCorECommerce"  (eventEmiterBase)="onChangeValue($event, cor, 'codCorECommerce')"></app-base-combo-filter>
+                                <app-base-combo-filter comboLabel="Código Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.codigo"  (eventEmiterBase)="onChangeCor($event, cor)"></app-base-combo-filter>
                             </div>
                         </div>
                         <div class="grupo">
@@ -46,7 +43,7 @@
                                 </mat-form-field>
                             </div>  
                             <div class="field combo">
-                                <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeValue($event, tam, 'codTamanhoECommerce')" ></app-base-combo-filter>
+                                <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeTamanho($event, tam)" ></app-base-combo-filter>
                             </div>      
                             <div class="group">
                                 <div class="field">

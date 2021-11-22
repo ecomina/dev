@@ -37,8 +37,6 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = data;
 
-    console.log('data',dialogConfig.data )
-
     const dialogRef = this.matDialog.open(TCtor, dialogConfig);
     return dialogRef;
  }

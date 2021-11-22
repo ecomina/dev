@@ -14,7 +14,7 @@
                             <div class="valor-lista" *ngIf="onRequerValor(filtro)">
                                 <mat-form-field appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 0">
                                     <mat-label>Valores</mat-label>
-                                    <mat-select (selectionChange)="onValor($event, filtro)">
+                                    <mat-select  (selectionChange)="onValor($event, filtro)">
                                         <mat-option checked="true" *ngFor="let v of filtro.value.valores" [value]="v">{{v.valor}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>

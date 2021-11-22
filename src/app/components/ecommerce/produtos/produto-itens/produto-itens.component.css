@@ -42,7 +42,7 @@
     border-width: 1px;
     font-size: 18px;
     height: 50px;
-    width: 285px;
+    width: 280px;
 }
 
 
@@ -67,10 +67,11 @@
     align-items: center;
     justify-content: space-between;
     border-radius: 3px;
-    /* margin: 5px 10px; */
-    /* -webkit-box-shadow: 1px 1px 4px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    1px 1px 4px rgba(125, 125, 125, 0.77);
-    box-shadow:         1px 1px 4px rgba(125, 125, 125, 0.77);  */
+    border-style: solid;
+    margin: 10px;
+    border-width: 1px;
+    border-color: #dddddd;
+    
 }
 
 .tam-desc {

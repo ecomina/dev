@@ -28,7 +28,7 @@
                     <div class="field codigoNexttLegado">
                         <mat-form-field appearance="outline">
                             <mat-label>Cód. Nextt</mat-label>
-                            <input matInput formControlName="codigoNexttLegado">
+                            <input type="number" matInput formControlName="codigoNexttLegado">
                             <button matSuffix (click)="onCodNextt()"><mat-icon>bookmarks</mat-icon></button>
                         </mat-form-field>
                     </div>        
@@ -60,26 +60,6 @@
                     </mat-form-field>
                 </div>
                 <div class="grupo">
-                    <div class="field">
-                        <mat-form-field class="moeda" appearance="outline">
-                            <mat-label>Preço Cheio</mat-label>
-                            <input formControlName="precoCheio" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
-                          </mat-form-field>
-                    </div>
-                    <div class="field">
-                        <mat-form-field class="moeda" appearance="outline">
-                            <mat-label>Preço Por</mat-label>
-                            <input formControlName="precoPor" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
-                          </mat-form-field>
-                    </div>
-                    <div class="field">
-                        <mat-form-field class="moeda" appearance="outline">
-                            <mat-label>Custo</mat-label>
-                            <input formControlName="custo" currencyMask matInput [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', precision: 2 }">
-                        </mat-form-field>
-                    </div>            
-                </div>
-                <div class="grupo">
                     <app-produto-dimensoes [form]="formulario" class="dimensoes"></app-produto-dimensoes>
                 </div>
                     <div class="field">
@@ -101,6 +81,9 @@
         </mat-tab>
         <mat-tab label="Filtros">
             <app-produto-filtros [form]="formulario"></app-produto-filtros>
+        </mat-tab>
+        <mat-tab label="Preços">
+            <app-produto-preco  [form]="formulario"></app-produto-preco>
         </mat-tab>
         <mat-tab label="Marketplaces">
             <div class="marketplaces" formArrayName="marketplaces">
