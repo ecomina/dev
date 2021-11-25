@@ -1,0 +1,37 @@
+span {
+    font-size: 16px;
+    padding: 0px 5px;
+}
+
+.btn-itens-pagina {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dddddd;
+    font-size: 12px;
+}
+
+.paginacao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.pagina {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    border-style: none;
+    background: transparent;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #673ab7;
+    cursor: pointer;
+}

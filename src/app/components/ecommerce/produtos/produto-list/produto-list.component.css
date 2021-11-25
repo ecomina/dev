@@ -1,9 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    margin-top: -10px;
 }
 
 .titulo {
@@ -35,7 +34,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .produto {
@@ -136,6 +136,10 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: -5px;
+}
+
+.paginacao {
+    width: 100%;
 }
 
 /* .descricao {

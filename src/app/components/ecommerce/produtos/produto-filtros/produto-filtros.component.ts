@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseComponent } from '@app/shared/components/base/base.component';
+import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 export interface Filtro {
@@ -32,6 +33,8 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
     return this.formulario.value.codigo;
   }
 
+  controle = new FormControl();
+
   constructor(
     private _api: EcommerceService,
     private _builder: FormBuilder) { 
@@ -39,7 +42,6 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.filtrosControl.valueChanges
     .subscribe(x => {
       let filtro = x[x.length-1];
@@ -47,6 +49,12 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
       this.onConsultar(filtro)
     })
   }
+
+  compareFn(c1: any, c2: any) {
+    console.log('compareFn', c1, c2)
+    return true;//c1 && c2 ? c1.codigo === c2.codigo : c1 === c2;
+  }
+
 
   onConsultar(filtro: any) {
 
@@ -86,12 +94,20 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
     return formArray;
   }
 
-  onValor(event: any, filtro: any) {
+  onValorChange(event: any, filtro: any) {
 
-    const detalhes = filtro.value.detalhesSelecionado as FormArray;
+    const selecionados: any[] = event.value;
 
-    filtro.value.detalhesSelecionado.length = 0;
-    detalhes.push(event.value);
+    const valores = of(filtro.value.valores.filter((x: any) => selecionados.includes(x.valor)))
+
+    valores.subscribe(v => {
+      let detalhes = filtro.value.detalhesSelecionado as FormArray;
+      filtro.value.detalhesSelecionado.length = 0;
+
+      v.forEach((x: any) => {
+        detalhes.push(x)
+      })
+    })
   }
 
   compareFunction(o1: any, o2: any) : boolean{
@@ -104,41 +120,42 @@ export class ProdutoFiltrosComponent extends BaseComponent implements OnInit {
     return [0, 1].includes(codigo);
   }
 
-  getValores(codFiltro: any) : any[] {
+  onDetalhesSelecionados(detalhes: any, multiplo: boolean) {
 
-    const filtros = this.filtrosControl.controls.filter(x => x.value.filtro.codigo === codFiltro);
+    const control = new FormControl();
 
-    return filtros[0].value.filtro.valores;
-  }
+    if (detalhes.value.detalhesSelecionado.length > 0)
+    {
+      const selecionados: any[] = detalhes.value.detalhesSelecionado;
 
-  getValores2(codFiltro: any) : FormArray {
+      const itens =  selecionados.map(x => x.valor);
 
-    const filtros = this.list_filtros.filter(x => x.codigo === codFiltro)
-    
-    if (filtros.length > 0)
-      return filtros[0].valores
-    else
-      return this._builder.array([])
-  }
-
-  getValoresControl(filtro: any) : FormControl {
-
-    let ctrl = new FormControl();
-
-    if (filtro.value.detalhesSelecionado.length > 0) {
-
-      const valores = filtro.value.detalhesSelecionado.map((x: any) => {
-        return x
-      });
-
-    if (filtro.value.filtro.tipoFiltro === 0)
-      ctrl.setValue([])
-    else
-      ctrl.setValue(valores)
+      if (multiplo)
+        control.setValue(itens);
+      else
+        control.setValue(itens[0]);
     }
-
-    return ctrl;
-
+    
+    return control;
   }
 
+  controlSelecionados(detalhes: any[], mutiplo: boolean) : FormControl {
+    let control = new FormControl();
+    let itens: string[] = [];
+
+    of(detalhes).subscribe(x => {
+      x.forEach(detalhe => {
+        if (mutiplo)
+          itens.push(detalhe.valor)
+        else
+          control.setValue(detalhe.valor)
+
+      })
+      
+      if (mutiplo)
+        control.setValue(itens)
+    })
+
+    return control;
+  }
 }

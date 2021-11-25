@@ -5,49 +5,51 @@
         <div class="filtros" formArrayName="filtros">
             <div class="filtro" *ngFor="let filtro of filtrosControl.controls;let i=index">
                 <div class="field" [formGroupName]="i">
-                    <div class="grupo" formGroupName="filtro">
-                        <mat-form-field class="field" appearance="outline">
-                            <mat-label>Descrição</mat-label>
-                            <input matInput readonly formControlName="descricao" ng-model="required" >
-                        </mat-form-field>
+                    <div class="grupo">
+                        <div class="descricao">
+                            <mat-form-field class="field" appearance="fill" formGroupName="filtro">
+                                <mat-label>Descrição</mat-label>
+                                <input matInput readonly formControlName="descricao" ng-model="required" >
+                            </mat-form-field>
+                        </div>
                         <div class="valores">
                             <div class="valor-lista" *ngIf="onRequerValor(filtro)">
-                                <mat-form-field appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 0">
+                                <mat-form-field  appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 0">
                                     <mat-label>Valores</mat-label>
-                                    <mat-select  (selectionChange)="onValor($event, filtro)">
-                                        <mat-option checked="true" *ngFor="let v of filtro.value.valores" [value]="v">{{v.valor}}</mat-option>
+                                    <mat-select [formControl]="controlSelecionados(filtro.value.detalhesSelecionado, false)"
+                                        (selectionChange)="onValorChange($event, filtro)">
+                                        <mat-option *ngFor="let v of filtro.value.valores" [value]="v.valor">{{v.valor}}</mat-option>
                                     </mat-select>
-                                </mat-form-field>
-
-                                <mat-form-field appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 1">
+                                </mat-form-field> 
+                                <mat-form-field  appearance="outline" *ngIf="filtro.value.filtro.tipoFiltro === 1">
                                     <mat-label>Valores</mat-label>
-                                    <mat-select (selectionChange)="onValor($event, filtro)" multiple>
-                                        <mat-option checked="true" *ngFor="let v of filtro.value.valores" [value]="v">{{v.valor}}</mat-option>
+                                    <mat-select multiple [formControl]="controlSelecionados(filtro.value.detalhesSelecionado, true)" 
+                                        (selectionChange)="onValorChange($event, filtro)">
+                                        <mat-option *ngFor="let v of filtro.value.valores" [value]="v.valor">{{v.valor}}</mat-option>
                                     </mat-select>
-                                </mat-form-field>
+                                </mat-form-field> 
                             </div>
                             <div  *ngIf="!onRequerValor(filtro)">
                                 <div class="valor-padrao-texto" *ngIf="filtro.value.filtro.tipoFiltro === 2">
                                     <mat-form-field appearance="outline">
-                                        <mat-label>Valor Padrão</mat-label>
-                                        <input type="text" maxlength="20" matInput formControlName="valorPadrao">
+                                        <mat-label>Valor Texto</mat-label>
+                                        <input type="text" maxlength="20" matInput formControlName="valor">
                                     </mat-form-field>
                                 </div>
                                 <div class="field"  *ngIf="filtro.value.filtro.tipoFiltro === 3">
                                     <mat-form-field appearance="outline">
-                                        <mat-label>Valor Padrão</mat-label>
-                                        <input type="number" step='any' class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                                        <mat-label>Valor</mat-label>
+                                        <input type="number" step='any' class="valor-padrao-decimal" matInput formControlName="valor">
                                     </mat-form-field>
                                 </div>
                                 <div class="field"  *ngIf="filtro.value.filtro.tipoFiltro === 4">
                                     <mat-form-field appearance="outline">
-                                        <mat-label>Valor Padrão</mat-label>
-                                        <input type="number" class="valor-padrao-decimal" matInput formControlName="valorPadrao">
+                                        <mat-label>Valor</mat-label>
+                                        <input type="number" class="valor-padrao-decimal" matInput formControlName="valor">
                                     </mat-form-field>
                                 </div>
                                 <div class="valor-padrao-sim-nao" *ngIf="filtro.value.filtro.tipoFiltro === 5">
-                                    <label>Valor Padrão</label>
-                                    <mat-radio-group formControlName="valorPadrao">
+                                    <mat-radio-group formControlName="valor">
                                         <mat-radio-button value="S">Sim</mat-radio-button>
                                         <mat-radio-button value="N">Não</mat-radio-button>
                                     </mat-radio-group>

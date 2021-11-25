@@ -37,7 +37,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   get id_combo_marca() {
-    return this.formulario.value.codMarca;
+    return (this.formulario.value.marca === null) ? null : this.formulario.value.marca.codigo;
   }
 
   get obs_categorias() : Observable<any[]> {
@@ -45,7 +45,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   get id_combo_categoria() {
-    return this.formulario.value.codCategoriaPrincipal;
+    return (this.formulario.value.categoriaPrincipal === null) ? null : this.formulario.value.categoriaPrincipal.codigo;
   }
 
   get formDimensao() {
@@ -94,7 +94,6 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   ngOnDestroy() {
-    console.log('ngOnDestroy')
   }
 
   onBack(): void {
@@ -133,13 +132,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       visivelSite: true,
       mostrarProdutoEsgotado: false,
       categoriaPrincipal: this.builderCategoriaPrincipal(),
-      filtros: this._builder.array([]),
       cores: this._builder.array([]),
+      filtros: this._builder.array([]),
       marketplaces: this._builder.array([]),
-
-      dataCadastro: null,
-      codMarca: 0,
-      codCategoriaPrincipal: 0,
+      dataCadastro: null
     }) 
 
       this.onCarregaMarcas(); 
@@ -272,7 +268,6 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     let existTrue: boolean = false;
 
     cores.forEach(cor => {
-
       let isPrincipal = cor.principal;
 
       if (!existTrue && isPrincipal)
@@ -286,9 +281,9 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
         principal: (isPrincipal),
         ativo: cor.ativo,
         cor: this._builder.group({
-          codigo: null,
-          descricao: null,
-          ativo:false
+          codigo: cor.cor.codigo,
+          descricao: cor.cor.descricao,
+          ativo: cor.cor.ativo
         }),
         itens: this.builderItens(cor.itens)
       }))
@@ -302,24 +297,39 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
     let formArray = this._builder.array([]);
 
-    itens.forEach(i => {
+    itens.forEach(x => {
       formArray.push(
         this._builder.group({
-          codigo: i.codigo,
-          tamanho: this._builder.group({
-            codigo: null,
-            descricao: null,
-            ordem: 0,
-            ativo: true
-          }),
-          descricao: i.descricao,
-          ean13: i.ean13 ,
-          ativo: i.ativo
+          codigo: x.codigo,
+          tamanho: this.builderTamanho(x.tamanho),
+          descricao: x.descricao,
+          ean13: x.ean13 ,
+          ativo: x.ativo
         })
       )
     })
 
     return formArray;
+  }
+
+  builderTamanho(tamanho: any) {
+    let formGroup = this._builder.group({
+      codigo: null,
+      descricao: null,
+      ordem: 0,
+      ativo: false
+    })
+
+    if (tamanho != null) {
+      formGroup = this._builder.group({
+        codigo: tamanho.codigo,
+        descricao: tamanho.descricao,
+        ordem: tamanho.ordem,
+        ativo: tamanho.ativo
+      })
+    }
+
+    return formGroup;
   }
 
   builderMarketplaces(marketplaces: any[]) : FormArray {
@@ -343,7 +353,6 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   builderFiltros(filtros: any[]) : FormArray {
-
     let formArray = this._builder.array([]);
 
     filtros.forEach(x => {
@@ -355,10 +364,10 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
             descricao: x.filtro.descricao,
             obrigatorio: x.filtro.obrigatorio,
             tipoFiltro: x.filtro.tipoFiltro,
-            valorPadrao: x.filtro.valorPadrao,
             ativo: x.filtro.ativo}),
+          valor: x.valor,            
           valores: this._builder.array([]),
-          detalhesSelecionado: this.buildDetalheSelecionado(x.filtro.detalhesSelecionado)
+          detalhesSelecionado: this.buildDetalheSelecionado(x)
         })
       )
     })
@@ -413,7 +422,9 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     return formArray;
   }
 
-  buildDetalheSelecionado(detalhes: any[]) : FormArray {
+  buildDetalheSelecionado(filtro: any) : FormArray {
+    const detalhes: any[] = filtro.detalhesSelecionado;
+
     let formArray = this._builder.array([]);
 
     if (detalhes != null) 
@@ -438,17 +449,11 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
     if (event) {
       this.base_salvando = true;
 
-      // let formPut =  this.formulario;
-
-      // let formArray = formPut.get('filtros') as FormArray;
-
-      // formArray.controls.map(x => delete x.value.valores);
-
       this.filtrosControls.controls.map(x => delete x.value.valores);
       
       console.log(JSON.stringify(this.formulario.value));
 
-      this._api.putProduto(this.formulario.value).subscribe({
+      this._api.putProduto(this.codigoProduto, this.formulario.value).subscribe({
         next: () => {
           
           if (this.fotosPosicaoUp.length > 0)
@@ -481,7 +486,8 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   onComboChange(event: any, combo: any) {
-    this.formulario.get(combo)?.setValue(event.id);
+    let control = this.formulario.get(combo) as FormControl;
+    control.patchValue(event.object)
   }
 
   onPosicaoUp(event: any[]) {

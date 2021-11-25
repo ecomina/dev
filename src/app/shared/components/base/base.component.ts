@@ -32,6 +32,7 @@ export class BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   public iconCheck(check: boolean) {

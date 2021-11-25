@@ -24,7 +24,7 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
 
   dataCadastroInicial = new FormControl(null);
   dataCadastroFinal = new FormControl(null)
-  somenteAtivosControl = new FormControl(false)
+  somenteAtivosControl = new FormControl(null)
   codigoControl = new FormControl(null)
   codigoLegadoControl = new FormControl(null)
   marcaControl = new FormControl(null)
@@ -108,7 +108,6 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
 
   onCarregar() {
     const f = this.data;
-    console.log('onCarregar', f.filtrar);
   }
 
   onAplicar() {
@@ -197,12 +196,10 @@ export class ProdutoFilterComponent extends BaseComponent implements OnInit {
 
   onMarcaChange(event: any) {
     this.marcaControl.setValue(event);
-    console.log(this.marcaControl)
   }
 
   onCategoriaChange(event: any) {
     this.categoriaControl.setValue(event);
-    console.log(this.categoriaControl)
   }
 
 

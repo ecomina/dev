@@ -6,6 +6,10 @@ mat-radio-button {
     margin: 10px;
 }
 
+.titulo {
+    text-align: center;
+}
+
 .scroll {
     padding: 10px;
 }

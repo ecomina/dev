@@ -1,5 +1,7 @@
 mat-divider {
-    margin:  0px 20px;
+    margin: 0px 20px 11px;
+    border-width: 1px;
+    /* border-color: #46277c; */
 }
 
 .titulo {
@@ -17,6 +19,10 @@ mat-divider {
     margin: 5px 10px;
 }
 
+.descricao {
+    margin-top: 5px;
+}
+
 .valores {
     margin-left: 10px;
 }
@@ -31,13 +37,13 @@ mat-divider {
 }
 
 .valor-padrao-texto {
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .valor-padrao-sim-nao {
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin-top: 25px;
     font-size: 11px;
 }
 

@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="paginacao" *ngIf="exibir">
+        <div class="total-pagina">
+            <button class="btn-itens-pagina" mat-button [matMenuTriggerFor]="menu">{{tamanhoDaPagina}} itens por página</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="onItenPorPagina(5)">5</button>
+              <button mat-menu-item (click)="onItenPorPagina(10)">10</button>
+              <button mat-menu-item (click)="onItenPorPagina(30)">30</button>
+              <button mat-menu-item (click)="onItenPorPagina(50)">50</button>
+              <button mat-menu-item (click)="onItenPorPagina(100)">100</button>
+            </mat-menu>
+        </div>
+        <div class="pagina">
+            <div class="pagina-anterior" *ngIf="temPaginaAnterior">
+                <button class="btn anterior" (click)="onAnterior()">
+                    <mat-icon>arrow_back_ios</mat-icon>
+                    <span>Anterior</span>
+                </button>   
+            </div>
+            <span class="pagina-atual">{{pagina}}</span>
+            <span>de</span>
+            <span class="pagina-total">{{totalPaginas}}</span>
+            <div class="pagina-proxima" *ngIf="temPaginaPosterior">
+                <button class="btn proxima" (click)="onProxima()">
+                    <span>Seguinte</span>
+                    <mat-icon>arrow_forward_ios</mat-icon>
+                </button>   
+            </div>
+        </div>            
+    </div>
+</div>

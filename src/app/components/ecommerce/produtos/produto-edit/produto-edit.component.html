@@ -32,8 +32,8 @@
                             <button matSuffix (click)="onCodNextt()"><mat-icon>bookmarks</mat-icon></button>
                         </mat-form-field>
                     </div>        
-                    <app-base-combo-filter class="field combo" comboLabel="Marca" [comboListObs]="obs_marcas" [comboIdValue]="id_combo_marca" (eventEmiterBase)="onComboChange($event, 'codMarca')" ></app-base-combo-filter>
-                    <app-base-combo-filter class="field combo" comboLabel="Categoria Principal" [comboListObs]="obs_categorias" [comboIdValue]="id_combo_categoria" (eventEmiterBase)="onComboChange($event, 'codCategoriaPrincipal')" ></app-base-combo-filter>
+                    <app-base-combo-filter class="field combo" comboLabel="Marca" [comboListObs]="obs_marcas" [comboIdValue]="id_combo_marca" (eventEmiterBase)="onComboChange($event, 'marca')" ></app-base-combo-filter>
+                    <app-base-combo-filter class="field combo" comboLabel="Categoria Principal" [comboListObs]="obs_categorias" [comboIdValue]="id_combo_categoria" (eventEmiterBase)="onComboChange($event, 'categoriaPrincipal')" ></app-base-combo-filter>
                     <div class="field">
                         <mat-form-field appearance="outline">
                             <mat-label>Título</mat-label>

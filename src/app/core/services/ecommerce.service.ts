@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFilter } from '@app/modules/BaseFilter';
+import { BasePaginacao } from '@app/modules/BasePaginacao';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
@@ -35,11 +36,19 @@ export class EcommerceService extends BaseComponent {
       super()
   }
 
-  getProduto(filtros: BaseFilter[]) {
+  getProduto(filtros: BaseFilter[], paginacao: BasePaginacao) {
+
+    localStorage.setItem('produtoUltimoFiltro', JSON.stringify(filtros))
 
     var url = this.urlApi+'api/Produto';
 
     let parametros = new HttpParams();
+
+    if (paginacao.TamanhoDaPagina != undefined)
+      parametros = parametros.append('tamanhoDaPagina', String(paginacao.TamanhoDaPagina))
+
+    if (paginacao.Pagina != undefined)
+      parametros = parametros.append('pagina', String(paginacao.Pagina))
 
     filtros.forEach(f => {
       if (f.Param1 != null)
@@ -120,13 +129,13 @@ export class EcommerceService extends BaseComponent {
     return result;
   }
 
-  putProduto(obj: any) : Observable<any> {
+  putProduto(codigo: any, obj: any) : Observable<any> {
 
-    var url = this.urlApi+'api/Produto';
+    var url = this.urlApi+'api/Produto/';
 
     const body = JSON.stringify(obj);
 
-    var result = this._httpClient.put<any>(url, body, this.httpOptions)
+    var result = this._httpClient.put<any>(url.concat(codigo), body, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError));

@@ -16,12 +16,12 @@
                                 <span>{{cor.value.descricao}}</span> 
                             </div> 
                             <div class="field combo">
-                                <app-base-combo-filter comboLabel="Código Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.codigo"  (eventEmiterBase)="onChangeCor($event, cor)"></app-base-combo-filter>
+                                <app-base-combo-filter comboLabel="Cor Ecommerce" [comboListObs]="obsCores" [comboIdValue]="cor.value.cor.codigo"  (eventEmiterBase)="onChangeCor($event, cor)"></app-base-combo-filter>
                             </div>
                         </div>
                         <div class="grupo">
                             <div class="field">
-                                <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
+                                <mat-checkbox formControlName="ativo">Ativo</mat-checkbox>
                             </div>
                             <div class="field">
                                 <mat-radio-button  (change)="onCorPrincipal($event)" [checked]="cor.value.principal" [value]="cor">Principal</mat-radio-button>
@@ -43,11 +43,11 @@
                                 </mat-form-field>
                             </div>  
                             <div class="field combo">
-                                <app-base-combo-filter comboLabel="Código Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.codTamanhoECommerce" (eventEmiterBase)="onChangeTamanho($event, tam)" ></app-base-combo-filter>
+                                <app-base-combo-filter comboLabel="Tamanho Ecommerce" [comboListObs]="obsTamanhos" [comboIdValue]="tam.value.tamanho.codigo" (eventEmiterBase)="onChangeTamanho($event, tam)" ></app-base-combo-filter>
                             </div>      
                             <div class="group">
                                 <div class="field">
-                                    <mat-slide-toggle color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
+                                    <mat-checkbox  color="primary" formControlName="ativo">Ativo</mat-checkbox >
                                 </div>
                             </div>
                         </div>

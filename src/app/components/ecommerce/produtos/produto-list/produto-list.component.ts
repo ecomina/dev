@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { PageService } from '@app/core/services/page.service';
 import { BaseFilter } from '@app/modules/BaseFilter';
+import { BasePaginacao } from '@app/modules/BasePaginacao';
 import { BaseListFilterComponent } from '@app/shared/components/base-list-filter/base-list-filter.component';
 import { BaseListRegisterComponent } from '@app/shared/components/base-list-register/base-list-register.component';
 import { ProdutoFilterComponent } from '../produto-filter/produto-filter.component';
@@ -59,6 +60,7 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
   ) { 
     super(matDialog);
     this.title_menu = 'Produto';
+    this.base_paginacao = new BasePaginacao;
   }
 
   ngOnInit(): void {
@@ -67,19 +69,15 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
 
   onListar(filtros: any) {
     this.base_carregando = true;
-
-    // this._api.getProduto(filtros)
-    // .subscribe((res: HttpResponse<any>) => {
-    //   console.log(res.headers.get('x-amzn-trace-id'))
-    // })
-
-    //https://cursos.alura.com.br/forum/topico-como-recuperar-valores-no-response-headers-73597
-
-    this._api.getProduto(filtros).subscribe({
+   
+    this._api.getProduto(filtros, this.base_paginacao).subscribe({
       next: result => {
         this.base_list.length = 0;
         this.base_carregando = true;
-        console.log(result.headers.getAll('Content-Disposition'));
+        
+        this.basePaginacao(result.headers.get('x-paginacao'));
+
+
         result.body.forEach((o: any) => {
           this.base_list.push(o)
         })
@@ -93,6 +91,12 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
       },
       
     })
+  }
+
+  onPaginar(event: BasePaginacao) {
+    this.basePaginacao(event);
+    console.log(this.base_paginacao)
+    this.onListar(this.baseFilters);
   }
 
   onPesquisar(event: any) {
@@ -119,6 +123,7 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
       }
     })
   }
+
   onEdit(produto: any) {
     this._router.navigate(['produto/edit', produto.codigo])
   }

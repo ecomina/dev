@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { BaseFilter } from '@app/modules/BaseFilter';
+import { BasePaginacao } from '@app/modules/BasePaginacao';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -20,6 +21,7 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
   @Output() eventQuery = new EventEmitter();
 
   public base_list: any[] = [];
+  public base_paginacao: BasePaginacao;
   public txt_pesquisa = '';
   public exibirFiltros = false;
 
@@ -70,6 +72,15 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
 
   baseExibirFiltros() {
     this.exibirFiltros = !this.exibirFiltros;
+  }
+
+  basePaginacao(paginacao: any) {
+
+    if (paginacao != null) {
+      this.base_paginacao = <BasePaginacao>JSON.parse(paginacao);
+      console.log(this.base_paginacao)
+    }
+      
   }
 
 }
