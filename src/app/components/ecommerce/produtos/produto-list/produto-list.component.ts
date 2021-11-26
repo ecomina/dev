@@ -1,4 +1,3 @@
-import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -7,7 +6,6 @@ import { PageService } from '@app/core/services/page.service';
 import { BaseFilter } from '@app/modules/BaseFilter';
 import { BasePaginacao } from '@app/modules/BasePaginacao';
 import { BaseListFilterComponent } from '@app/shared/components/base-list-filter/base-list-filter.component';
-import { BaseListRegisterComponent } from '@app/shared/components/base-list-register/base-list-register.component';
 import { ProdutoFilterComponent } from '../produto-filter/produto-filter.component';
 
 export interface DialogData {
@@ -95,7 +93,6 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
 
   onPaginar(event: BasePaginacao) {
     this.basePaginacao(event);
-    console.log(this.base_paginacao)
     this.onListar(this.baseFilters);
   }
 

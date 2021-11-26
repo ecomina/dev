@@ -12,7 +12,9 @@ export class ProdutoFotosComponent extends BaseComponent implements OnInit {
 
   @Input() set codProduto(codProduto: any) {
     if (codProduto != null)
+    {
       this.onCarregarFoto(codProduto);
+    }
   }
 
   get imgError() : string {
@@ -40,6 +42,7 @@ export class ProdutoFotosComponent extends BaseComponent implements OnInit {
   onCarregarFoto(codProduto: number) {
     this._api.getProdutoFotos(codProduto).subscribe({
       next: result => {
+
         result.forEach(f => {
           const control = this._builder.group({
             codProdutoEcommerce: f.codProdutoEcommerce,

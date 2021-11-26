@@ -52,17 +52,22 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   }
 
   fotosCor(cor: any) {
+    const codCor = cor.value.codigo;
 
-    const codCor = cor.value.codCorECommerce;
-
-    const list = this.fotos.filter(c => c.codCor == codCor).sort((a, b) => (a.posicao > b.posicao) ? 1 : -1);
+    let list: any[] = [];
+    list = this.fotos.filter(c => c.codCor == codCor).sort((a, b) => (a.posicao > b.posicao) ? 1 : -1);
 
     return list;
   }
 
   onMaxPosicao(cor: any) : number {
-    return this.fotosCor(cor).reduce(function(a, b) {
-      return (a.posicao > b.posicao) ? a.posicao : b.posicao})
+    
+    const fotosCores = this.fotosCor(cor);
+    let posicao: number = 0;  
+
+    return (fotosCores.length > 0) ? fotosCores.reduce(function(a, b) {
+      return (a.posicao > b.posicao) ? a.posicao : b.posicao}) : 0
+
   }
 
   constructor(
@@ -145,10 +150,10 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   }
 
   onFilesUp(event: any, cor: any) {
-    
+   
     const files = event as File[];
     const maxPosition = this.onMaxPosicao(cor)+1;
-
+   
     let registro = of(files);
 
     registro
