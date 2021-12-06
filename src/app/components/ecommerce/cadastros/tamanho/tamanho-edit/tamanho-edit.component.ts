@@ -37,7 +37,7 @@ export class TamanhoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   onCreateForm() {
-    console.log('onCreateForm', this.dataObj.data)
+
     if (this.dataObj.data == null)
     {
       this.dataObj.data = {

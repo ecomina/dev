@@ -272,9 +272,6 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
 
     let list: any[] = [];
 
-    
-    console.log(valor, marketplace)
-
     this._api.getFiltroProvedor(marketplace.codigo)
     .subscribe(result => {
       const filtros =  of(result.filter(x => x.id == marketplace.idMarketplace))
@@ -285,8 +282,7 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
         const detalhes = of(x[0].detalhes)
 
         detalhes.subscribe((z: any[]) => {
-          console.log('z',z)
-          z.forEach(x => {
+           z.forEach(x => {
             list.push({id: x.id, descricao: x.valor, object: x, grupo: ''})
           })
 
@@ -500,7 +496,6 @@ export class FiltroEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   onAddValor() {
-    console.log('onAddValor', this.valoresControl)
     this.valoresControl.push(this.createValor())
 
   }

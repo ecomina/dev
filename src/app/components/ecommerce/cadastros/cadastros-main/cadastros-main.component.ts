@@ -84,7 +84,6 @@ export class CadastrosMainComponent extends BaseComponent implements OnInit {
   }
 
   onAbrir(item: any) {
-    console.log('onAbrir', item.link, this._route)
     this._router.navigate([item.link]/*, { relativeTo: this._route }*/);
   }
 

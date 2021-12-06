@@ -1,15 +1,13 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseFilter } from '@app/modules/BaseFilter';
 import { BasePaginacao } from '@app/modules/BasePaginacao';
 import { BaseComponent } from '@app/shared/components/base/base.component';
 import { AppConfigurarion } from '@app/_config/app-configuration';
 import { environment } from '@environments/environment';
-import { Observable, of, ReplaySubject, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
-import { Key } from 'selenium-webdriver';
 
 @Injectable({
   providedIn: 'root'
@@ -71,6 +69,7 @@ export class EcommerceService extends BaseComponent {
   }
 
   getProdutoCodigo(codigo: any) {
+    console.log('cores', codigo)
 
     var url = this.urlApi+'api/Produto/';
 
@@ -175,15 +174,17 @@ export class EcommerceService extends BaseComponent {
     return result;
   }
 
-  getCategoriaProvedor(codProvedorMarketplace: any) : Observable<any[]> {
+  getCategoriaProvedor(codProvedorMarketplace: any, categoriaPai: any = null) : Observable<any[]> {
 
     var url = this.urlApi+'api/Categoria/Provedor/';
+    url = url.concat(codProvedorMarketplace);
 
     let parametros = new HttpParams();
 
-    parametros = parametros.append('codProvedorMarketplace', String(codProvedorMarketplace));
+    if (categoriaPai != null)
+      parametros = parametros.append('idCategoriaPai', String(categoriaPai));
 
-    var result = this._httpClient.get<any>(url.concat(codProvedorMarketplace))
+    var result = this._httpClient.get<any>(url, {params: parametros})
       .pipe(
         retry(0),
         catchError(this.handleError));
@@ -460,8 +461,26 @@ export class EcommerceService extends BaseComponent {
     of(fotos).subscribe({
       next: result => {
         result.forEach(f => {
+        
           var url = this.urlApi+'api/Produto/';
           url = url.concat(f.codProdutoEcommerce).concat("/Cor/").concat(f.codCor).concat("/Foto/").concat(f.posicao).concat("/Url");
+          const body = JSON.stringify({ urlImagem: f.urlImagem })
+
+          this._httpClient.post<any>(url, body, this.httpOptions)
+            .pipe(
+              retry(1),
+              // catchError(this.handleError)
+            )
+            .subscribe({
+              next: result => {
+                console.log(result)
+              },
+              error: erro => {
+                console.error(erro);
+              }
+              
+            })
+
         })
       }
     });
@@ -470,7 +489,7 @@ export class EcommerceService extends BaseComponent {
   delFotoCor(codProduto: any, codCor: any, codPosicao: any) {
     var url = this.urlApi+'api/Produto/';
     url = url.concat(codProduto).concat("/Cor/").concat(codCor).concat("/Foto/").concat(codPosicao);
-
+    
     var result = this._httpClient.delete<any>(url, this.httpOptions)
       .pipe(
         retry(1),
@@ -551,15 +570,16 @@ export class EcommerceService extends BaseComponent {
   }
 
   handleError(error: HttpErrorResponse) {
+    console.error(error);
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Erro ocorreu no lado do client
       errorMessage = `Err ${error.error.message}`;
     } else {
       // Erro ocorreu no lado do servidor
-      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.message}`;
+      errorMessage = `Código do erro: ${error.status}, ` + `mensagem: ${error.error.message}`;
     }
-    console.error(errorMessage);
+    console.error(error);
     alert(errorMessage);
     return throwError(errorMessage);
     //return errorMessage;

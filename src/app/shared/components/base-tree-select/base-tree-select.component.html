@@ -1,0 +1,38 @@
+<ul class="tree-raiz">
+    <li *ngFor="let pai of pais; let i = index">
+        <div class="{{onClass(i)}}">
+            <div class="tree-item">
+                <button *ngIf="tipoOption" [disabled]="pai.carregando" class="tree-options" matTooltip="opções" [matMenuTriggerFor]="openPrimeiro"><mat-icon>more_vert</mat-icon></button>
+                <mat-checkbox *ngIf="tipoCheck" [checked]="pai.selecionado" indeterminate="false"  (change)="onSelectedCheck($event, pai)"></mat-checkbox>
+                <mat-radio-button *ngIf="tipoRadion" [value]="pai" (change)="onSelected(pai)"></mat-radio-button>
+                <button class="btn-select" title="Selecionar" (click)="onSelected(pai)" *ngIf="loadFilhos"><mat-icon>check_circle</mat-icon></button>
+                <button class="tree-btn" [disabled]="pai.carregando"  (click)="onSelectedClick(pai)">
+                    <span>{{pai.descricao}}</span> 
+                    <mat-icon *ngIf="viewExpandir(pai)">{{(pai.expandir) ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                    <!-- <mat-icon>more_horiz</mat-icon> -->
+                </button>
+                <mat-menu #openPrimeiro="matMenu" yPosition="above">
+                    <button mat-menu-item (click)="onAdd(pai)"><mat-icon>add</mat-icon>Filho</button>
+                    <button mat-menu-item (click)="onEdit(pai)"><mat-icon>edit</mat-icon>Editar</button>
+                    <button mat-menu-item disabled="true" (click)="onDelete(pai)"><mat-icon>delete</mat-icon>Excluir</button>
+                </mat-menu>
+            </div>
+        </div>
+        <div *ngIf="pai.carregando" class="tree-carregamento">
+            <mat-progress-bar mode="buffer"></mat-progress-bar>
+        </div>
+        <app-base-tree-select 
+            *ngIf="canExpandir(pai)" 
+            class="tree-filho" 
+            [pais]="pai.filhos" 
+            [tipo]="tipo"
+            [sequencial]="i"
+            (eventSelected)="onSelected($event)"
+            (eventCarregarFilhos)="onCarregarFilhos($event)"
+            (eventAdd)="onAdd($event)"
+            (eventDelete)="onDelete($event)"
+            (eventEdit)="onEdit($event)">
+        </app-base-tree-select>
+    </li>
+</ul>
+

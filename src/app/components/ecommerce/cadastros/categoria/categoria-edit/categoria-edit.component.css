@@ -1,8 +1,22 @@
-@import url("../../../../../../styles/_base-button.css");
+/* @import url("../../../../../../styles/_base-button.css"); */
 @import url("../../../../../../styles/_base-edit.css");
 
 mat-divider {
     margin: 10px 10px;    
+}
+
+.carregando {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+.container {
+    margin: 10px;
+}
+
+.grupo-area {
+    margin: 10px 0px;
 }
 
 .combo {
@@ -12,9 +26,15 @@ mat-divider {
 }
 
 .combo button {
-    border-style: none;
     background: transparent;
     padding: 10px;
+}
+
+.btn-relacionar {
+    height: 40px;
+    cursor: pointer;
+    border-width: 1px;
+    border-color: #aeaeae;
 }
 
 .btn-remove {

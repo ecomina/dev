@@ -62,12 +62,32 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
   }
 
   ngOnInit(): void {
-    // this.onFiltrar(null);
+    const ultimofiltro = localStorage.getItem('produtoUltimoFiltro');
+  
+    //if (ultimofiltro != "") {
+
+      this.baseFilters.length = 0;
+      let listObj: BaseFilter[];
+      
+      const json = String(ultimofiltro);
+      
+      listObj = JSON.parse(json)
+
+    if (listObj.length > 0) {
+      this.baseFilters.length = 0;
+      this.baseFilters = listObj;
+      
+
+      this.onListar(this.baseFilters)
+    }
+
+
   }
 
   onListar(filtros: any) {
     this.base_carregando = true;
-   
+
+  
     this._api.getProduto(filtros, this.base_paginacao).subscribe({
       next: result => {
         this.base_list.length = 0;

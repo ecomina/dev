@@ -24,7 +24,7 @@ export class BaseDialogComponent implements OnInit {
   }
 
   get canOk() {
-    return (this.tipo == DialogType.Ok || this.tipo == DialogType.OkCancel || this.tipo == DialogType.Sucess || this.tipo == DialogType.Alert)
+    return (this.tipo == DialogType.Error || this.tipo == DialogType.Ok || this.tipo == DialogType.OkCancel || this.tipo == DialogType.Sucess || this.tipo == DialogType.Alert)
   }
 
   get canCancel() {

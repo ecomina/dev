@@ -62,12 +62,14 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
 
   onMaxPosicao(cor: any) : number {
     
-    const fotosCores = this.fotosCor(cor);
-    let posicao: number = 0;  
+    const itens: any[] = this.fotosCor(cor)
+    
+    const maxPosicao = (itens.length > 0) ? (itens.reduce(function(a, b) {
+      return (a.posicao > b.posicao) ? a : b}).posicao) : 0;
 
-    return (fotosCores.length > 0) ? fotosCores.reduce(function(a, b) {
-      return (a.posicao > b.posicao) ? a.posicao : b.posicao}) : 0
+    console.log('itens', itens, maxPosicao)
 
+    return maxPosicao;
   }
 
   constructor(
@@ -153,6 +155,8 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
    
     const files = event as File[];
     const maxPosition = this.onMaxPosicao(cor)+1;
+
+    console.log('onFilesUp', maxPosition)
    
     let registro = of(files);
 
@@ -160,7 +164,7 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
       .subscribe({
         next: result => {
           this.base_carregando = true;
-          this.baseDialogProcess("Carregando imagens");
+          this.baseDialogProcess("Enviando imagens...");
 
           result.forEach((f, i) => {
             
@@ -175,12 +179,12 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
       
               body.extensao = f.name.split('.').pop() as string;
               body.base64Image = (<string>fr.result).replace(/^data:image\/[a-z]+;base64,/, "");
-
-              this._api.postFotoBase64(this.produtoCodigo, cor.value.codCorECommerce, maxPosition+i, body)
+              console.log('postFotoBase64', maxPosition)
+              this._api.postFotoBase64(this.produtoCodigo, cor.value.codigo, maxPosition+i, body)
               .pipe(
                 delay(3000),
                 catchError(err => {
-                  this.baseDialogError('Falha no envio da imagem"'+f.name+"'");
+                  this.baseDialogError('Falha no envio das imagens');
                   return err;
                 })
               )
@@ -217,7 +221,6 @@ export class ProdutoFotoCorComponent extends BaseComponent implements OnInit, On
   unsub$ = new Subject();
 
   onDelete(fotoCor: any) {
-
     this.baseDialogConfirm("Deseja excluir esta imagem?")
       .afterClosed()
       .subscribe(result => {

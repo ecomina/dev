@@ -1,35 +1,22 @@
 <div class="menu">
     <button (click)="onClose()"><mat-icon>close</mat-icon></button>
 </div>
-<div class="container">
+<div class="container1">
     <div class="titulo">
         <label>Categorias Marketplace</label>
     </div>
-    <mat-spinner *ngIf="base_carregando"></mat-spinner>
+    <div *ngIf="base_carregando" class="carregando">
+        <mat-spinner></mat-spinner>
+    </div>
     <mat-divider class="titulo-divider"></mat-divider>
     <div class="categorias">
         <mat-dialog-content class="scroll">
-            <div class="categoria" *ngFor="let categoria of categorias" >
-                <div class="item">
-                    <button class="btn-expand" (click)="onExpand(categoria)">
-                        <div class="expand">
-                            <mat-icon *ngIf="categoria.filhos.length > 0">{{categoria.expand ? 'expand_more' : 'chevron_right'}}</mat-icon>
-                        </div>                    
-                    </button>                    
-                    <button class="btn-descricao" (click)="onSelecionar(categoria)">{{categoria.descricao}}</button>
-                </div>
-                <div class="filhos" *ngIf="categoria.expand">
-                    <mat-divider></mat-divider>
-                    <div class="filho" *ngFor="let filho of categoria.filhos">
-                        <button class="btn-descricao" (click)="onSelecionar(filho)">{{filho.descricao}}</button>
-                        <div class="filhos">
-                            <div class="filho" *ngFor="let filho2 of filho.filhos">
-                                <button class="btn-descricao">{{filho2.descricao}}</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <app-base-tree-select
+                [baseViews]="categoriasViews"
+                tipo="radion"
+                (eventSelected)="onSeleciona($event)"
+                (eventCarregarFilhos)="onCarregarFilhos($event)">
+            </app-base-tree-select>
         </mat-dialog-content>
     </div>
 </div>

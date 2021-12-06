@@ -118,13 +118,10 @@ export class CategoriaListComponent implements OnInit, OnDestroy {
   }
 
   onEdit(codigo: any) {
-    console.log('onEdit')
     this._router.navigate(['cadastros/categoria/edit', codigo])
   }
 
   onAdd(codigoPai: any) {
-
-    console.log('onAdd')
     this._router.navigate(['cadastros/categoria/new', codigoPai])
   }
 

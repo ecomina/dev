@@ -57,7 +57,6 @@ export class PedidoListComponent extends BaseListFilterComponent implements OnIn
   }
 
   onPesquisar(event: any) {
-    console.log(event);
     this.txt_pesquisa = event;
   }
 
@@ -80,7 +79,6 @@ export class PedidoListComponent extends BaseListFilterComponent implements OnIn
         },
         complete: () => {
           this.base_carregando = false;
-          console.log( this.base_list)
         }
       })
   }

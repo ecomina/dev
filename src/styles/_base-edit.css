@@ -4,7 +4,6 @@ mat-divider {
 
 .container {
     background-color: #fff;
-    padding: 5px;
 }
 
 .titulo {
@@ -13,9 +12,9 @@ mat-divider {
     padding: 10px;
     background-color: #46277c;
     color: #fff;
-    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
+    /* -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
     -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
+    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);     */
 }
 
 .titulo mat-icon {
@@ -37,14 +36,6 @@ mat-divider {
 .form {
     margin: 10px;
 }
-
-.mat-dialog-container {
-    background-color: #303030;
-}
-
-/* .grupo {
-    padding: 10px;
-} */
 
 .grupo-label {
     padding: 5px;

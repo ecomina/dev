@@ -3,8 +3,11 @@
     <span>{{(formulario.value.codigo === null) ? 'Cadastrando CATEGORIA' : 'Editando CATEGORIA'}}</span>
 </div>
 <div class="container">
-    <div class="form" [formGroup]="formulario">
-        <div class="grupo">
+    <div *ngIf="base_carregando" class="carregando">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+    <div class="form" *ngIf="!base_carregando" [formGroup]="formulario">
+        <div class="grupo-area">
             <div class="field descricao">
                 <mat-form-field appearance="outline">
                     <mat-label>Descrição</mat-label>
@@ -15,7 +18,12 @@
                 <app-base-combo-filter comboLabel="Categoria Pai" [canEmpty]="true" [comboListObs]="obs_categorias" [comboIdValue]="codigo_categoria_pai" (eventEmiterBase)="onComboChange($event, 'codCategoriaECommercePai')" ></app-base-combo-filter>
             </div>
         </div>
-        <div class="grupo">
+        <div class="grupo-area">
+            <div class="field ativo">
+                <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
+            </div>
+        </div>
+        <div class="grupo-area">
             <label>Marketplaces Relacionados</label>
             <div class="marketplaces">
                 <div class="marketplace" *ngFor="let item of listMarketplaces">
@@ -24,11 +32,6 @@
                         <span id="btn">{{(item.descricaoMarketplace == null)? 'Clique aqui para relacionar' : item.descricaoMarketplace}}</span>
                     </button>
                 </div>
-            </div>
-        </div>
-        <div class="grupo">
-            <div class="field ativo">
-                <mat-slide-toggle formControlName="ativo" >Ativo</mat-slide-toggle>
             </div>
         </div>
     </div>

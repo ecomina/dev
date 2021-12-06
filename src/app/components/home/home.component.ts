@@ -18,7 +18,6 @@ export class HomeComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.base_title = "Home";
-    console.log('activatedRoute', this.activatedRoute)
   }
 
 }

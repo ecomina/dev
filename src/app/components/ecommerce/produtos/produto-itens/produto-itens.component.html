@@ -21,7 +21,7 @@
                         </div>
                         <div class="grupo">
                             <div class="field">
-                                <mat-checkbox formControlName="ativo">Ativo</mat-checkbox>
+                                <mat-slide-toggle formControlName="ativo">Ativo</mat-slide-toggle>
                             </div>
                             <div class="field">
                                 <mat-radio-button  (change)="onCorPrincipal($event)" [checked]="cor.value.principal" [value]="cor">Principal</mat-radio-button>
@@ -47,7 +47,7 @@
                             </div>      
                             <div class="group">
                                 <div class="field">
-                                    <mat-checkbox  color="primary" formControlName="ativo">Ativo</mat-checkbox >
+                                    <mat-slide-toggle  color="primary" formControlName="ativo">Ativo</mat-slide-toggle>
                                 </div>
                             </div>
                         </div>

@@ -58,9 +58,7 @@ export class ProdutoDimensoesComponent extends BaseComponent implements OnInit {
     })
 
     this.formulario.valueChanges.subscribe(value => {
-      console.log('Formulario Dimensão Alterado', this.formularioPai)
       this.formularioPai.get('dimensao')?.patchValue(this.formulario.value)
-
     })  
 
     this.onListDimensoes();

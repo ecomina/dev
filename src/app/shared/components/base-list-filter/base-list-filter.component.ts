@@ -83,4 +83,8 @@ export class BaseListFilterComponent extends BaseComponent implements OnInit {
       
   }
 
+  baseItemDetaque(valorDestaque: any) : string {
+    return (valorDestaque == localStorage.getItem('itemDestaque_Produto')) ? 'base-destaque' : '';
+  }
+
 }

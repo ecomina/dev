@@ -44,8 +44,6 @@ export class FiltroMarketplaceComponent extends BaseComponent implements OnInit 
   }
 
   onTipoSelecionado(event: any) {
-    // this.listDetalhes.push.apply(event.object.detalhes)
-    // console.log(this.detalhes)
     this.dialogRef.close(event)
   }
 

@@ -9,7 +9,7 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div class="produtos" *ngIf="!base_carregando">
-        <div class="produto"*ngFor="let produto of list">
+        <div class="produto" [id]="baseItemDetaque(produto.codigo)"  *ngFor="let produto of list">
             <div class="esquerda">
                 <div class="foto">
                     <img src="{{(produto.urlImagem == null) ? imgSemfoto : produto.urlImagem}}" 

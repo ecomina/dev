@@ -5,7 +5,7 @@
         <div class="filtros" formArrayName="filtros">
             <div class="filtro" *ngFor="let filtro of filtrosControl.controls;let i=index">
                 <div class="field" [formGroupName]="i">
-                    <div class="grupo">
+                    <div class="grupo-area">
                         <div class="descricao">
                             <mat-form-field class="field" appearance="fill" formGroupName="filtro">
                                 <mat-label>Descrição</mat-label>

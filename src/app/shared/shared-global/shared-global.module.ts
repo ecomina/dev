@@ -46,6 +46,7 @@ import { BaseDialogComponent } from '../components/base-dialog/base-dialog.compo
 import { BaseTreeviewComponent } from '../components/base-treeview/base-treeview.component';
 import { TreeviewModule } from 'ngx-treeview';
 import { BasePaginationComponent } from '../components/base-pagination/base-pagination.component';
+import { BaseTreeSelectComponent } from '../components/base-tree-select/base-tree-select.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -63,6 +64,7 @@ const maskConfig: Partial<IConfig> = {
     BaseFormDebugComponent,
     BaseUploadFilesComponent,
     BaseTreeviewComponent,   
+    BaseTreeSelectComponent,
     BasePaginationComponent,
   ],
   imports: [
@@ -112,7 +114,8 @@ const maskConfig: Partial<IConfig> = {
     BaseFormDebugComponent,
     BaseListSelectComponent,
     BaseUploadFilesComponent,
-    BaseTreeviewComponent,   
+    BaseTreeviewComponent,  
+    BaseTreeSelectComponent, 
     BasePaginationComponent,
 
     MatMenuModule,

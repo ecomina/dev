@@ -69,6 +69,7 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
     
     if (codigo != null) {
       this.novoCadastro = true;
+      this.base_carregando = true;
       this._api.getCategoriaCodigo(codigo)
         .pipe(
           take(1)
@@ -76,6 +77,7 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
         .subscribe({
           next: result => {
             this.buildForm(result);
+            this.base_carregando = false;
           }
         }) 
     }
@@ -138,7 +140,7 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
         descricaoProvedorMarketplace: marketplace.descricao,
         descricaoMarketplace: categoria.descricao,
         codProvedorMarketplace: marketplace.codigo,
-        idMarketplace: categoria.id});
+        idMarketplace: categoria.codigo});
 
     this.marketplacesControl.push(control);
   }
@@ -179,6 +181,7 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
 
   onCarregaCategorias() {
     this._list_categorias = [];
+    this.base_carregando = true;
 
     this._api.getCategoria(false).subscribe({
       next: result => {
@@ -186,8 +189,10 @@ export class CategoriaEditComponent extends BaseRegisterComponent implements OnI
           const item = {id: o.codigo, descricao: o.codigo+' '+o.descricao, object: o, grupo: ''}
           this._list_categorias.push(item)
         }) 
+        this.base_carregando = false;
       },
       error: erro => {
+        this.base_carregando = false;
         console.error(erro)
       },
       complete: () => {

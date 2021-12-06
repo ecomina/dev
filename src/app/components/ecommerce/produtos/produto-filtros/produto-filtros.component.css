@@ -27,7 +27,7 @@ mat-divider {
     margin-left: 10px;
 }
 
-.grupo {
+.grupo-area {
     display: flex;
     flex-wrap: wrap;
 }

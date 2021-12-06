@@ -36,7 +36,6 @@ ul {
 } */
 
 .categoria {
-    background-color: #eaeaea;
     width: 95%;
 }
 
@@ -79,6 +78,7 @@ ul {
 }
 
 .novo {
+    margin-top: 10px;
     margin-left: 30px;
     width: auto;
     background-color: #fff;
@@ -105,12 +105,12 @@ ul {
 }
 
 .segundo {
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(235, 235, 235);
     margin-top: 5px;
 }
 
 .terceiro {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(220, 220, 220);
     margin-top: 5px;
 }
 

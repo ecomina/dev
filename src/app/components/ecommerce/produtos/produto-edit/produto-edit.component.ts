@@ -263,7 +263,7 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
   }
 
   builderCores(cores: any[]) : FormArray {
-
+ 
     let formArray = this._builder.array([]);
     let existTrue: boolean = false;
 
@@ -275,22 +275,34 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
       else
         isPrincipal = false;
 
-      formArray.push(this._builder.group({
-        codigo: cor.codigo,
-        descricao: cor.descricao,
-        principal: (isPrincipal),
-        ativo: cor.ativo,
-        cor: this._builder.group({
-          codigo: cor.cor.codigo,
-          descricao: cor.cor.descricao,
-          ativo: cor.cor.ativo
-        }),
-        itens: this.builderItens(cor.itens)
-      }))
+      if (cor.cor != null) {
+        formArray.push(this._builder.group({
+          codigo: cor.codigo,
+          descricao: cor.descricao,
+          principal: (isPrincipal),
+          ativo: cor.ativo,
+          cor: this.builderCor(cor),
+          itens: this.builderItens(cor.itens)
+        }))
+      }
     })
 
     return formArray;
 
+  }
+
+  builderCor(cor: any) : FormGroup {
+    let corItem = this._builder.group({
+      codigo: 0,
+      descricao: null,
+      ativo: true
+    })
+
+    if (cor.cor != null) {
+      corItem.patchValue(cor.cor)
+    }
+
+    return corItem
   }
 
   builderItens(itens: any[]) : FormArray {
@@ -455,7 +467,9 @@ export class ProdutoEditComponent extends BaseRegisterComponent implements OnIni
 
       this._api.putProduto(this.codigoProduto, this.formulario.value).subscribe({
         next: () => {
-          
+
+          localStorage.setItem('itemDestaque_Produto', this.codigoProduto);
+        
           if (this.fotosPosicaoUp.length > 0)
           {
             this._api.postFotoUrl(this.fotosPosicaoUp);
