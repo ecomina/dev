@@ -80,8 +80,6 @@ export class ProdutoListComponent extends BaseListFilterComponent implements OnI
 
       this.onListar(this.baseFilters)
     }
-
-
   }
 
   onListar(filtros: any) {

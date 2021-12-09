@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="itens">
+        <div class="item" *ngFor="let item of itensControl.controls;let i = index">
+            <div class="foto">
+                <img [src]="item.value.item.produtoCor.produto.urlImagem">
+            </div>
+            <div class="produto">
+                <label>Item {{item.value.sequencial | number:'3.0'}}</label>
+                <span class="field-value">{{item.value.item.produtoCor.produto.descricaoReduzida}}</span>
+                <span class="field-value">{{item.value.item.produtoCor.produto.marca.descricao}}</span>
+            </div>
+            <div class="produto marketplace">
+                <label>Produto Marketplace</label>
+                <span class="field-value">{{item.value.pedidoItemMarketplace.idMarketplaceItem}}</span>
+                <span class="field-value">{{item.value.pedidoItemMarketplace.descricao}}</span>
+                <span class="field-value">{{item.value.pedidoItemMarketplace.cor}}</span>
+                <span class="field-value">{{item.value.pedidoItemMarketplace.tamanho}}</span>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+</div>

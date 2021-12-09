@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 

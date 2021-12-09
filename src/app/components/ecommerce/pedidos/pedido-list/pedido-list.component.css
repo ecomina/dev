@@ -1,4 +1,36 @@
-@import url("../../../../../styles/_base-list.css");
+@import url("../../../../../styles/_base-table.css");
+
+.tabela {
+    margin: 10px;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pedido {
+    display: flex;
+    height: 150px;
+    margin: 20px;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 70%);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.field label {
+    font-size: 10px;
+}
+
+.field span {
+    font-size: 16px;
+}
+
 
 .text {
     text-align: center;
@@ -18,10 +50,19 @@
 
 .butt {
     padding: 1px;
+    cursor: pointer;
 }
 
-/* .tabela{
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-} */
+.butt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-color: red;
+}
+
+.scroll {
+    display: flex;
+	flex-wrap: nowrap;
+	overflow-x: scroll;
+}

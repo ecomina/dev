@@ -21,12 +21,14 @@
         <div class="grupo">
             <label id="label">Marketplace</label>
             <mat-radio-group class="marketplace" aria-label="Selecione" [formControl]="marketplace">
+                <mat-radio-button value="*">Todos</mat-radio-button>
                 <mat-radio-button *ngFor="let item of list_marketplaces;let i = index" [value]="item.codigo">{{item.descricao}}</mat-radio-button>
             </mat-radio-group>
         </div>    
         <div class="grupo">
             <label id="label">Status</label>
             <mat-radio-group class="status" aria-label="Selecione" [formControl]="status">
+                <mat-radio-button value="*">Todos</mat-radio-button>
                 <mat-radio-button value="0">Pendente</mat-radio-button>
                 <mat-radio-button value="1">Pago</mat-radio-button>
                 <mat-radio-button value="98">Desconhecido</mat-radio-button>

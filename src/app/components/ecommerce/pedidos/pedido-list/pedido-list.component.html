@@ -1,36 +1,55 @@
 <div class="titulo">
-    <mat-icon>color_lens</mat-icon>
-    <span>Pedidos</span>
-  </div>
-  <app-base-list-filter [canFilter]="true" [baseFilters]="baseFilters" (eventFilter)="onPesquisar($event)" (eventFilterShow)="onFiltrar($event)"></app-base-list-filter>
-  <div class="container">
-    <div class="carregando" *ngIf="base_carregando"> 
-      <span>Carregando...</span>
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-icon>color_lens</mat-icon>
+  <span>Pedidos</span>
+</div>
+<app-base-list-filter [canFilter]="true" [baseFilters]="baseFilters" (eventFilter)="onPesquisar($event)" (eventFilterShow)="onFiltrar($event)" (eventQuery)="onQuery()"  ></app-base-list-filter>
+<div class="container">
+<div class="carregando" *ngIf="base_carregando"> 
+  <span>Carregando...</span>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+<!-- <div class="pedidos">
+  <div class="pedido" *ngFor="let p of pedidos">
+    <div class="grupo">
+      <div class="marketplace field">
+        <label>Marketplace</label>
+        <span>{{p.descricaoMarketplace}}</span>
+      </div>
+      <div class="cliente field">
+        <label>Cliente</label>
+        <span>{{p.nomeCliente}}</span>
+      </div>      
     </div>
+  </div>
+</div> -->
+
+  <div class="scroll">
     <table class="tabela" *ngIf="!base_carregando">
       <thead>
         <tr>
           <th class="tb-col butt"><mat-icon>more_vert</mat-icon></th>
-          <th class="tb-col code">Código</th>
+          <th class="tb-col code">
+            <span>Código</span>
+            <!-- <mat-icon>expand_less</mat-icon> -->
+          </th>
           <th class="tb-col text">Marketplace</th>
           <th class="tb-col date">Data do Pedido</th>
           <th class="tb-col curr">R$ Vlr. Total</th>
           <th class="tb-col curr">R$ Vlr. Frete</th>
-          <th class="tb-col text">Cliente</th>
+          <!-- <th class="tb-col text">Cliente</th> -->
           <th class="tb-col text">Status</th>
           <th class="tb-col text">Status MP</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="item" *ngFor="let l of list">
+        <tr class="item" *ngFor="let l of pedidos">
           <td class="cel butt"  matTooltip="Opções"[matMenuTriggerFor]="openAction"><mat-icon>more_vert</mat-icon></td>
           <td class="cel code">{{l.codigo}}</td>
           <td class="cel text">{{l.descricaoMarketplace}}</td>
-          <td class="cel date">{{l.dataPedido | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+          <td class="cel date">{{l.dataPedido | date:'dd/MM/yyyy hh:mm'}}</td>
           <td class="cel curr">{{l.valorTotalPedido | currency:'BRL':true}}</td>
           <td class="cel curr">{{l.valorTotalFrete | currency:'BRL':true}}</td>
-          <td class="cel text">{{l.nomeCliente}}</td>
+          <!-- <td class="cel text">{{l.nomeCliente}}</td> -->
           <td class="cel text">{{l.descricaoStatus}}</td>
           <td class="cel text">{{l.statusPedidoMarketplace}}</td>
           <mat-menu #openAction="matMenu" yPosition="above">
@@ -40,17 +59,9 @@
       </tbody>
       <tfoot>
         <tr>
-          <td class="cel code">{{list.length}}</td>
-          <!-- <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td> -->
+          <td class="cel butt">{{pedidos.length}}</td>
         </tr>
       </tfoot>
-  
     </table>
-    
   </div>
+</div>

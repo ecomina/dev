@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
 import { BaseRegisterComponent } from '@app/shared/components/base-register/base-register.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-pedido-edit',
@@ -22,7 +23,16 @@ export class PedidoEditComponent extends BaseRegisterComponent implements OnInit
       return '000000'
   }
 
+  get itensControl() : FormArray {
+    return this.formulario.get('itens') as FormArray;
+  }
+
+  get pagamentosControl() : FormArray {
+    return this.formulario.get('pagamentos') as FormArray;
+  }
+
   constructor(
+    private _location: Location,
     private _activatedRoute: ActivatedRoute,
     private _api: EcommerceService,
     private _builder: FormBuilder
@@ -37,6 +47,10 @@ export class PedidoEditComponent extends BaseRegisterComponent implements OnInit
     this.formulario.valueChanges.subscribe(value => {
       this.base_editado =  !this.base_processando;
     }) 
+  }
+
+  onBack() {
+    this._location.back();
   }
 
   createForm() {
@@ -114,10 +128,60 @@ export class PedidoEditComponent extends BaseRegisterComponent implements OnInit
   }
 
   buildForm(pedido: any) {
-
     this.formulario.patchValue(pedido);
+    this.buildItens(pedido.itens)
+    this.buildPagamentos(pedido.pagamentos)
+  }
 
+  buildItens(itens: any[]) {
+
+    itens.forEach(x => {
+      const item = this._builder.group({
+        sequencial: x.sequencial,
+        codItemProdutoECommerce: x.codItemProdutoECommerce,
+        quantidade: x.quantidade,
+        valorUnitario: x.valorUnitario,
+        valorTotalBruto: x.valorTotalBruto,
+        valorTotalAcrescimo: x.valorTotalAcrescimo,
+        valorTotalDesconto: x.valorTotalDesconto,
+        valorTotalFrete: x.valorTotalFrete,
+        valorTotalLiquido: x.valorTotalLiquido,
+        valorTotalComissaoMarketplace: x.valorTotalComissaoMarketplace,
+        item: this.buildItem(x.item),
+        pedidoItemMarketplace: this._builder.group({
+          idMarketplaceItem: x.pedidoItemMarketplace.idMarketplaceItem,
+          descricao: x.pedidoItemMarketplace.descricao,
+          cor: x.pedidoItemMarketplace.cor,
+          tamanho: x.pedidoItemMarketplace.tamanho})
+      })
+
+      this.itensControl.push(item)
+    })
+  }
+
+  buildItem(item: any) : FormGroup {
+
+    return this._builder.group({
+      produtoCor: item.produtoCor})
 
   }
 
+  buildPagamentos(pagamentos: any[]) {
+    pagamentos.forEach(x => {
+
+      const pgto = this._builder.group({
+      sequencial: x.sequencial,
+      valorPagamento: x.valorPagamento,
+      pedidoPagamentoMarketplace: this._builder.group({
+        idMarketplacePagamento: x.pedidoPagamentoMarketplace.idMarketplacePagamento,
+        descricao: x.pedidoPagamentoMarketplace.descricao,
+        dataPagamento: x.pedidoPagamentoMarketplace.dataPagamento,
+        dataAprovacaoPagamento: x.pedidoPagamentoMarketplace.dataAprovacaoPagamento,
+        status: x.pedidoPagamentoMarketplace.status}),
+      statusPagamento: x.statusPagamento})
+
+      this.pagamentosControl.push(pgto)
+    })
+
+  }
 }

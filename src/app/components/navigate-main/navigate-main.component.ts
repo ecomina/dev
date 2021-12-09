@@ -29,10 +29,10 @@ export class NavigateMainComponent extends BaseComponent {
           caption: 'Consulta',
           link:'pedido/list'
         },
-        {
-          caption: 'Cancelamento',
-          link:'cancelamento'
-        },
+        // {
+        //   caption: 'Cancelamento',
+        //   link:'cancelamento'
+        // },
       ]
     },
     {

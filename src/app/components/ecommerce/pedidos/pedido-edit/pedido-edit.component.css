@@ -1,23 +1,53 @@
 @import url("../../../../../styles/_base-edit.css");
 
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #fff;
+}
+
+.titulo {
+    justify-content: space-between;
+}
+
 .container {
     flex-direction: column;
+}
+
+.btn-voltar {
+    height: 30px;
+    width: 80px;
+    border-radius: 5px;
+    border-width: 2px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #ec7211;
+    -webkit-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 3px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 3px rgba(125, 125, 125, 0.77);
 }
 
 .grupo {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    padding: 5px;
+}
+
+.grupo-label {
+    padding: 10px;
+    /* border-radius: 5px;
+    color: #fff;
+    background-color: #424242; */
 }
 
 .grupo-fields {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    margin: 10px;
-    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);     
+    padding: 5px;
+    /* margin: 10px; */
+    /* -webkit-box-shadow: 1px 1px 5px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 5px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 5px rgba(125, 125, 125, 0.77);      */
 }
 
 .grupo-fields .titulo {
@@ -29,20 +59,15 @@
     border-radius: 2px;
     background-color: #d8d7d7;
     color: #fff;
-    -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);    
-}
-
-
-.marketplace #descricaoMarketplace {
-    color: blue;
+    -webkit-box-shadow: 1px 1px 5px rgba(125, 125, 125, 0.77);
+    -moz-box-shadow:    1px 1px 5px rgba(125, 125, 125, 0.77);
+    box-shadow:         1px 1px 5px rgba(125, 125, 125, 0.77);    
 }
 
 .field {
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: 5px 10px;
 }
 
 .field label {
@@ -52,12 +77,4 @@
 
 .field span {
     font-size: 18px;
-}
-
-.cliente {
-    display: flex;
-    flex-direction: column;
-    -webkit-box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
-    -moz-box-shadow: 1px 1px 3px rgba(125, 125, 125, 0.77);
-    box-shadow: 1px 1px 3px rgb(125 125 125 / 77%);
 }

@@ -1,0 +1,30 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 10px;
+    /* border-style: solid;
+    border-radius: 5px;
+    border-width: 1px; */
+    /* box-shadow: 1px 1px 5px #b1b1b1; */
+}
+
+.produto {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.produto label {
+    font-size: 14px;
+    color: gray;
+}
+
+.foto img {
+    height: 120px;
+}
+
+.field-value {
+    padding: 2px;
+}

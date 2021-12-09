@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EcommerceService } from '@app/core/services/ecommerce.service';
+import { UtilsService } from '@app/core/services/utils.service';
 import { BaseFilter } from '@app/modules/BaseFilter';
 import { BaseListFilterComponent } from '@app/shared/components/base-list-filter/base-list-filter.component';
 import { Subject } from 'rxjs';
@@ -19,7 +20,10 @@ export interface DialogData {
 })
 export class PedidoListComponent extends BaseListFilterComponent implements OnInit {
 
-  get list() {
+  filtroPadrao = {Param1: 'dataInicial', Param2: 'dataFinal', Value1: new Date(), Value2:  new Date(),
+  Display: this._util.formataData(new Date())+' à '+this._util.formataData(new Date()), Caption:'Periodo de Cadastro' };
+
+  get pedidos() {
 
     let result = this.base_list;
 
@@ -31,12 +35,15 @@ export class PedidoListComponent extends BaseListFilterComponent implements OnIn
 
   constructor(
     private _api: EcommerceService,
+    private _util: UtilsService,
     private _router: Router,
     public matDialog: MatDialog) { 
     super(matDialog);
+    this.baseFilters.push(this.filtroPadrao);
   }
 
   ngOnInit(): void {
+    this.onListar(this.baseFilters);
   }
 
   onFiltrar(f: any) {
@@ -85,6 +92,10 @@ export class PedidoListComponent extends BaseListFilterComponent implements OnIn
 
   onEdit(pedido: any) {
     this._router.navigate(['pedido/edit', pedido.codigo])
+  }
+
+  onQuery() {
+    this.onListar(this.baseFilters);
   }
 
 }

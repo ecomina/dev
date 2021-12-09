@@ -12,9 +12,6 @@ mat-divider {
     padding: 10px;
     background-color: #46277c;
     color: #fff;
-    /* -webkit-box-shadow: 2px 2px 3px rgba(125, 125, 125, 0.77);
-    -moz-box-shadow:    2px 2px 3px rgba(125, 125, 125, 0.77);
-    box-shadow:         2px 2px 3px rgba(125, 125, 125, 0.77);     */
 }
 
 .titulo mat-icon {
@@ -39,8 +36,18 @@ mat-divider {
 
 .grupo-label {
     padding: 5px;
-    background-color: #303030;
-    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana, sans-serif';
+    color: #424242;
+}
+
+.grupo-label2 {
+    padding: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana, sans-serif';
+    color: #303030;
 }
 
 .grupo label {

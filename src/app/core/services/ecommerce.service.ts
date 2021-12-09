@@ -528,7 +528,7 @@ export class EcommerceService extends BaseComponent {
       if (f.Param2 != null)
         parametros.append(f.Param2, String(f.Value2))
     })
-
+    console.log('Pedidos', url, parametros)
     var result = this._httpClient.get<any[]>(url, { params: parametros })
       .pipe(
         retry(0),

@@ -52,8 +52,6 @@ export class PedidoFilterComponent extends BaseComponent implements OnInit {
 
   onCarregar() {
 
-    
-
     this.base_carregando = true;
     this._api.getMarketplace(false)
     .subscribe({
@@ -76,7 +74,7 @@ export class PedidoFilterComponent extends BaseComponent implements OnInit {
     this.list_filter.push({Param1: 'status',      Param2: '', Value1: this.status.value, Value2: null, Display: this.status.value, Caption:'Status'});
 
     this.data.filtrar = true;
-    this.data.filtros = this.list_filter.filter(f => f.Value1 != null);
+    this.data.filtros = this.list_filter.filter(f => f.Value1 != null && f.Value1 != '*');
 
 
     this.dialogRef.close(this.data);
